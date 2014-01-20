@@ -22,7 +22,7 @@
         beforeEach(function () {
             var config = utils.loadConfig(path.join(__dirname, "../config.js"), "test");
 
-            var Mongo = require('../modules/mongo/mongo');
+            var Mongo = require('../modules/mongo');
             mongo = new Mongo(config);
         });
 
