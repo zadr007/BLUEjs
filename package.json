@@ -1,7 +1,7 @@
 {
-  "name": "Craftsmen",
+  "name": "microscratch",
   "version": "0.0.1",
-  "description": "Craftsmen listing",
+  "description": "Light Weight Web Framework using node.js, mongo, sockets, ember.js ...",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
@@ -14,7 +14,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "http://github.com/korczis/craftsmen.git"
+    "url": "http://github.com/korczis/microscratch.git"
   },
   "dependencies": {
     "deferred": "0.6.8",

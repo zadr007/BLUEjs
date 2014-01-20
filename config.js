@@ -6,6 +6,8 @@
     module.exports = {
 
         _global: {
+            appName: "MicroScratch",
+
             verbose: true,
             mongo: {
                 uri: "mongodb://localhost:27017/data"

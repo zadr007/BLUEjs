@@ -12,10 +12,10 @@
     function CraftsmenApp(config) {
         this.config = config || {};
 
-        var Mongo = require('./mongo.js');
+        var Mongo = require('./modules/mongo');
         this.mongo = new Mongo(this.config);
 
-        var Sockets = require('./sockets.js');
+        var Sockets = require('./modules/sockets');
         this.sockets = new Sockets(this.config);
     };
 

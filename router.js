@@ -16,13 +16,19 @@
 
         // Root route
         app.get('/', function (req, res) {
-            var data = {};
+            var data = {
+                appName: craftsmen.config.appName
+            };
 
             res.render("index", data);
         });
 
         app.get('/config', function (req, res) {
             res.json(craftsmen.config);
+        });
+
+        app.get('/query', function(req, res) {
+           craftsmen.mongo.getCollection('datasets')
         });
     };
 
