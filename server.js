@@ -29,7 +29,7 @@
         fs = require('fs'),
         http = require('http'),
         path = require('path'),
-        utils = require('./utils.js');
+        utils = require('./modules/utils');
 
     function MicroscratchApp(config) {
         this.config = config || {};

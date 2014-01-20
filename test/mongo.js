@@ -31,7 +31,7 @@
     require('mocha-sinon');
 
     var path = require('path'),
-        utils = require('../utils.js');
+        utils = require('../modules/utils/utils.js');
 
     // See http://chaijs.com/
     // See http://sinonjs.org/
