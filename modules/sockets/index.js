@@ -30,7 +30,7 @@
      * sockets.io wrapper
      * @type {Mongo}
      */
-    var exports = module.exports = function Mongo(config) {
+    var exports = module.exports = function Sockets(config) {
         this.config = config;
     };
 

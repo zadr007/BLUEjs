@@ -25,7 +25,7 @@
 
     var fs = require('fs'),
         path = require('path'),
-        utils = require('./modules/utils');
+        utils = require('./.');
 
     /**
      * Intializes router
@@ -33,6 +33,7 @@
      * @param app Express app which this router belongs to
      */
     module.exports.initialize = function (microscratch, app) {
+        // console.log(JSON.stringify(microscratch));
 
         // Root route
         app.get('/', function (req, res) {
