@@ -31,7 +31,7 @@
         path = require('path'),
         utils = require('./utils.js');
 
-    function CraftsmenApp(config) {
+    function MicroscratchApp(config) {
         this.config = config || {};
 
         var Mongo = require('./modules/mongo');
@@ -45,43 +45,43 @@
      * Express Application
      * @type {null} Express application instance
      */
-    CraftsmenApp.prototype.app = null;
+    MicroscratchApp.prototype.app = null;
 
     /**
      * Http Server
      * @type {null} Http Server instance
      */
-    CraftsmenApp.prototype.server = null;
+    MicroscratchApp.prototype.server = null;
 
     /**
      * Instance of socket.io
      * @type {null}
      */
-    CraftsmenApp.prototype.io = null;
+    MicroscratchApp.prototype.io = null;
 
     /**
      * Loaded config
      * @type {object}
      */
-    CraftsmenApp.prototype.config = null;
+    MicroscratchApp.prototype.config = null;
 
     /**
      * Mongo wrapper
      * @type {null}
      */
-    CraftsmenApp.prototype.mongo = null;
+    MicroscratchApp.prototype.mongo = null;
 
     /**
      * Sockets wrapper
      * @type {null}
      */
-    CraftsmenApp.prototype.sockets = null;
+    MicroscratchApp.prototype.sockets = null;
 
     /**
-     * Initializes Craftsmen application
+     * Initializes Microscratch application
      * @returns {*} Promise
      */
-    CraftsmenApp.prototype.initialize = function () {
+    MicroscratchApp.prototype.initialize = function () {
         var self = this;
 
         this.app = express();
@@ -98,7 +98,7 @@
      * @param res Response to be logged
      * @param next Next handler
      */
-    CraftsmenApp.prototype.logger = function (req, res, next) {
+    MicroscratchApp.prototype.logger = function (req, res, next) {
         var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
         var ts = utils.timestamp();
 
@@ -108,9 +108,9 @@
     };
 
     /**
-     * Craftsmen application entry-point
+     * Microscratch application entry-point
      */
-    CraftsmenApp.prototype.main = function () {
+    MicroscratchApp.prototype.main = function () {
         this.app.set('view engine', 'hbs');
         this.app.set('views', './public/views');
         this.app.set('layout', 'layout');
@@ -139,7 +139,7 @@
     var defaultEnv = "local";
 
     var opts = require('optimist')
-            .usage('Simple Web GUI for Craftsmen Listing.\nUsage: $0')
+            .usage('Simple Microscratch Application.\nUsage: $0')
             .describe('h, help', 'Show Help')
             .describe('c, config', 'Config file')
             .default('c, config', defaultConfig)
@@ -190,7 +190,7 @@
         console.log("Config loaded: " + JSON.stringify(config, null, 4));
     }
 
-    var app = new CraftsmenApp(config);
+    var app = new MicroscratchApp(config);
     app.initialize().done(function (res) {
         app.main();
     });

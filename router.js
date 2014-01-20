@@ -29,26 +29,26 @@
 
     /**
      * Intializes router
-     * @param craftsmen Craftsmen app which this router belongs to
+     * @param microscratch Microscratch app which this router belongs to
      * @param app Express app which this router belongs to
      */
-    module.exports.initialize = function (craftsmen, app) {
+    module.exports.initialize = function (microscratch, app) {
 
         // Root route
         app.get('/', function (req, res) {
             var data = {
-                appName: craftsmen.config.appName
+                appName: microscratch.config.appName
             };
 
             res.render("index", data);
         });
 
         app.get('/config', function (req, res) {
-            res.json(craftsmen.config);
+            res.json(microscratch.config);
         });
 
         app.get('/query', function(req, res) {
-           craftsmen.mongo.getCollection('datasets')
+            microscratch.mongo.getCollection('datasets');
         });
     };
 
