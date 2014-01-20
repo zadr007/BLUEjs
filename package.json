@@ -2,7 +2,7 @@
   "name": "microscratch",
   "version": "0.0.1",
   "description": "Light Weight Web Framework using node.js, mongo, sockets, ember.js ...",
-  "main": "server.js",
+  "main": "app.js",
   "scripts": {
     "start": "node server.js",
     "preinstall": "npm install -g mocha",

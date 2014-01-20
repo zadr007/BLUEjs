@@ -36,5 +36,5 @@ npm test
 Run server.
 
 ```
-node server.js
+node app.js
 ```
