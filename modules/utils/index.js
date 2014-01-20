@@ -45,11 +45,25 @@
         return merge(true, glob, loc);
     };
 
-    module.exports.timestamp = function() {
-        return moment().format("YYYY/MM/DD HH:mm:ss");
+
+    /**
+     * Returns formatted time as timestamp
+     * @param fmt Optional format string
+     * @param dt Optional date time
+     * @returns {*} Formatted timestamp
+     */
+    module.exports.timestamp = function(fmt, dt) {
+        if(!fmt) {
+            fmt = "YYYY/MM/DD HH:mm:ss";
+        }
+
+        return moment(dt).format(fmt);
     };
 
-
+    /**
+     * Returns UUID - Universaly Unique Identifier
+     * @returns {*|string}
+     */
     module.exports.generateUUID = function() {
         var d = new Date().getTime();
         var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
