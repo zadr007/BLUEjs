@@ -26,6 +26,7 @@ module.exports = function (grunt) {
     var templatesDir = "./public/views/";
 
     grunt.loadNpmTasks('grunt-contrib-clean');
+    grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-ember-templates');
     grunt.loadNpmTasks('grunt-neuter');
 
@@ -59,7 +60,22 @@ module.exports = function (grunt) {
                     ]
                 }
             }
-        }
+        },
+
+        watch: {
+            css: {
+                files: [
+                    './public/css/**/*.css',
+                    './public/css/**/*.less',
+                    './public/css/**/*.sass',
+                    './public/views/**/*.hbs'
+                ],
+                tasks: ['build'],
+                options: {
+                    livereload: true,
+                },
+            },
+        },
     });
 
     // Build all assets required for running the app
