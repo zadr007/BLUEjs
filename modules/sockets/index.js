@@ -31,7 +31,7 @@
      * @type {Mongo}
      */
     var exports = module.exports = function Sockets(config) {
-        this.config = config;
+        this.config = config;1
     };
 
     /**
