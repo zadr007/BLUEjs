@@ -37,8 +37,7 @@
 
             server: {
                 port: 8888,
-                root: __dirname,
-                data: path.join(__dirname, 'data')
+                root: __dirname
             }
         },
 
