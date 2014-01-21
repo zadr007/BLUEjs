@@ -24,7 +24,8 @@
     'use strict';
 
     var deferred = require('deferred'),
-        mongodb = require('mongodb');
+        mongodb = require('mongodb')
+        mongoose = require('mongoose');
 
     /**
      * Mongo wrapper
@@ -111,7 +112,7 @@
         return d.promise();
     };
 
-    exports.prototype.getCollectio = function(collectionName) {
+    exports.prototype.getCollection = function(collectionName) {
         if (this.config.verbose) {
             console.log("Loading collection '" + collectionName + "'");
         }
