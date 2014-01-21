@@ -70,10 +70,7 @@ module.exports = function (grunt) {
                     './public/css/**/*.sass',
                     './public/views/**/*.hbs'
                 ],
-                tasks: ['build'],
-                options: {
-                    livereload: true,
-                },
+                tasks: ['build']
             },
         },
     });
