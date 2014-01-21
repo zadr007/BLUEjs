@@ -112,6 +112,11 @@
         return d.promise();
     };
 
+    /**
+     * Returns loaded collection by name as promise
+     * @param collectionName
+     * @returns {*}
+     */
     exports.prototype.getCollection = function(collectionName) {
         if (this.config.verbose) {
             console.log("Loading collection '" + collectionName + "'");
