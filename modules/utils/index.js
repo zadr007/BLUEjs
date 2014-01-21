@@ -54,7 +54,7 @@
      */
     module.exports.timestamp = function(fmt, dt) {
         if(!fmt) {
-            fmt = "YYYY/MM/DD HH:mm:ss";
+            fmt = "YYYY/MM/DD HH:mm:ss.ms";
         }
 
         return moment(dt).format(fmt);
