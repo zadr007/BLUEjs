@@ -33,7 +33,7 @@
             verbose: true,
             mongo: {
                 uri: "mongodb://localhost:27017/data",
-                watcher: "false"
+                watcher: false
             },
 
             server: {
