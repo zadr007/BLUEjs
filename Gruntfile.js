@@ -81,6 +81,7 @@ module.exports = function (grunt) {
 
             custom: {
                 options: {
+                    showStack: true,
                     port: config.server.port,
                     bases: [
                         path.join(__dirname, "public"),
@@ -101,6 +102,7 @@ module.exports = function (grunt) {
 
     grunt.registerTask('server', [
         'express',
+        // 'express-keepalive',
         'watch'
     ]);
 
