@@ -8,6 +8,14 @@ Light Weight Web Framework using node.js, mongo, sockets, ember.js ....
 [![Build Status](https://travis-ci.org/korczis/microscratch.png?branch=master)](https://travis-ci.org/korczis/microscratch)
 [![Total views](https://sourcegraph.com/api/repos/github.com/korczis/microscratch/counters/views.png)](https://sourcegraph.com/github.com/korczis/microscratch)
 
+## Features
+
+- [Node.js](http://nodejs.org/) backend
+- [Ember.js](http://emberjs.com/) frontend
+- [MongoDB](http://www.mongodb.org/) for persistence layer
+- [Livereload](http://livereload.com/) for developer's pleasure
+
+- 
 ## Installation
 
 Clone the sources.
