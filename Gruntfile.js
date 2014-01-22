@@ -23,11 +23,16 @@
 module.exports = function (grunt) {
     'use strict';
 
-    var templatesDir = "./public/views/";
+    var path = require('path'),
+        utils = require("./modules/utils");
+
+    var config = utils.loadConfig(path.join(__dirname, "./config.js")),
+        templatesDir = "./public/views/";
 
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-ember-templates');
+    grunt.loadNpmTasks('grunt-express');
     grunt.loadNpmTasks('grunt-neuter');
 
     grunt.initConfig({
@@ -62,22 +67,41 @@ module.exports = function (grunt) {
             }
         },
 
-        watch: {
-            css: {
-                files: [
-                    './public/css/**/*.css',
-                    './public/css/**/*.less',
-                    './public/css/**/*.sass',
-                    './public/views/**/*.hbs'
-                ],
-                tasks: ['build']
-            },
-        },
+        express: {
+            /*
+            livereloadServer: {
+                server: path.resolve(__dirname, 'modules/server/reloader.js'),
+                bases: path.resolve(__dirname, 'public'),
+                livereload: true, // if you just specify `true`, default port `35729` will be used
+                serverreload: {
+                    port: config.server.port
+                }
+            }
+            */
+
+            custom: {
+                options: {
+                    port: config.server.port,
+                    bases: [
+                        path.join(__dirname, "public"),
+                        path.join(__dirname, "modules")
+                    ],
+                    server: path.join(__dirname, "modules/server/reloader.js"),
+                    livereload: true,
+                    serverreload: false
+                }
+            }
+        }
     });
 
     // Build all assets required for running the app
     grunt.registerTask('build', [
         'emberTemplates'
+    ]);
+
+    grunt.registerTask('server', [
+        'express',
+        'watch'
     ]);
 
     // Default tasks.

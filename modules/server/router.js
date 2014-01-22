@@ -44,7 +44,7 @@
             res.render("index", data);
         });
 
-        app.get('/config', function (req, res) {
+        app.get('/configs', function (req, res) {
             res.json(microscratch.config);
         });
 

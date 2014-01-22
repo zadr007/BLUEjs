@@ -20,7 +20,7 @@
  THE SOFTWARE.
  */
 
-(function() {
+(function () {
     var deferred = require('deferred'),
         express = require('express'),
         exphbs = require('express3-handlebars'),
@@ -37,8 +37,6 @@
         var Sockets = require('../sockets');
         this.sockets = new Sockets(this.config);
     };
-
-    module.exports = MicroscratchApp;
 
     /**
      * Express Application
@@ -86,8 +84,12 @@
         this.app = express();
         this.server = http.createServer(this.app);
 
-        return this.mongo.initialize(arguments).then(function (res) {
+        return this.setup().then(function (res) {
+            return self.mongo.initialize(self);
+        }).then(function(res) {
             return self.sockets.initialize(self);
+        }).then(function(res) {
+            return deferred(self);
         });
     };
 
@@ -109,7 +111,7 @@
     /**
      * Microscratch application entry-point
      */
-    MicroscratchApp.prototype.main = function () {
+    MicroscratchApp.prototype.setup = function () {
         var publicDir = path.join(__dirname, "../../public");
         var viewsDir = path.join(publicDir, "views");
 
@@ -133,8 +135,16 @@
         var router = require('./router.js');
         router.initialize(this, this.app);
 
+        return deferred(this);
+    };
+
+    /**
+     * Microscratch application entry-point
+     */
+    MicroscratchApp.prototype.main = function () {
         this.server.listen(this.config.server.port);
         console.log('Listening on port ' + this.config.server.port);
     };
 
+    module.exports = MicroscratchApp;
 }());
