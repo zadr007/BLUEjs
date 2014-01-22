@@ -136,7 +136,16 @@
 
         var self = this;
         this.connect().then(function (res) {
-            d.resolve(res);
+            var opt = self.config.mongo.watcher;
+
+            if(opt !== null && opt !== undefined && opt.toString() === "true" || opt.toString() === "1") {
+                var Watcher = require('./watcher.js');
+                self.watcher = new Watcher(self);
+
+                return self.watcher.initialize();
+            } else {
+                d.resolve(self);
+            }
         });
 
         return d.promise();

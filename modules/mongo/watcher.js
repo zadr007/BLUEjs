@@ -1,4 +1,4 @@
-﻿/*
+/*
  Copyright, 2013, by Tomas Korcak. <korczis@gmail.com>
 
  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -23,37 +23,40 @@
 (function () {
     'use strict';
 
-    var path = require('path');
+    var deferred = require('deferred'),
+        merge = require('node.extend'),
+        mongodb = require('mongodb'),
+        mongoose = require('mongoose');
 
-    module.exports = {
-
-        _global: {
-            appName: "MicroScratch",
-
-            verbose: true,
-            mongo: {
-                uri: "mongodb://localhost:27017/data",
-                watcher: "false"
-            },
-
-            server: {
-                port: 8888,
-                root: __dirname
-            }
-        },
-
-        local: {
-        },
-
-        development: {
-        },
-
-        test: {
-        },
-
-        production: {
-            verbose: false
-        }
+    var defaultOpts = {
+        onDebug: console.log
     };
+
+    /**
+     * Mongo wrapper
+     * @type {Mongo}
+     */
+    var exports = module.exports = function Watcher(mongo) {
+        this.mongo = mongo;
+    };
+
+    exports.prototype.initialize = function(opts) {
+        if(!opts) {
+            opts = {};
+        }
+
+        var MongoWatch = require('mongo-watch');
+        this.watcher = new MongoWatch(merge(true, defaultOpts, opts));
+
+        this.watcher.watch(function(err, data) {
+            console.log("Changed - "  + JSON.stringify(data));
+        });
+
+        return deferred(this);
+    }
+
+    exports.prototype.mongo = null;
+
+    exports.prototype.watcher = null;
 
 }());
