@@ -15,7 +15,6 @@ Light Weight Web Framework using node.js, mongo, sockets, ember.js ....
 - [MongoDB](http://www.mongodb.org/) for persistence layer
 - [Livereload](http://livereload.com/) for developer's pleasure
 
-- 
 ## Installation
 
 Clone the sources.
