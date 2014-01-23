@@ -112,11 +112,8 @@
      * Microscratch application entry-point
      */
     MicroscratchApp.prototype.setup = function () {
-        var publicDir = path.join(__dirname, "../../public");
-        var viewsDir = path.join(publicDir, "views");
-
         this.app.set('view engine', 'hbs');
-        this.app.set('views', viewsDir);
+        this.app.set('views', this.config.server.dirs.views);
         this.app.set('layout', 'layout');
         // this.app.enable('view cache');
         this.app.engine('hbs', exphbs());
@@ -125,7 +122,7 @@
         this.app.use(express.methodOverride());
         this.app.use(this.logger);
         this.app.use(this.app.router);
-        this.app.use(express.static(publicDir));
+        this.app.use(express.static(this.config.server.dirs.public));
 
         this.app.use(function (err, req, res, next) {
             console.error(err.stack);

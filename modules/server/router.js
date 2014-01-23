@@ -39,7 +39,14 @@
                 appName: microscratch.config.appName
             };
 
-            res.render("index", data);
+            var tmpl = path.join(microscratch.config.server.dirs.views, "index.hbs");
+            fs.exists(tmpl, function (exists) {
+                if(exists) {
+                    res.render("index", data);
+                } else {
+                    res.render("microscratch", data);
+                }
+            });
         });
 
         // Microscratch route

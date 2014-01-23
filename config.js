@@ -38,7 +38,12 @@
 
             server: {
                 port: 8888,
-                root: __dirname
+                root: __dirname,
+                dirs: {
+                    public: path.join(__dirname, "public"),
+                    views: path.join(__dirname, "public/views")
+                }
+
             }
         },
 
