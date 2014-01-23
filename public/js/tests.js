@@ -22,7 +22,6 @@ require.config({
         }
     },
     paths: {
-        "app": "/js/app",
         "bootstrap": "/components/bootstrap/dist/js/bootstrap",
         "ember": "/components/ember/ember",
         "handlebars": "/components/handlebars/handlebars",
@@ -30,11 +29,14 @@ require.config({
         "mocha": "/components/mocha/mocha",
         "chai": "/components/chai/chai",
         "chai-jquery": "/components/chai-jquery/chai-jquery",
-        "socketio": "/components/socket.io-client/dist/socket.io"
+        "socketio": "/components/socket.io-client/dist/socket.io",
+
+        "app": "/js/app",
+        "tests": "/tests/main.js"
     }
 });
 
-require(["mocha", "chai", "chai-jquery", "app"], function(mocha, chai, chaiJquery, App) {
+require(["mocha", "chai", "chai-jquery", "app", "tests"], function(mocha, chai, chaiJquery, App) {
     //This function is called when scripts/helper/util.js is loaded.
     //If util.js calls define(), then this function is not fired until
     //util's dependencies have loaded, and the util argument will hold
@@ -51,5 +53,10 @@ require(["mocha", "chai", "chai-jquery", "app"], function(mocha, chai, chaiJquer
 
     mocha.checkLeaks();
     mocha.globals(['jQuery']);
-    mocha.run();
+
+    require([
+        '/tests/tests.js',
+    ], function(require) {
+        mocha.run();
+    });
 });
