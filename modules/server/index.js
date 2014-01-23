@@ -130,9 +130,7 @@
         });
 
         var router = require('./router.js');
-        router.initialize(this, this.app);
-
-        return deferred(this);
+        return router.initialize(this, this.app);
     };
 
     /**
