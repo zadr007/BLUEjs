@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node server.js",
     "preinstall": "npm install -g bower mocha mocha-phantomjs phantomjs grunt grunt-cli forever",
-    "test": "mocha --reporter list"
+    "test": "mocha test/*Specs.js --reporter list"
   },
   "author": {
     "name": "Tomas Korcak",
