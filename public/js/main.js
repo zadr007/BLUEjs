@@ -1,16 +1,20 @@
 require.config({
     app_name: "TermcheckApplication",
     shim: {
+        "bootstrap": {
+            deps: ["jquery"]
+        },
         "ember": {
             deps: ["handlebars", "jquery"],
             exports: "Ember"
         },
         'socketio': {
             exports: 'io'
-        },
+        }
     },
     paths: {
         "app": "/js/app",
+        "bootstrap": "/components/bootstrap/dist/js/bootstrap",
         "ember": "/components/ember/ember",
         "handlebars": "/components/handlebars/handlebars",
         "jquery": "/components/jquery/jquery",
