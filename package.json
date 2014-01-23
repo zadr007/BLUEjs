@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "start": "node server.js",
-    "preinstall": "npm install -g bower mocha grunt grunt-cli forever",
+    "preinstall": "npm install -g bower mocha mocha-phantomjs phantomjs grunt grunt-cli forever",
     "test": "mocha --reporter list"
   },
   "author": {
