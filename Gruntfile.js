@@ -101,6 +101,8 @@ module.exports = function (grunt) {
     ]);
 
     grunt.registerTask('server', [
+        'clean',
+        'build',
         'express',
         // 'express-keepalive',
         'watch'
@@ -108,6 +110,7 @@ module.exports = function (grunt) {
 
     // Default tasks.
     grunt.registerTask('default', [
+        'clean',
         'build'
     ]);
 };
