@@ -35,6 +35,12 @@ Install npm modules.
 npm install
 ```
 
+Install bower components.
+
+```
+bower install
+```
+
 Run tests.
 
 ```
