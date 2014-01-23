@@ -11,6 +11,9 @@ require.config({
         'jquery': {
             exports: '$'
         },
+        'mocha': {
+            exports: 'mocha'
+        },
         'socketio': {
             exports: 'io'
         },
@@ -31,11 +34,22 @@ require.config({
     }
 });
 
-require(["app"], function(App) {
+require(["mocha", "chai", "chai-jquery", "app"], function(mocha, chai, chaiJquery, App) {
     //This function is called when scripts/helper/util.js is loaded.
     //If util.js calls define(), then this function is not fired until
     //util's dependencies have loaded, and the util argument will hold
     //the module value for "helper/util".
 
     App.initialize();
+
+    // Chai
+    var should = chai.should();
+    chai.use(chaiJquery);
+
+    /*globals mocha */
+    mocha.setup('bdd');
+
+    mocha.checkLeaks();
+    mocha.globals(['jQuery']);
+    mocha.run();
 });

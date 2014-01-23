@@ -21,7 +21,7 @@
  */
 
 (function (global) {
-    define(["jquery", "bootstrap", "handlebars", "ember", "socketio", "exports"], function ($, bootstrap, handlebars, Ember, io, exports) {
+    define(["./config", "jquery", "bootstrap", "handlebars", "ember", "socketio", "exports"], function (config, $, bootstrap, handlebars, Ember, io, exports) {
         var generateUUID = function () {
             var d = new Date().getTime();
             var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
