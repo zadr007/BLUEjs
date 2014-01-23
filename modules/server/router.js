@@ -54,50 +54,7 @@
         });
 
         return d.promise();
-
-        /*
-        // Root route
-        app.get('/', function (req, res) {
-            var data = {
-                appName: microscratch.config.appName
-            };
-
-            var tmpl = path.join(microscratch.config.server.dirs.views, "index.hbs");
-            fs.exists(tmpl, function (exists) {
-                if(exists) {
-                    res.render("index", data);
-                } else {
-                    res.render("microscratch", data);
-                }
-            });
-        });
-
-        // Microscratch route
-        app.get('/microscratch', function (req, res) {
-            var data = {
-                appName: microscratch.config.appName
-            };
-
-            res.render("microscratch", data);
-        });
-
-        // Microscratch route
-        app.get('/mocha', function (req, res) {
-            var data = {
-                appName: microscratch.config.appName
-            };
-
-            res.render("mocha", data);
-        });
-
-        app.get('/config', function (req, res) {
-            res.json(microscratch.config);
-        });
-
-        app.get('/query', function(req, res) {
-            microscratch.mongo.getCollection('datasets');
-        });
-        */
+        
     };
 
 }());
