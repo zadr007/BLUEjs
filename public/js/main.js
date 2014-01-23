@@ -11,10 +11,10 @@ require.config({
     },
     paths: {
         "app": "/js/app",
-        "ember": "/js/ember",
-        "handlebars": "/js/handlebars-v1.3.0",
-        "jquery": "/js/jquery-2.0.3",
-        "socketio": "/js/socket.io"
+        "ember": "/components/ember/ember",
+        "handlebars": "/components/handlebars/handlebars",
+        "jquery": "/components/jquery/jquery",
+        "socketio": "/components/socket.io-client/dist/socket.io"
     }
 });
 
