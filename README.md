@@ -32,7 +32,7 @@ cd microscratch
 Install npm modules.
 
 ```
-npm install
+sudo npm install
 ```
 
 Install bower components.
