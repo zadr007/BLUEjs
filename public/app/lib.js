@@ -30,15 +30,21 @@
                 'app',
 
                 //  Router
+                '../app/logger.js',
                 '../app/router.js',
-
                 '../app/storage.js',
-
                 '../app/xhr.js',
 
-                '../app/routes/application.js',
+                // Helpers
+                '../app/helpers/cond.js',
+                '../app/helpers/datetime.js',
+                '../app/helpers/linkTo.js',
+                '../app/helpers/math.js',
+                '../app/helpers/misc.js',
+                '../app/helpers/object.js',
 
-                '../app/logger.js',
+                // Routes
+                '../app/routes/application.js',
 
                 // Templates
                 '../assets/templates.js',
