@@ -67,8 +67,7 @@
 
         MongoClient.connect(this.config.mongo.uri, function (err, db) {
             if (err) {
-                d.reject(new Error("Cannot connect to DB '" + self.config.mongo.uri + "'"));
-                return;
+                throw new Error("Cannot connect to DB '" + self.config.mongo.uri + "'");
             }
 
             if (self.config.verbose) {

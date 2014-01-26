@@ -41,8 +41,6 @@
         var self = this;
         var routesDir = path.join(__dirname, './routes');
         readdir(routesDir).then(function(files) {
-            console.log(files);
-
             for(var i = 0; i < files.length; i++) {
                 var routePath = "./routes/" + files[i];
 
