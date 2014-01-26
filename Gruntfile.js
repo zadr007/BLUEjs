@@ -70,6 +70,7 @@ module.exports = function (grunt) {
 
         express: {
             custom: {
+                tasks: ['build'],
                 options: {
                     showStack: true,
                     port: config.server.port,
@@ -96,26 +97,11 @@ module.exports = function (grunt) {
         },
 
         watch: {
-            express: {
-                files:  [
-                    'Gruntfile.js',
-                    'app.js',
-                    'config.js',
-                    'public/app/app/**/*.js',
-                    'public/app/app/**/*.hbs',
-                    'public/app/css/**/*.css',
-                    'public/app/css/**/*.less',
-                    'public/app/css/**/*.sass',
-                    'public/app/css/**/*.*',
-                    'public/app/img/**/*.*',
-                    'public/app/js/**/*.js',
-                    'public/app/test/**/*.js',
-                    'public/app/views/**/*.hbs'
-                ],
-                tasks:  [ 'build' ],
-                options: {
-                    spawn: false // Without this option specified express won't be reloaded
-                }
+            templates: {
+                tasks: ['build'],
+                files: [
+                    path.join(__dirname, "public/**/*.hbs")
+                ]
             }
         }
     });
