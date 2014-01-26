@@ -49,7 +49,7 @@
                     views: path.join(__dirname, "public/views")
                 },
                 gzip: false
-
+    
             }
         },
 

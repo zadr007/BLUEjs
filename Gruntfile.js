@@ -93,6 +93,30 @@ module.exports = function (grunt) {
                     name: "js/main.js"
                 }
             }
+        },
+
+        watch: {
+            express: {
+                files:  [
+                    'Gruntfile.js',
+                    'app.js',
+                    'config.js',
+                    'public/app/app/**/*.js',
+                    'public/app/app/**/*.hbs',
+                    'public/app/css/**/*.css',
+                    'public/app/css/**/*.less',
+                    'public/app/css/**/*.sass',
+                    'public/app/css/**/*.*',
+                    'public/app/img/**/*.*',
+                    'public/app/js/**/*.js',
+                    'public/app/test/**/*.js',
+                    'public/app/views/**/*.hbs'
+                ],
+                tasks:  [ 'build' ],
+                options: {
+                    spawn: false // Without this option specified express won't be reloaded
+                }
+            }
         }
     });
 
