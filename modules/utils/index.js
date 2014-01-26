@@ -23,10 +23,12 @@
 (function () {
     'use strict';
 
-    var deferred = require('deferred'),
+    var archy = require('archy'),
+        deferred = require('deferred'),
         fs = require('fs'),
         merge = require('node.extend'),
-        moment = require('moment');
+        moment = require('moment'),
+        path = require('path');
     /**
      * Returns loaded config with merged environments
      * @param path string Path to config file
@@ -75,8 +77,8 @@
      * @param dt Optional date time
      * @returns {*} Formatted timestamp
      */
-    module.exports.timestamp = function(fmt, dt) {
-        if(!fmt) {
+    module.exports.timestamp = function (fmt, dt) {
+        if (!fmt) {
             fmt = "YYYY/MM/DD HH:mm:ss.ms";
         }
 
@@ -87,14 +89,53 @@
      * Returns UUID - Universaly Unique Identifier
      * @returns {*|string}
      */
-    module.exports.generateUUID = function() {
+    module.exports.generateUUID = function () {
         var d = new Date().getTime();
-        var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-            var r = (d + Math.random()*16)%16 | 0;
-            d = Math.floor(d/16);
+        var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+            var r = (d + Math.random() * 16) % 16 | 0;
+            d = Math.floor(d / 16);
             return (c === 'x' ? r : (r & 0x7 | 0x8)).toString(16);
         });
         return uuid;
+    };
+
+    /**
+     * Constructs filesystem chart in formatted consumed by archy (https://github.com/substack/node-archy)
+     * @param dirPath Directory to process
+     * @returns {Array} Array of nodes of that directory
+     */
+    module.exports.getPathNodes = function (dirPath) {
+        var res = [];
+
+        var files = fs.readdirSync(dirPath);
+        for (var i = 0; i < files.length; i++) {
+            var file = files[i];
+            var fullPath = path.join(dirPath, file);
+
+            var stat = fs.statSync(fullPath).isDirectory();
+            var node = {
+                label: file,
+                nodes: stat ? module.exports.getPathNodes(fullPath) : []
+            };
+
+            res.push(node);
+        }
+
+        return res;
+    };
+
+    /**
+     * Print directory to console in `npm list` style using archy (https://github.com/substack/node-archy)
+     * @param dirPath Path to print
+     */
+    module.exports.printFileTree = function (dirPath) {
+        var archy = require('archy');
+        var s = archy({
+            label: dirPath,
+            nodes: module.exports.getPathNodes(dirPath)
+        });
+
+        console.log(s);
     };
 
 }());
