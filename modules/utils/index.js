@@ -138,4 +138,18 @@
         console.log(s);
     };
 
+    module.exports.preprocessFile = function (source, destination, replacements) {
+        var src = fs.readFileSync(source, 'utf8');
+        var result = src.toString();
+
+        for(var key in replacements) {
+            if(!replacements.hasOwnProperty(key)) {
+                continue;
+            }
+
+            result = result.replace(key, replacements[key]);
+        }
+
+        fs.writeFileSync(destination, result, 'utf8');
+    };
 }());

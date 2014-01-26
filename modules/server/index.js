@@ -138,6 +138,13 @@
             res.send(500, 'Something broke!');
         });
 
+        // TODO: Process config
+        utils.preprocessFile(this.config.client.configTemplate,
+            this.config.client.configDestination,
+            {
+                "$appName$": this.config.appName
+            });
+
         var router = require('./router.js');
         return router.initialize(this, this.app);
     };

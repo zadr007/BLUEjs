@@ -30,6 +30,11 @@
         _global: {
             appName: "MicroScratch",
 
+            client: {
+                configTemplate: path.join(__dirname, "public/js/config.template.js"),
+                configDestination: path.join(__dirname, "public/js/config.js")
+            },
+
             verbose: true,
             mongo: {
                 uri: "mongodb://localhost:27017/data",
