@@ -1,4 +1,4 @@
-/*
+﻿/*
  Copyright, 2013, by Tomas Korcak. <korczis@gmail.com>
 
  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -20,42 +20,35 @@
  THE SOFTWARE.
  */
 
-//*
-define({
-    app_name: "microscratch",
-    shim: {
-        "bootstrap": {
-            deps: ["jquery"]
-        },
-        "ember": {
-            deps: ["handlebars", "jquery"],
-            exports: "Ember"
-        },
-        'jquery': {
-            exports: '$'
-        },
-        'mocha': {
-            exports: "mocha"
-        },
-        'socketio': {
-            exports: 'io'
-        },
-        'chai-jquery': {
-            deps: ['jquery', 'chai']
-        }
-    },
-    paths: {
-        "app": "/app/app",
-        "config": "/js/config",
-        "core": "/js/core",
-        "bootstrap": "/components/bootstrap/dist/js/bootstrap",
-        "ember": "/components/ember/ember",
-        "handlebars": "/components/handlebars/handlebars",
-        "jquery": "/components/jquery/jquery",
-        "mocha": "/components/mocha/mocha",
-        "chai": "/components/chai/chai",
-        "chai-jquery": "/components/chai-jquery/chai-jquery",
-        "socketio": "/components/socket.io-client/dist/socket.io"
-    }
-});
-//*/
+(function (global) {
+    define(["./config", "jquery", "bootstrap", "handlebars", "ember", "socketio", "exports"], function (config, $, bootstrap, handlebars, Ember, io, exports) {
+        var generateUUID = function () {
+            var d = new Date().getTime();
+            var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+                var r = (d + Math.random() * 16) % 16 | 0;
+                d = Math.floor(d / 16);
+                return (c === 'x' ? r : (r & 0x7 | 0x8)).toString(16);
+            });
+            return uuid;
+        };
+
+        // See https://github.com/zeflasher/ember-require-js/blob/master/app/js/main.js
+        require
+        (
+            [
+                //  Application
+                '../app/app.js',
+
+                //  Router
+                '../app/router.js',
+
+                // Templates
+                '../assets/templates.js'
+            ],
+
+            function ()
+            {
+            }
+        );
+    });
+})(this);

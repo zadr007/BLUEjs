@@ -27,7 +27,7 @@ module.exports = function (grunt) {
         utils = require("./modules/utils");
 
     var config = utils.loadConfig(path.join(__dirname, "./config.js")),
-        templatesDir = "./public/views/";
+        templatesDir = "./public/app/";
 
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-requirejs');
