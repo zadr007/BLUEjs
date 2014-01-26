@@ -31,6 +31,10 @@ define({
             deps: ["handlebars", "jquery"],
             exports: "Ember"
         },
+        "ember-data": {
+            deps: ["ember"],
+            exports: "DS"
+        },
         'jquery': {
             exports: '$'
         },
@@ -50,6 +54,7 @@ define({
         "lib": "/app/lib",
         "bootstrap": "/components/bootstrap/dist/js/bootstrap",
         "ember": "/components/ember/ember",
+        "ember-data": "/components/ember-data/ember-data",
         "handlebars": "/components/handlebars/handlebars",
         "jquery": "/components/jquery/jquery",
         "mocha": "/components/mocha/mocha",

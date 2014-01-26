@@ -21,7 +21,7 @@
  */
 
 (function (global) {
-    define(["config", "jquery", "bootstrap", "handlebars", "ember", "socketio", "exports"], function (config, $, bootstrap, handlebars, Ember, io, exports) {
+    define(["config", "jquery", "bootstrap", "handlebars", "ember", "ember-data", "socketio", "exports"], function (config, $, bootstrap, handlebars, Ember, data, io, exports) {
         var App = window.App = Ember.Application.create({
             options: {},
 
