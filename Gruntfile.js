@@ -30,6 +30,7 @@ module.exports = function (grunt) {
         templatesDir = "./public/app/";
 
     grunt.loadNpmTasks('grunt-contrib-clean');
+    grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-contrib-requirejs');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-ember-templates');
@@ -96,9 +97,26 @@ module.exports = function (grunt) {
             }
         },
 
+        less: {
+            dist: {
+                files: {
+                    'public/assets/main.css': 'public/css/*.less'
+
+                    // Please, keep your style below this line for easier merge with forked projects
+                }
+            }
+        },
+
         watch: {
+            less: {
+                tasks: ['less'],
+                files: [
+                    path.join(__dirname, "public/css/**/*.less")
+                ]
+            },
+
             templates: {
-                tasks: ['build'],
+                tasks: ['emberTemplates'],
                 files: [
                     path.join(__dirname, "public/**/*.hbs")
                 ]
