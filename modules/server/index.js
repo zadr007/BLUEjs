@@ -24,6 +24,7 @@
     var deferred = require('deferred'),
         express = require('express'),
         exphbs = require('express3-handlebars'),
+        gzippo = require('gzippo'),
         http = require('http'),
         path = require('path'),
         utils = require('../utils');
@@ -122,7 +123,14 @@
         this.app.use(express.methodOverride());
         this.app.use(this.logger);
         this.app.use(this.app.router);
-        this.app.use(express.static(this.config.server.dirs.public));
+
+        // Gzipped serving of static content if needed
+        if(this.config.server.gzip) {
+            this.app.use(gzippo.staticGzip(this.config.server.dirs.public));
+            this.app.use(gzippo.compress());
+        } else {
+            this.app.use(express.static(this.config.server.dirs.public));
+        }
 
         this.app.use(function (err, req, res, next) {
             console.error(err.stack);
