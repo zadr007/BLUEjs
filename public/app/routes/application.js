@@ -25,19 +25,6 @@
     (
         ["ember", "app"], function (Ember, App) {
 
-            App.ApplicationRoute = Ember.Route.extend({
-                title: "Microscratch",
-
-                model: function() {
-                },
-
-                setupController: function(controller, model) {
-                }
-            });
-
-            App.ApplicationController = Ember.Controller.extend({
-            });
-
             App.ApplicationView = Ember.View.extend({
                 classNames: ['app-view'],
                 templateName: "application",
