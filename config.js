@@ -43,7 +43,7 @@
                     public: path.join(__dirname, "public"),
                     views: path.join(__dirname, "public/views")
                 },
-                gzip: true
+                gzip: false
 
             }
         },
