@@ -24,12 +24,13 @@
     'use strict';
 
     var deferred = require('deferred'),
+        logger = require('../logger'),
         merge = require('node.extend'),
         mongodb = require('mongodb'),
         mongoose = require('mongoose');
 
     var defaultOpts = {
-        onDebug: console.log
+        onDebug: logger.log
     };
 
     /**
@@ -49,7 +50,7 @@
         this.watcher = new MongoWatch(merge(true, defaultOpts, opts));
 
         this.watcher.watch(function(err, data) {
-            console.log("Changed - "  + JSON.stringify(data));
+            logger.log("Changed - "  + JSON.stringify(data));
         });
 
         return deferred(this);

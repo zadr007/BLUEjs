@@ -24,6 +24,7 @@
     'use strict';
 
     var deferred = require('deferred'),
+        logger = require('../logger'),
         mongodb = require('mongodb'),
         mongoose = require('mongoose');
 
@@ -71,7 +72,7 @@
             }
 
             if (self.config.verbose) {
-                console.log("Connected to DB '" + self.config.mongo.uri + "'");
+                logger.log("Connected to DB '" + self.config.mongo.uri + "'");
             }
 
             self.db = db;
@@ -90,7 +91,7 @@
         var d = deferred();
 
         if (this.config.verbose) {
-            console.log("Loading collection '" + collectionName + "'");
+            logger.log("Loading collection '" + collectionName + "'");
         }
 
 
@@ -118,7 +119,7 @@
      */
     exports.prototype.getCollection = function(collectionName) {
         if (this.config.verbose) {
-            console.log("Loading collection '" + collectionName + "'");
+            logger.log("Loading collection '" + collectionName + "'");
         }
 
         var collection = this.db.collection(collectionName);

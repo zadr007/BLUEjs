@@ -24,6 +24,7 @@
     'use strict';
 
     var deferred = require('deferred'),
+        logger = require('./modules/logger'),
         path = require('path'),
         utils = require('./modules/utils');
 
@@ -44,7 +45,7 @@
     var argv = opts.argv;
 
     if (argv["v"] || argv["verbose"]) {
-        console.log("Parsed options: " + JSON.stringify(argv, null, 4));
+        logger.log("Parsed options: " + JSON.stringify(argv, null, 4));
     }
 
     if (argv["h"] || argv["help"]) {
@@ -79,7 +80,7 @@
     }
 
     if (config.verbose) {
-        console.log("Config loaded: " + JSON.stringify(config, null, 4));
+        logger.log("Config loaded: " + JSON.stringify(config, null, 4));
     }
 
     //*

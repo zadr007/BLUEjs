@@ -26,6 +26,7 @@
         exphbs = require('express3-handlebars'),
         gzippo = require('gzippo'),
         http = require('http'),
+        logger = require('../logger'),
         path = require('path'),
         utils = require('../utils');
 
@@ -105,7 +106,7 @@
         var ts = utils.timestamp();
 
         // TODO: use some templating, DRY!
-        console.log("[" + ts + "] " + ip + " " + req.method + " " + req.url);
+        logger.log("[" + ts + "] " + ip + " " + req.method + " " + req.url);
         next(); // Passing the request to the next handler in the stack.
     };
 
@@ -146,7 +147,7 @@
      */
     MicroscratchApp.prototype.main = function () {
         this.server.listen(this.config.server.port);
-        console.log('Listening on port ' + this.config.server.port);
+        logger.log('Listening on port ' + this.config.server.port);
     };
 
     module.exports = MicroscratchApp;

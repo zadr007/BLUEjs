@@ -44,33 +44,7 @@
 
     Reloader.prototype.queue = null;
 
-    /*
-    Reloader.prototype.use = function() {
-        console.log("*** USE ***");
-
-        var args = arguments;
-        var self = this;
-        this.queue = this.queue.then(function(app) {
-            app.server.use.apply(app.server, args);
-
-            return deferred(self);
-        })
-    };
-
-    Reloader.prototype.listen = function() {
-        console.log("*** LISTEN ***");
-
-        var args = arguments;
-        var self = this;
-        this.queue = this.queue.then(function(app) {
-            app.server.listen.apply(app.server, args);
-
-            return deferred(self);
-        })
-    }
-    */
-
     var reloader = new Reloader();
 
-    module.exports = exports = reloader.app.app;
+    module.exports =  reloader.app.app;
 }());
