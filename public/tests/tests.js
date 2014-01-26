@@ -22,8 +22,8 @@
 
 (function (global) {
     define(["jquery"], function ($) {
-        describe('Application', function(){
-            it('Instance exists', function(){
+        describe('Application', function () {
+            it('Instance exists', function () {
                 App.should.not.equal(null);
             });
         })

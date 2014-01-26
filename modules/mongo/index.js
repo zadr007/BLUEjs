@@ -117,7 +117,7 @@
      * @param collectionName
      * @returns {*}
      */
-    exports.prototype.getCollection = function(collectionName) {
+    exports.prototype.getCollection = function (collectionName) {
         if (this.config.verbose) {
             logger.log("Loading collection '" + collectionName + "'");
         }
@@ -138,7 +138,7 @@
         this.connect().then(function (res) {
             var opt = self.config.mongo.watcher;
 
-            if(opt !== null && opt !== undefined && opt.toString() === "true" || opt.toString() === "1") {
+            if (opt !== null && opt !== undefined && opt.toString() === "true" || opt.toString() === "1") {
                 var Watcher = require('./watcher.js');
                 self.watcher = new Watcher(self);
 

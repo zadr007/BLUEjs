@@ -46,5 +46,5 @@
 
     var reloader = new Reloader();
 
-    module.exports =  reloader.app.app;
+    module.exports = reloader.app.app;
 }());

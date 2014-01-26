@@ -27,16 +27,16 @@
         request = require('request'),
         cheerio = require('cheerio');
 
-    exports.deferredRequest = function(url) {
+    exports.deferredRequest = function (url) {
         var d = deferred();
 
         request(url, function (err, resp, body) {
-            if(err) {
+            if (err) {
                 d.reject(new Error("Unable to fetch '" + url + "', reason: " + err));
                 return;
             }
 
-            if(resp.statusCode !== 200) {
+            if (resp.statusCode !== 200) {
                 d.reject(new Error("Unable to fetch '" + url + "', code: " + resp.statusCode));
                 return;
             }

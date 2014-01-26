@@ -37,7 +37,7 @@
 
             socket: null,
 
-            initialize: function() {
+            initialize: function () {
             }
         });
 

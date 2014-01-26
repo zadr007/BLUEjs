@@ -57,7 +57,7 @@
                 expect(data).to.not.equal(null);
                 expect(data).to.not.equal(undefined);
                 done();
-            }, function() {
+            }, function () {
                 expect(false).to.equal(true);
                 done();
             });

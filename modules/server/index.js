@@ -88,11 +88,11 @@
 
         return this.setup().then(function (res) {
             return self.mongo.initialize(self);
-        }).then(function(res) {
-            return self.sockets.initialize(self);
-        }).then(function(res) {
-            return deferred(self);
-        });
+        }).then(function (res) {
+                return self.sockets.initialize(self);
+            }).then(function (res) {
+                return deferred(self);
+            });
     };
 
     /**
@@ -126,7 +126,7 @@
         this.app.use(this.app.router);
 
         // Gzipped serving of static content if needed
-        if(this.config.server.gzip) {
+        if (this.config.server.gzip) {
             this.app.use(gzippo.staticGzip(this.config.server.dirs.public));
             this.app.use(gzippo.compress());
         } else {

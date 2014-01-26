@@ -23,7 +23,7 @@
 (function () {
     'use strict';
 
-    var exports = module.exports = function(microscratch, app) {
+    var exports = module.exports = function (microscratch, app) {
 
         // Microscratch route
         app.get('/mocha', function (req, res) {

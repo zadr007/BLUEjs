@@ -23,10 +23,10 @@
 (function () {
     'use strict';
 
-    var exports = module.exports = function(microscratch, app) {
+    var exports = module.exports = function (microscratch, app) {
 
         app.get('/query', function (req, res) {
-            var col = microscratch.mongo.getCollection('datasets').then(function(coll) {
+            var col = microscratch.mongo.getCollection('datasets').then(function (coll) {
                 var q = req.query.q || "";
                 q = q.replace(" ", ".*");
 

@@ -23,7 +23,7 @@
 (function () {
     'use strict';
 
-    var exports = module.exports = function(microscratch, app) {
+    var exports = module.exports = function (microscratch, app) {
 
         app.get('/config', function (req, res) {
             res.json(microscratch.config);

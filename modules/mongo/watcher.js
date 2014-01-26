@@ -41,16 +41,16 @@
         this.mongo = mongo;
     };
 
-    exports.prototype.initialize = function(opts) {
-        if(!opts) {
+    exports.prototype.initialize = function (opts) {
+        if (!opts) {
             opts = {};
         }
 
         var MongoWatch = require('mongo-watch');
         this.watcher = new MongoWatch(merge(true, defaultOpts, opts));
 
-        this.watcher.watch(function(err, data) {
-            logger.log("Changed - "  + JSON.stringify(data));
+        this.watcher.watch(function (err, data) {
+            logger.log("Changed - " + JSON.stringify(data));
         });
 
         return deferred(this);
