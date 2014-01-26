@@ -21,25 +21,9 @@
  */
 
 (function (global) {
-    define(["./config", "jquery", "bootstrap", "handlebars", "ember", "socketio", "exports"], function (config, $, bootstrap, handlebars, Ember, io, exports) {
+    // See https://github.com/zeflasher/ember-require-js/blob/master/app/js/main.js
+    require(['../app/lib.js'], function () {
+        }
+    );
 
-        // See https://github.com/zeflasher/ember-require-js/blob/master/app/js/main.js
-        require
-        (
-            [
-                //  Application
-                '../app/app.js',
-
-                //  Router
-                '../app/router.js',
-
-                // Templates
-                '../assets/templates.js'
-            ],
-
-            function ()
-            {
-            }
-        );
-    });
 })(this);

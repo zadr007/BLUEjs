@@ -21,19 +21,31 @@
  */
 
 (function (global) {
-    define(["config", "jquery", "bootstrap", "handlebars", "ember", "socketio", "exports"], function (config, $, bootstrap, handlebars, Ember, io, exports) {
-        var App = window.App = Ember.Application.create({
-            options: {},
+    require(["ember"], function(ember) {
+        // See https://github.com/zeflasher/ember-require-js/blob/master/app/js/main.js
+        require
+        (
+            [
+                //  Application
+                'app',
 
-            socket: null,
+                //  Router
+                '../app/router.js',
 
-            initialize: function () {
+                // Templates
+                '../assets/templates.js',
+
+                "exports"
+            ],
+
+            function (App, exports)
+            {
+                App.initialize();
+
+                return App;
             }
-        });
-
-        exports.App = App;
-        global.App = App;
-
-        return App;
+        );
     });
+
+
 })(this);

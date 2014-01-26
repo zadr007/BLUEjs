@@ -23,7 +23,11 @@
 (function (global) {
     require
     (
-        ["ember", './app.js'], function (ember, app) {
+        ["ember", "app"], function (Ember, App) {
+
+            App.Router.map(function() {
+                this.route("config", { path: "/config" });
+            });
         }
     );
 })(this);

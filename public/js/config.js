@@ -45,9 +45,9 @@ define({
         }
     },
     paths: {
-        "app": "/app/app",
         "config": "/js/config",
-        "core": "/js/core",
+        "app": "/app/app",
+        "lib": "/app/lib",
         "bootstrap": "/components/bootstrap/dist/js/bootstrap",
         "ember": "/components/ember/ember",
         "handlebars": "/components/handlebars/handlebars",

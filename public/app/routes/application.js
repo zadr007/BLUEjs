@@ -21,19 +21,33 @@
  */
 
 (function (global) {
-    define(["config", "jquery", "bootstrap", "handlebars", "ember", "socketio", "exports"], function (config, $, bootstrap, handlebars, Ember, io, exports) {
-        var App = window.App = Ember.Application.create({
-            options: {},
+    require
+    (
+        ["ember", "app"], function (Ember, App) {
 
-            socket: null,
+            App.ApplicationRoute = Ember.Route.extend({
+                title: "Microscratch",
 
-            initialize: function () {
-            }
-        });
+                model: function() {
+                },
 
-        exports.App = App;
-        global.App = App;
+                setupController: function(controller, model) {
+                }
+            });
 
-        return App;
-    });
+            App.ApplicationView = Ember.View.extend({
+                classNames: ['app-view'],
+                templateName: "index",
+
+                /**
+                 * Called when inserted to DOM.
+                 * @memberof Application.ApplicationView
+                 * @instance
+                 */
+                didInsertElement: function () {
+                    console.log("App.ApplicationView.didInsertElement()");
+                }
+            });
+        }
+    );
 })(this);

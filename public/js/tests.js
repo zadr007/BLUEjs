@@ -2,7 +2,7 @@
     require(["config"], function (configuration) {
         require.config(configuration);
 
-        require(["mocha", "chai", "chai-jquery", "app", "tests"], function (mocha, chai, chaiJquery, App) {
+        require(["mocha", "chai", "chai-jquery", "lib", "tests"], function (mocha, chai, chaiJquery, App) {
             //This function is called when scripts/helper/util.js is loaded.
             //If util.js calls define(), then this function is not fired until
             //util's dependencies have loaded, and the util argument will hold
