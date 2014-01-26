@@ -32,7 +32,13 @@
                 //  Router
                 '../app/router.js',
 
+                '../app/storage.js',
+
+                '../app/xhr.js',
+
                 '../app/routes/application.js',
+
+                '../app/logger.js',
 
                 // Templates
                 '../assets/templates.js',
