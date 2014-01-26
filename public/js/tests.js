@@ -8,8 +8,6 @@
             //util's dependencies have loaded, and the util argument will hold
             //the module value for "helper/util".
 
-            App.initialize();
-
             // Chai
             var should = chai.should();
             chai.use(chaiJquery);
@@ -20,7 +18,7 @@
             mocha.globals(['jQuery']);
 
             require([
-                '/tests/tests.js',
+                '../tests/tests.js'
             ], function (require) {
                 mocha.run();
             });

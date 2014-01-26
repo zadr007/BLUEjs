@@ -1,4 +1,4 @@
-﻿/*
+/*
  Copyright, 2013, by Tomas Korcak. <korczis@gmail.com>
 
  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -21,7 +21,7 @@
  */
 
 (function (global) {
-    define(["./config", "jquery", "bootstrap", "handlebars", "ember", "socketio", "exports"], function (config, $, bootstrap, handlebars, Ember, io, exports) {
+    define(["config", "jquery", "bootstrap", "handlebars", "ember", "socketio", "exports"], function (config, $, bootstrap, handlebars, Ember, io, exports) {
         var generateUUID = function () {
             var d = new Date().getTime();
             var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
@@ -32,17 +32,18 @@
             return uuid;
         };
 
-        // See https://github.com/zeflasher/ember-require-js/blob/master/app/js/main.js
-        require
-        (
-            [
-                //  Application
-                '/app/app'
-            ],
+        var App = window.App = Ember.Application.create({
+            options: {},
 
-            function ()
-            {
+            socket: null,
+
+            initialize: function () {
             }
-        );
+        });
+
+        exports.App = App;
+        global.App = App;
+
+        return App;
     });
 })(this);
