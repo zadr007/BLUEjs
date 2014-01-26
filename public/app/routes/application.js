@@ -35,9 +35,12 @@
                 }
             });
 
+            App.ApplicationController = Ember.Controller.extend({
+            });
+
             App.ApplicationView = Ember.View.extend({
                 classNames: ['app-view'],
-                templateName: "index",
+                templateName: "application",
 
                 /**
                  * Called when inserted to DOM.

@@ -32,6 +32,8 @@
                 //  Router
                 '../app/router.js',
 
+                '../app/routes/application.js',
+
                 // Templates
                 '../assets/templates.js',
 
