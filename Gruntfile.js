@@ -30,6 +30,7 @@ module.exports = function (grunt) {
         templatesDir = "./public/views/";
 
     grunt.loadNpmTasks('grunt-contrib-clean');
+    grunt.loadNpmTasks('grunt-contrib-requirejs');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-ember-templates');
     grunt.loadNpmTasks('grunt-express');
@@ -68,17 +69,6 @@ module.exports = function (grunt) {
         },
 
         express: {
-            /*
-            livereloadServer: {
-                server: path.resolve(__dirname, 'modules/server/reloader.js'),
-                bases: path.resolve(__dirname, 'public'),
-                livereload: true, // if you just specify `true`, default port `35729` will be used
-                serverreload: {
-                    port: config.server.port
-                }
-            }
-            */
-
             custom: {
                 options: {
                     showStack: true,
@@ -90,6 +80,17 @@ module.exports = function (grunt) {
                     server: path.join(__dirname, "modules/server/reloader.js"),
                     livereload: true,
                     serverreload: false
+                }
+            }
+        },
+
+        requirejs: {
+            compile: {
+                options: {
+                    baseUrl: "public/",
+                    mainConfigFile: "js/main.js",
+                    out: "assets/bundle.js",
+                    name: "js/main.js"
                 }
             }
         }
