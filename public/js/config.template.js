@@ -58,6 +58,7 @@ define({
         "handlebars": "/components/handlebars/handlebars",
         "jquery": "/components/jquery/jquery",
         "mocha": "/components/mocha/mocha",
+        "moment": "/components/moment/moment",
         "chai": "/components/chai/chai",
         "chai-jquery": "/components/chai-jquery/chai-jquery",
         "socketio": "/components/socket.io-client/dist/socket.io"
