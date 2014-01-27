@@ -29,6 +29,10 @@ Light Weight Web Framework using node.js, mongo, sockets, ember.js ....
   - It's quite small
   - It's quite modular
   - It's quite easy to understand
+  - It's tested
+  - It's continously integrated
+  - It's under the code QA
+  - It's up-to-date
   
 ### Will the microscratch fit me?
 
