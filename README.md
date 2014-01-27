@@ -21,7 +21,7 @@ Light Weight Web Framework using node.js, mongo, sockets, ember.js ....
 
   microscratch is minimalistic opionated modern web application framework.
   
-  For clarification of words and term used please see [glossary](https://github.com/korczis/microscratch/blob/master/README.md)
+  For clarification of words and term used please see [glossary](https://github.com/korczis/microscratch/blob/master/GLOSSARY.md).
    
 ### Why is called microscratch?
 
