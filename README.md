@@ -32,7 +32,7 @@ Light Weight Web Framework using node.js, mongo, sockets, ember.js ....
   
 ### Will the microscratch fit me?
 
-  It depends. What are your needs? There is no siver bullet. 
+  It depends. What are your needs? There is [no siver bullet](http://en.wikipedia.org/wiki/No_Silver_Bullet). 
 
 ## Communication
 
