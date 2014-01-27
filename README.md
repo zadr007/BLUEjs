@@ -96,6 +96,12 @@ Light Weight Web Framework using node.js, mongo, sockets, ember.js ....
   node app.js
   ```
 
+### First start
+
+  - What is happening during the bootsequence?
+  - Can I add my own initializers?
+  - What are the steps in bootstrap process?
+
 ## Communication
 
 - How can I communicate?
