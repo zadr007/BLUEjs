@@ -24,9 +24,11 @@
     'use strict';
 
     var deferred = require('deferred'),
+        fs = require('fs'),
         logger = require('../logger'),
         mongodb = require('mongodb'),
-        mongoose = require('mongoose');
+        mongoose = require('mongoose'),
+        path = require('path');
 
     /**
      * Mongo wrapper
@@ -35,6 +37,7 @@
     var exports = module.exports = function Mongo(config) {
         this.config = config;
         this.collections = {};
+        this.models = {};
     };
 
     /**
@@ -54,6 +57,12 @@
      * @type {array}
      */
     exports.prototype.collections = null;
+
+    /**
+     * Loaded models
+     * @type {null}
+     */
+    exports.prototype.models = null;
 
     /**
      * Connects to mongo
@@ -127,6 +136,40 @@
         return deferred(collection);
     };
 
+    exports.prototype.initializeModels = function () {
+        var d = deferred();
+
+        var self = this;
+        var modelsDir = path.join(__dirname, "models");
+        fs.readdir(modelsDir, function (err, files) {
+            var res = {};
+
+            files.forEach(function (file) {
+                var parts = file.split(".");
+                if(parts.length == 2 && parts[1].toLowerCase() == "js") {
+                    var fullPath = modelsDir + '/' + file;
+
+                    var relPath = path.relative(__dirname, fullPath);
+                    logger.log("Loading model file '" + relPath + "'");
+
+                    var modelName = parts[0];
+
+                    var Model = require(fullPath);
+                    var model = new Model(this);
+                    res[modelName] = model;
+                }
+            });
+
+            console.log(res);
+
+            self.models = res;
+            d.resolve(self);
+        });
+
+        return d.promise();
+    };
+
+
     /**
      * Initializes Mongo wrapper
      * @returns {*} Promise
@@ -136,17 +179,20 @@
 
         var self = this;
         this.connect().then(function (res) {
-            var opt = self.config.mongo.watcher;
+            return self.initializeModels();
+        }).then(function (res) {
+                var opt = self.config.mongo.watcher;
 
-            if (opt !== null && opt !== undefined && opt.toString() === "true" || opt.toString() === "1") {
-                var Watcher = require('./watcher.js');
-                self.watcher = new Watcher(self);
+                if (opt !== null && opt !== undefined && opt.toString() === "true" || opt.toString() === "1") {
+                    var Watcher = require('./watcher.js');
+                    self.watcher = new Watcher(self);
 
-                return self.watcher.initialize();
-            } else {
-                d.resolve(self);
-            }
-        });
+                    return self.watcher.initialize();
+                } else {
+                    d.resolve(self);
+                }
+
+            });
 
         return d.promise();
     };
