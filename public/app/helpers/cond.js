@@ -18,12 +18,12 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-(function (global) {
+(function () {
     "use strict";
 
     require
     (
-        ["ember", "app"], function (Ember, App) {
+        ["ember"], function (Ember) {
             // See http://stackoverflow.com/questions/8853396/logical-operator-in-a-handlebars-js-if-conditional
 
             function cond(context, v1, operator, v2, options) {
@@ -78,4 +78,4 @@
             });
         });
 
-})(this);
+})();
