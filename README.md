@@ -12,10 +12,27 @@ Light Weight Web Framework using node.js, mongo, sockets, ember.js ....
 
 ## What microscratch is - first day in school
 
-- What is the microscratch?
-- Is it really so micro?
-- Why should I choose microscratch?
-- Will the microscratch fit me?
+### What is the microscratch?
+
+  microscratch is minimalistic opionated modern web application framework.
+   
+### Why is called microscratch?
+
+  It is smaller brother of "the scratch". Google for it.
+
+### Is it really so micro?
+   
+  It depends. Compared with what? Reports will be added soon...
+
+### Why should I choose microscratch?
+
+  - It's quite small
+  - It's quite modular
+  - It's quite easy to understand
+  
+### Will the microscratch fit me?
+
+  It depends. What are your needs? There is no siver bullet. 
 
 ## Communication
 
