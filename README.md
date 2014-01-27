@@ -70,8 +70,23 @@ Light Weight Web Framework using node.js, mongo, sockets, ember.js ....
   If you have stuff mentioned above installed try this.
   
   ```
+  # Install grunt and bower
+  sudo npm install -g grunt grunt-cli bower
+  
   # Clone repository
   git clone http://github.com/korczis/microscratch.git
+  
+  # Install required node modules
+  npm install
+  
+  # Install required bower modules
+  bower install
+  
+  # Compile assets
+  grunt build
+  
+  # Run application
+  node app.js
   ```
 
 ## Communication
