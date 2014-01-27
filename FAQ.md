@@ -8,6 +8,9 @@
 
 ## Communication
 
+- How can I communicate?
+- How can I communicate horizontaly?
+- How can I coumunicate verticaly?
 - How can I communicate between modules?
 - How can I communicate between apps?
 - How can I communicate between clients?
