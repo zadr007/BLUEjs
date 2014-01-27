@@ -2,6 +2,10 @@
 
 ## Terms
 
+### ACID
+
+### AMQP
+
 ### Application (ember.js)
 
 ### Application (node.js)
@@ -36,7 +40,11 @@
 
 ### Node.js
 
+### NoSQL
+
 ### PaaS - Platform as a Service
+
+### RDBMS
 
 ### Ruby
 
@@ -44,5 +52,8 @@
 
 ### SaaS - Software as a Service
 
-### sockets.io
+### Sockets.io
 
+### WebRTC
+
+### WebSockets
