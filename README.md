@@ -34,6 +34,30 @@ Light Weight Web Framework using node.js, mongo, sockets, ember.js ....
 
   It depends. What are your needs? There is [no silver bullet](http://en.wikipedia.org/wiki/No_Silver_Bullet). 
 
+## Installation
+
+### Is the installation difficult?
+
+  No. It will take you only few seconds, lets try...
+  
+### What are the prerequisites?
+
+  If you have following, you should be ready to go.
+  
+  - git
+  - node.js
+  - npm
+  - mongodb
+  
+### What is the easist way to try?
+
+  If you have stuff mentioned above installed try this.
+  
+  ```
+  # Clone repository
+  git clone http://github.com/korczis/microscratch.git
+  ```
+
 ## Communication
 
 - How can I communicate?
