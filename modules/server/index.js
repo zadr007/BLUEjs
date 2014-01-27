@@ -39,20 +39,18 @@
     };
 
     /**
-     * Express Application
-     * @type {null} Express application instance
+     * Express application instance
      */
     MicroscratchApp.prototype.app = null;
 
     /**
      * Http Server
-     * @type {null} Http Server instance
+     * @type {null}
      */
     MicroscratchApp.prototype.server = null;
 
     /**
      * Instance of socket.io
-     * @type {null}
      */
     MicroscratchApp.prototype.io = null;
 

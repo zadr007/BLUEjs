@@ -33,6 +33,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-ember-templates');
     grunt.loadNpmTasks('grunt-express');
+    grunt.loadNpmTasks('grunt-jsdoc');
     grunt.loadNpmTasks('grunt-neuter');
 
     grunt.initConfig({
@@ -84,6 +85,7 @@ module.exports = function (grunt) {
             }
         },
 
+        // FIXME: Grunt task requirejs is not working!
         requirejs: {
             compile: {
                 options: {
@@ -92,6 +94,22 @@ module.exports = function (grunt) {
                     out: "assets/bundle.js",
                     name: "js/main.js"
                 }
+            }
+        },
+
+        jsdoc: {
+            client: {
+                src: [
+                    "./public/app/**/*.js"
+                ],
+                dest: "./public/doc/client/"
+            },
+            server: {
+                src: [
+                    "./app.js",
+                    "./modules/**/*.js"
+                ],
+                dest: "./public/doc/server/"
             }
         },
 
@@ -126,6 +144,11 @@ module.exports = function (grunt) {
     grunt.registerTask('build', [
        'less',
         'emberTemplates'
+    ]);
+
+    // Generate documentation
+    grunt.registerTask('doc', [
+        'jsdoc'
     ]);
 
     grunt.registerTask('server', [
