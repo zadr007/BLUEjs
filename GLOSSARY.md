@@ -36,9 +36,13 @@
 
 ### Node.js
 
+### PaaS - Platform as a Service
+
 ### Ruby
 
 ### Ruby On Rails
+
+### SaaS - Software as a Service
 
 ### sockets.io
 
