@@ -39,6 +39,10 @@ Light Weight Web Framework using node.js, mongo, sockets, ember.js ....
 
   It depends. What are your needs? There is [no silver bullet](http://en.wikipedia.org/wiki/No_Silver_Bullet). 
 
+### Is it production ready?
+
+  It depends? If is node.js, mongo and ember production ready for then microscratch is too...
+  
 ## Installation
 
 ### Is the installation difficult?
@@ -61,7 +65,7 @@ Light Weight Web Framework using node.js, mongo, sockets, ember.js ....
   
     MongoDB (from "humongous") is an open-source document database.
   
-### What is the easist way to try?
+### What is the easiest way to try?
 
   If you have stuff mentioned above installed try this.
   
@@ -117,3 +121,13 @@ Light Weight Web Framework using node.js, mongo, sockets, ember.js ....
 - How can I report issue?
 - How can I propose feature?
 - How can I help as developer?
+
+## References
+
+### [apollocrawler.com](http://apollocrawler.com)
+  
+  Homepage of [apollocrawler.com](http://apollocrawler.com)
+
+### [craftsmen.apollocrawler.com](http://craftsmen.apollocrawler.com)
+  
+  Simple listing of czech craftmen
