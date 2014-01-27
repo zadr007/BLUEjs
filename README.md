@@ -102,6 +102,13 @@ Light Weight Web Framework using node.js, mongo, sockets, ember.js ....
   - What are the main configs?
   - Can I add my own initializers?
   - What are the steps in bootstrap process?
+  - How can I overide option from CLI?
+
+## CLI
+
+  - What is CLI?
+  - How to use CLI?
+  - Are there any CLI examples?
 
 ## Communication
 
