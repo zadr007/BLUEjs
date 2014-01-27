@@ -86,7 +86,7 @@ Light Weight Web Framework using node.js, mongo, sockets, ember.js ....
   git clone http://github.com/korczis/microscratch.git
   
   # Install required node modules
-  npm install
+  npm install --dev
   
   # Install required bower modules
   bower install
