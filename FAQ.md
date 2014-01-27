@@ -5,6 +5,7 @@
 - What is the microscratch?
 - Is it really so micro?
 - Why should I choose microscratch?
+- Will the microscratch fit me?
 
 ## Communication
 
