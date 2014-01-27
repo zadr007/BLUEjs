@@ -28,11 +28,12 @@ module.exports = function (grunt) {
         templatesDir = "./public/app/";
 
     grunt.loadNpmTasks('grunt-contrib-clean');
+    grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-contrib-requirejs');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-ember-templates');
-    grunt.loadNpmTasks('grunt-express');
+
     grunt.loadNpmTasks('grunt-jsdoc');
     grunt.loadNpmTasks('grunt-neuter');
 
@@ -111,6 +112,33 @@ module.exports = function (grunt) {
                 ],
                 dest: "./public/doc/server/"
             }
+        },
+
+        jshint: {
+            options: {
+                curly: true,
+                eqeqeq: true,
+                eqnull: true,
+                browser: true,
+                globals: {
+                    jQuery: true,
+                    next: true,
+                    require: true
+                }
+            },
+            client: [
+                "public/client/**/*.js"
+            ],
+            grunt: [
+                "Gruntfile.js"
+            ],
+            server: [
+                "app.js",
+                "modules/**/*.js"
+            ],
+            tests: [
+                "tests/**/*.js"
+            ]
         },
 
         less: {
