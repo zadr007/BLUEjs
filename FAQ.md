@@ -33,7 +33,7 @@
 ## Deploy and monitor - Going wild 
 - How can I deploy *microscratch application*?
 - How can I monitor my *microscratch application*?
-- 
+ 
 ## Hacking - Under the hood
 
 - How can I hook to module events?
