@@ -126,6 +126,7 @@ module.exports = function (grunt) {
 
     // Build all assets required for running the app
     grunt.registerTask('build', [
+       'less',
         'emberTemplates'
     ]);
 
