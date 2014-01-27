@@ -80,7 +80,7 @@ Light Weight Web Framework using node.js, mongo, sockets, ember.js ....
   
   ```
   # Install grunt and bower
-  sudo npm install -g grunt grunt-cli bower
+  sudo npm install -g bower mocha mocha-phantomjs phantomjs grunt grunt-cli forever jsdoc@3.2.1
   
   # Clone repository
   git clone http://github.com/korczis/microscratch.git
