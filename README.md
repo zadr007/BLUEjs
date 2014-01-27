@@ -6,6 +6,7 @@ Light Weight Web Framework using node.js, mongo, sockets, ember.js ....
 
 [![GitHub version](https://badge.fury.io/gh/korczis%2Fmicroscratch.png)](http://badge.fury.io/gh/korczis%2Fmicroscratch)
 [![Build Status](https://travis-ci.org/korczis/microscratch.png?branch=master)](https://travis-ci.org/korczis/microscratch)
+[![Code Climate](https://codeclimate.com/repos/52e679aee30ba05f9a01374c/badges/518ba5511bb96351aa4e/gpa.png)](https://codeclimate.com/repos/52e679aee30ba05f9a01374c/feed)
 [![Total views](https://sourcegraph.com/api/repos/github.com/korczis/microscratch/counters/views.png)](https://sourcegraph.com/github.com/korczis/microscratch)
 
 ## Demo
@@ -48,7 +49,7 @@ Light Weight Web Framework using node.js, mongo, sockets, ember.js ....
 
 ### Is it production ready?
 
-  It depends. If is node.js, mongo and ember production ready for then microscratch is too...
+  It depends. If isthe node.js, mongo and/or ember are production ready for you then microscratch is ready too...
   
 ## Installation
 
@@ -95,6 +96,20 @@ Light Weight Web Framework using node.js, mongo, sockets, ember.js ....
   # Run application
   node app.js
   ```
+
+## First start
+
+  - What is happening during the bootsequence?
+  - What are the main configs?
+  - Can I add my own initializers?
+  - What are the steps in bootstrap process?
+  - How can I overide option from CLI?
+
+## CLI
+
+  - What is CLI?
+  - How to use CLI?
+  - Are there any CLI examples?
 
 ## Communication
 
@@ -146,4 +161,4 @@ Light Weight Web Framework using node.js, mongo, sockets, ember.js ....
 
 ## References
   
-  TBD
+  To Be Done
