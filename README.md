@@ -26,6 +26,7 @@ Light Weight Web Framework using node.js, mongo, sockets, ember.js ....
 
 ### Why should I choose microscratch?
 
+  - It's open-source and will be!
   - It's quite small
   - It's quite modular
   - It's quite easy to understand
@@ -48,10 +49,17 @@ Light Weight Web Framework using node.js, mongo, sockets, ember.js ....
 
   If you have following, you should be ready to go.
   
-  - git
-  - node.js
-  - npm
-  - mongodb
+  - [git](http://git-scm.com/)
+    
+    Git is a free and open source distributed version control system.
+
+  - [node.js](http://nodejs.org/)
+
+    Node.js is a platform built on Chrome's JavaScript runtime
+    
+  - [mongodb](http://www.mongodb.org/)
+  
+    MongoDB (from "humongous") is an open-source document database.
   
 ### What is the easist way to try?
 
