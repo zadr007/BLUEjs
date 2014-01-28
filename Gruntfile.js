@@ -89,8 +89,8 @@ module.exports = function (grunt) {
 
         forever: {
             options: {
-                index: 'app.js',
-                pidFile: 'tmp/forever.pid'
+                index: path.join(__dirname, './app.js'),
+                pidFile: path.join(__dirname, './tmp/forever.pid')
             }
         },
 
