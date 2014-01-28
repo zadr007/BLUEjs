@@ -34,6 +34,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-ember-templates');
     grunt.loadNpmTasks('grunt-express');
+    grunt.loadNpmTasks('grunt-forever');
     grunt.loadNpmTasks('grunt-jsdoc');
     grunt.loadNpmTasks('grunt-neuter');
 
@@ -83,6 +84,13 @@ module.exports = function (grunt) {
                     livereload: true,
                     serverreload: false
                 }
+            }
+        },
+
+        forever: {
+            options: {
+                index: 'app.js',
+                pidFile: 'tmp/forever.pid'
             }
         },
 
