@@ -48,6 +48,10 @@
                 },
                 gzip: false
     
+            },
+
+            solr: {
+                uri: "http://apollocrawler.com:8983/solr/apollo"
             }
         },
 
