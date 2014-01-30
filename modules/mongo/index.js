@@ -153,7 +153,7 @@
                     var modelName = parts[0];
 
                     var Model = require(fullPath);
-                    var model = new Model(this);
+                    var model = new Model(self);
                     res[modelName] = model;
                 }
             });

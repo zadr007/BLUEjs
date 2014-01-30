@@ -22,16 +22,27 @@
     'use strict';
 
     var mongoose = require('mongoose'),
+        events = require('events'),
         timestamps = require("mongoose-times"),
-        Schema = mongoose.Schema;
+        Schema = mongoose.Schema,
+        util = require('util');
 
-    var wirePlugin = function(schema, plugin) {
+    var exports = module.exports = function Model(mongo) {
+        this.mongo = mongo;
+    };
+
+    util.inherits(exports, events.EventEmitter);
+
+    exports.prototype.mongo = null;
+
+    exports.prototype.schema = null;
+
+    exports.prototype.wirePlugin = function(schema, plugin) {
         var p = require(plugin.path);
         schema.plugin(p, plugin.options);
 
     };
 
-    /** Convert DB model to View model */
     exports.declare = function(name, schema) {
         /**
          * Client Schema

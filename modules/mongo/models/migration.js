@@ -21,17 +21,17 @@
 (function () {
     'use strict';
 
-    module.exports = function() {
+    /**
+     * Module dependencies.
+     */
+    var events = require('events'),
+        Model = require('../model'),
+        util = require('util');
 
-        /**
-         * Module dependencies.
-         */
-        var model = require('../model'),
-            mongoose = require('mongoose');
-
-        model.declare('Migration', {
-            name: String
-        });
+    var exports = module.exports = function Migration(mongo) {
+        Model.call(this, mongo);
     };
+
+    util.inherits(exports, Model);
 
 })();
