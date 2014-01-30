@@ -158,9 +158,10 @@
                 }
             });
 
-            console.log(res);
-
             self.models = res;
+
+            console.log(res);
+            
             d.resolve(self);
         });
 
