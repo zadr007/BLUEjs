@@ -26,6 +26,8 @@
     module.exports = {
 
         _global: {
+            verbose: true,
+
             app: {
                 name: "MicroScratch",
 
@@ -42,7 +44,6 @@
                 configDestination: path.join(__dirname, "public/js/config.js")
             },
 
-            verbose: true,
             mongo: {
                 uri: "mongodb://localhost:27017/data",
                 watcher: false
@@ -60,6 +61,7 @@
             },
 
             solr: {
+                enabled: true,
                 uri: "http://apollocrawler.com:8983/solr/apollo"
             }
         },

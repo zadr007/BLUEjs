@@ -20,7 +20,7 @@
 
 //*
 define({
-    appName: "MicroScratch",
+    app: {"name":"MicroScratch","googleAnalytics":{"enabled":false,"id":"UA-XXXXXXXX-X","host":"yourdomain.com"}},
     shim: {
         "bootstrap": {
             deps: ["jquery"]
