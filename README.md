@@ -10,13 +10,6 @@ Light Weight Web Framework using node.js, mongo, sockets, ember.js ....
 [![Code Climate](https://codeclimate.com/repos/52e679aee30ba05f9a01374c/badges/518ba5511bb96351aa4e/gpa.png)](https://codeclimate.com/repos/52e679aee30ba05f9a01374c/feed)
 [![Total views](https://sourcegraph.com/api/repos/github.com/korczis/microscratch/counters/views.png)](https://sourcegraph.com/github.com/korczis/microscratch)
 
-## Demo
-
-  Currently there are two applications under the development build using microscratch
-  
-  - [apollocrawler.com](http://apollocrawler.com) - Homepage of [apollocrawler.com](http://apollocrawler.com)
-  - [craftsmen.apollocrawler.com](http://craftsmen.apollocrawler.com) - Simple listing of czech craftmen
-
 ## What microscratch is - first day in school
 
 ### What is the microscratch?
