@@ -26,7 +26,7 @@
         // Microscratch route
         app.get('/mocha', function (req, res) {
             var data = {
-                appName: microscratch.config.appName
+                app: microscratch.config.app
             };
 
             res.render("mocha", data);

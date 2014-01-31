@@ -26,7 +26,9 @@
     module.exports = {
 
         _global: {
-            appName: "MicroScratch",
+            app: {
+                name: "MicroScratch"
+            },
 
             client: {
                 configTemplate: path.join(__dirname, "public/js/config.template.js"),

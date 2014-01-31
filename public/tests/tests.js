@@ -19,7 +19,7 @@
 // THE SOFTWARE.
 
 (function (global) {
-    define(["jquery"], function ($) {
+    define(["jquery", "app"], function ($, App) {
         describe('Application', function () {
             it('Instance exists', function () {
                 App.should.not.equal(null);

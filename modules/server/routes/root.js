@@ -30,7 +30,7 @@
         // Root route
         app.get('/', function (req, res) {
             var data = {
-                appName: microscratch.config.appName
+                app: microscratch.config.app
             };
 
             var tmpl = path.join(microscratch.config.server.dirs.views, "index.hbs");
