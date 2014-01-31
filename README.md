@@ -2,6 +2,10 @@
 
 Light Weight Web Framework using node.js, mongo, sockets, ember.js ....
 
+## Preview
+
+[![preview](http://imageshack.com/a/img835/476/y7u0.png)](http://microscratch.net)
+
 ## Project Status
 
 [![GitHub version](https://badge.fury.io/gh/korczis%2Fmicroscratch.png)](http://badge.fury.io/gh/korczis%2Fmicroscratch)
