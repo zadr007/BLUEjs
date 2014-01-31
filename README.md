@@ -1,6 +1,6 @@
 # microscratch
 
-Light Weight Web Framework using node.js, mongo, sockets, ember.js ....
+Light Weight Web Application Framework using node.js, mongo, sockets, ember.js ....
 
 ## Preview
 
