@@ -33,7 +33,7 @@
                 googleAnalytics: {
                     enabled: false,
                     id: 'UA-XXXXXXXX-X',
-                    host: 'yourdomain.com'
+                    host: 'microscratch.net'
                 }
             },
 
@@ -49,7 +49,7 @@
             },
 
             server: {
-                port: 8888,
+                port: 7777,
                 root: __dirname,
                 dirs: {
                     public: path.join(__dirname, "public"),
