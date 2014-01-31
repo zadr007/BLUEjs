@@ -14,6 +14,9 @@ Light Weight Web Framework using node.js, mongo, sockets, ember.js ....
 [![Code Climate](https://codeclimate.com/repos/52e679aee30ba05f9a01374c/badges/518ba5511bb96351aa4e/gpa.png)](https://codeclimate.com/repos/52e679aee30ba05f9a01374c/feed)
 [![Total views](https://sourcegraph.com/api/repos/github.com/korczis/microscratch/counters/views.png)](https://sourcegraph.com/github.com/korczis/microscratch)
 
+### Uptime
+
+[![uptime](https://share.pingdom.com/banners/f06c9d22)](http://stats.pingdom.com/49gq27kjt2mp/1103301)
 ## What microscratch is - first day in school
 
 ### What is the microscratch?
