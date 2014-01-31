@@ -27,7 +27,14 @@
 
         _global: {
             app: {
-                name: "MicroScratch"
+                name: "MicroScratch",
+
+                // Google analytics section
+                googleAnalytics: {
+                    enabled: false,
+                    id: 'UA-XXXXXXXX-X',
+                    host: 'yourdomain.com'
+                }
             },
 
             client: {
