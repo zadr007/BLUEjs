@@ -31,8 +31,30 @@
             config: config
         });
 
+        // Exports
         exports.App = App;
+
+        // globals
         global.App = App;
+
+        // Google analytics
+        if(config.app.googleAnalytics.enabled) {
+            Ember.Application.initializer({
+                name: "googleAnalytics",
+
+                initialize: function(container, application) {
+                    var router = container.lookup('router:main');
+                    router.on('didTransition', function() {
+                        var url = this.get('url');
+                        if(!url || url == "") {
+                            url = "/";
+                        };
+
+                        // console.log("GA: " + url);
+                    });
+                }
+            });
+        }
 
         return App;
     });

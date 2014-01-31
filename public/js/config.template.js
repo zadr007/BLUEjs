@@ -20,7 +20,7 @@
 
 //*
 define({
-    appName: "$app.name$",
+    app: "$app$",
     shim: {
         "bootstrap": {
             deps: ["jquery"]
