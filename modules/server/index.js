@@ -25,6 +25,7 @@
         gzippo = require('gzippo'),
         http = require('http'),
         logger = require('../logger'),
+        MongoStore = require('connect-mongo')(express),
         path = require('path'),
         utils = require('../utils');
 
@@ -121,19 +122,13 @@
         this.app.use(this.logger);
         this.app.use(this.app.router);
 
-        // Gzipped serving of static content if needed
-        if (this.config.server.gzip) {
-            this.app.use(gzippo.staticGzip(this.config.server.dirs.public));
-            this.app.use(gzippo.compress());
-        } else {
-            this.app.use(express.static(this.config.server.dirs.public));
-        }
+        // Initialize sessions
+        this.initSessions();
 
-        this.app.use(function (err, req, res, next) {
-            console.error(err.stack);
-            res.send(500, 'Something broke!');
-        });
+        // Initialize gzip
+        this.initGzip();
 
+        // Preprocess config template
         utils.preprocessFile(this.config.client.configTemplate,
             this.config.client.configDestination,
             {
@@ -150,6 +145,37 @@
     MicroscratchApp.prototype.main = function () {
         this.server.listen(this.config.server.port);
         logger.log('Listening on port ' + this.config.server.port);
+    };
+
+    MicroscratchApp.prototype.initSessions = function() {
+        this.app.cookieParser = express.cookieParser(this.config.server.session.secret);
+        this.app.use(this.app.cookieParser);
+
+        this.app.sessionStore = new MongoStore({ // jshint ignore:line
+            url: this.config.mongo.uri,
+            collection: 'Session',
+            auto_reconnect: true
+        });
+
+        this.app.use(express.session({
+            secret: this.config.server.session.secret,
+            store: this.app.sessionStore
+        }));
+    };
+
+    MicroscratchApp.prototype.initGzip = function() {
+        // Gzipped serving of static content if needed
+        if (this.config.server.gzip) {
+            this.app.use(gzippo.staticGzip(this.config.server.dirs.public));
+            this.app.use(gzippo.compress());
+        } else {
+            this.app.use(express.static(this.config.server.dirs.public));
+        }
+
+        this.app.use(function (err, req, res, next) {
+            console.error(err.stack);
+            res.send(500, 'Something broke!');
+        });
     };
 
     module.exports = MicroscratchApp;

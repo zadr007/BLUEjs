@@ -56,7 +56,11 @@
                     public: path.join(__dirname, "public"),
                     views: path.join(__dirname, "public/views")
                 },
-                gzip: false
+                gzip: false,
+
+                session: {
+                    secret: "This is cookie secret, change this!"
+                }
     
             },
 
