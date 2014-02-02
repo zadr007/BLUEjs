@@ -1,6 +1,10 @@
 # microscratch
 
-Light Weight Web Framework using node.js, mongo, sockets, ember.js ....
+Light Weight Web Application Framework using node.js, mongo, sockets, ember.js, ...
+
+## Preview
+
+[![preview](http://imageshack.com/a/img835/476/y7u0.png)](http://microscratch.net)
 
 ## Project Status
 
@@ -10,6 +14,9 @@ Light Weight Web Framework using node.js, mongo, sockets, ember.js ....
 [![Code Climate](https://codeclimate.com/repos/52e679aee30ba05f9a01374c/badges/518ba5511bb96351aa4e/gpa.png)](https://codeclimate.com/repos/52e679aee30ba05f9a01374c/feed)
 [![Total views](https://sourcegraph.com/api/repos/github.com/korczis/microscratch/counters/views.png)](https://sourcegraph.com/github.com/korczis/microscratch)
 
+### Uptime
+
+[![uptime](https://share.pingdom.com/banners/f06c9d22)](http://stats.pingdom.com/49gq27kjt2mp/1103301)
 ## What microscratch is - first day in school
 
 ### What is the microscratch?
@@ -33,7 +40,7 @@ Light Weight Web Framework using node.js, mongo, sockets, ember.js ....
   - It's quite modular
   - It's quite easy to understand
   - It's tested
-  - It's continously integrated
+  - It's continuously integrated
   - It's under the code QA
   - It's up-to-date
   
@@ -43,7 +50,7 @@ Light Weight Web Framework using node.js, mongo, sockets, ember.js ....
 
 ### Is it production ready?
 
-  It depends. If isthe node.js, mongo and/or ember are production ready for you then microscratch is ready too...
+  It depends. If is the node.js, mongo and/or ember are production ready for you then microscratch is ready too...
   
 ## Installation
 
@@ -94,13 +101,26 @@ Light Weight Web Framework using node.js, mongo, sockets, ember.js ....
   node app.js
   ```
 
+## Troubleshooting
+
+### Mac OS X
+
+If you run `grunt server` you may get an error:
+
+	Running "watch" task
+	Waiting...Warning: EMFILE, too many open files
+
+This is because default `ulimit` on Mac OS X is 256. Increate number of possibly open files to 10000 by:
+
+	ulimit -n 10000
+
 ## First start
 
-  - What is happening during the bootsequence?
+  - What is happening during the boot sequence?
   - What are the main configs?
   - Can I add my own initializers?
   - What are the steps in bootstrap process?
-  - How can I overide option from CLI?
+  - How can I override option from CLI?
 
 ## CLI
 
@@ -111,8 +131,8 @@ Light Weight Web Framework using node.js, mongo, sockets, ember.js ....
 ## Communication
 
 - How can I communicate?
-- How can I communicate horizontaly?
-- How can I coumunicate verticaly?
+- How can I communicate horizontally?
+- How can I communicate vertically?
 - How can I communicate between modules?
 - How can I communicate between apps?
 - How can I communicate between clients?
@@ -122,11 +142,11 @@ Light Weight Web Framework using node.js, mongo, sockets, ember.js ....
 
 - What technologies do you use?
 - What is the usage of technology 'XYZ' ?
-- Why was the technology 'XYZ' choosen instead of 'ABC' ?
+- Why was the technology 'XYZ' chosen instead of 'ABC' ?
 - Can I replace technology 'XYZ' with ... ?
 - Is the technology 'XYZ' needed? I can no use it? Do you have fallback?
 
-## DIY - Do It Yourserlf 
+## DIY - Do It Yourself 
 
 - How can I add my own environment?
 - How can I add my own module?
