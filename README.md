@@ -1,6 +1,6 @@
 # microscratch
 
-Light Weight Web Application Framework using node.js, mongo, sockets, ember.js ....
+Light Weight Web Application Framework using node.js, mongo, sockets, ember.js, ...
 
 ## Preview
 
@@ -40,7 +40,7 @@ Light Weight Web Application Framework using node.js, mongo, sockets, ember.js .
   - It's quite modular
   - It's quite easy to understand
   - It's tested
-  - It's continously integrated
+  - It's continuously integrated
   - It's under the code QA
   - It's up-to-date
   
@@ -50,7 +50,7 @@ Light Weight Web Application Framework using node.js, mongo, sockets, ember.js .
 
 ### Is it production ready?
 
-  It depends. If isthe node.js, mongo and/or ember are production ready for you then microscratch is ready too...
+  It depends. If is the node.js, mongo and/or ember are production ready for you then microscratch is ready too...
   
 ## Installation
 
@@ -101,13 +101,26 @@ Light Weight Web Application Framework using node.js, mongo, sockets, ember.js .
   node app.js
   ```
 
+## Troubleshooting
+
+### Mac OS X
+
+If you run `grunt server` you may get an error:
+
+	Running "watch" task
+	Waiting...Warning: EMFILE, too many open files
+
+This is because default `ulimit` on Mac OS X is 256. Increate number of possibly open files to 10000 by:
+
+	ulimit -n 10000
+
 ## First start
 
-  - What is happening during the bootsequence?
+  - What is happening during the boot sequence?
   - What are the main configs?
   - Can I add my own initializers?
   - What are the steps in bootstrap process?
-  - How can I overide option from CLI?
+  - How can I override option from CLI?
 
 ## CLI
 
@@ -118,8 +131,8 @@ Light Weight Web Application Framework using node.js, mongo, sockets, ember.js .
 ## Communication
 
 - How can I communicate?
-- How can I communicate horizontaly?
-- How can I coumunicate verticaly?
+- How can I communicate horizontally?
+- How can I communicate vertically?
 - How can I communicate between modules?
 - How can I communicate between apps?
 - How can I communicate between clients?
@@ -129,11 +142,11 @@ Light Weight Web Application Framework using node.js, mongo, sockets, ember.js .
 
 - What technologies do you use?
 - What is the usage of technology 'XYZ' ?
-- Why was the technology 'XYZ' choosen instead of 'ABC' ?
+- Why was the technology 'XYZ' chosen instead of 'ABC' ?
 - Can I replace technology 'XYZ' with ... ?
 - Is the technology 'XYZ' needed? I can no use it? Do you have fallback?
 
-## DIY - Do It Yourserlf 
+## DIY - Do It Yourself 
 
 - How can I add my own environment?
 - How can I add my own module?
