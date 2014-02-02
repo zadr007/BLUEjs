@@ -36,6 +36,7 @@
         this.config = config;
         this.collections = {};
         this.models = {};
+        this.migrations = {};
     };
 
     /**
@@ -55,6 +56,12 @@
      * @type {array}
      */
     exports.prototype.collections = null;
+
+    /**
+     * Loaded migrations
+     * @type {null}
+     */
+    exports.prototype.migrations = null;
 
     /**
      * Loaded models
@@ -166,6 +173,37 @@
         return d.promise();
     };
 
+    exports.prototype.initializeMigrations = function () {
+        var d = deferred();
+
+        var self = this;
+        var migrationsDir = path.join(__dirname, "migrations");
+        fs.readdir(migrationsDir, function (err, files) {
+            var res = {};
+
+            files.forEach(function (file) {
+                var parts = file.split(".");
+                if(parts.length == 2 && parts[1].toLowerCase() == "js") {
+                    var fullPath = migrationsDir + '/' + file;
+
+                    var relPath = path.relative(__dirname, fullPath);
+                    logger.log("Loading migration file '" + relPath + "'");
+
+                    var migrationName = parts[0];
+
+                    var Migration = require(fullPath);
+                    var migration = new Migration(self);
+                    res[migrationName] = migration;
+                }
+            });
+
+            self.migrations = res;
+
+            d.resolve(self);
+        });
+
+        return d.promise();
+    };
 
     /**
      * Initializes Mongo wrapper
@@ -177,6 +215,8 @@
         var self = this;
         this.connect().then(function (res) {
             return self.initializeModels();
+        }).then(function(res) {
+            return self.initializeMigrations();
         }).then(function (res) {
                 var opt = self.config.mongo.watcher;
 
