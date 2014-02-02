@@ -67,7 +67,7 @@
                 ga('create', application.config.app.googleAnalytics.id, App.config.app.googleAnalytics.host);
                 ga('send', 'pageview');
                 application.trackTiming("webapp", "initialise");
-                
+
                 var router = container.lookup('router:main');
                 router.on('didTransition', function() {
                     var url = this.get('url');
