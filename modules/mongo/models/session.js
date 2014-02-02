@@ -30,6 +30,10 @@
 
     var exports = module.exports = function Session(mongo) {
         Model.call(this, mongo);
+
+        Model.declare.call(this, 'Session', {
+            session: String
+        });
     };
 
     util.inherits(exports, Model);

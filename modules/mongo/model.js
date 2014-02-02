@@ -56,7 +56,9 @@
 
         mongoose.model(name, ObjectSchema);
 
-        return ObjectSchema;
+        this.schema = ObjectSchema;
+
+        return this.schema;
     };
 
 })();

@@ -30,6 +30,10 @@
 
     var exports = module.exports = function Migration(mongo) {
         Model.call(this, mongo);
+
+        Model.declare.call(this, "Migration", {
+            name: String
+        });
     };
 
     util.inherits(exports, Model);
