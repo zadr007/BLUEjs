@@ -33,6 +33,9 @@ define({
             deps: ["ember"],
             exports: "DS"
         },
+        "google-analytics":  {
+            exports: "ga"
+        },
         'jquery': {
             exports: '$'
         },
@@ -53,6 +56,7 @@ define({
         "bootstrap": "/components/bootstrap/dist/js/bootstrap",
         "ember": "/components/ember/ember",
         "ember-data": "/components/ember-data/ember-data",
+        "google-analytics": "//www.google-analytics.com/analytics",
         "handlebars": "/components/handlebars/handlebars",
         "jquery": "/components/jquery/jquery",
         "mocha": "/components/mocha/mocha",

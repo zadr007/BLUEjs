@@ -19,7 +19,7 @@
 // THE SOFTWARE.
 
 (function (global) {
-    define(["config", "jquery", "bootstrap", "handlebars", "ember", "ember-data", "socketio", "exports"], function (config, $, bootstrap, handlebars, Ember, data, io, exports) {
+    define(["config", "jquery", "bootstrap", "handlebars", "ember", "ember-data", "socketio", "google-analytics", "exports"], function (config, $, bootstrap, handlebars, Ember, data, io, ga, exports) {
         var App = window.App = Ember.Application.create({
             options: {},
 
@@ -28,7 +28,25 @@
             initialize: function () {
             },
 
-            config: config
+            config: config,
+
+           trackPageView: function(page) {
+               if (!page) {
+                   var loc = window.location;
+                   page = loc.hash ? loc.hash.substring(1) : loc.pathname + loc.search;
+               }
+
+               ga('send', 'pageview', page);
+            },
+
+            trackEvent: function(category, action) {
+                ga('send', 'event', category, action);
+            },
+
+            trackTiming: function (category, identifier, time) {
+                time = time || new Date().getTime() - window.performance.timing.domComplete;
+                ga('send', 'timing', category, identifier, time);
+            }
         });
 
         // Exports
@@ -38,23 +56,29 @@
         global.App = App;
 
         // Google analytics
-        if(config.app.googleAnalytics.enabled) {
-            Ember.Application.initializer({
-                name: "googleAnalytics",
+        Ember.Application.initializer({
+            name: "googleAnalytics",
 
-                initialize: function(container, application) {
-                    var router = container.lookup('router:main');
-                    router.on('didTransition', function() {
-                        var url = this.get('url');
-                        if(!url || url == "") {
-                            url = "/";
-                        };
-
-                        // console.log("GA: " + url);
-                    });
+            initialize: function(container, application) {
+                if(!App.config.app.googleAnalytics.enabled) {
+                    return;
                 }
-            });
-        }
+
+                ga('create', application.config.app.googleAnalytics.id, App.config.app.googleAnalytics.host);
+                ga('send', 'pageview');
+                application.trackTiming("webapp", "initialise");
+
+                var router = container.lookup('router:main');
+                router.on('didTransition', function() {
+                    var url = this.get('url');
+                    if(!url || url == "") {
+                        url = "/";
+                    };
+
+                    application.trackPageView(url);
+                });
+            }
+        });
 
         return App;
     });
