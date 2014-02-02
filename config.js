@@ -50,7 +50,7 @@
             },
 
             server: {
-                port: 7777,
+                port: 8888,
                 root: __dirname,
                 dirs: {
                     public: path.join(__dirname, "public"),
