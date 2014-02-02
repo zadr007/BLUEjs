@@ -101,6 +101,19 @@ Light Weight Web Application Framework using node.js, mongo, sockets, ember.js .
   node app.js
   ```
 
+## Troubleshooting
+
+### Mac OS X
+
+If you run `grunt server` you may get an error:
+
+	Running "watch" task
+	Waiting...Warning: EMFILE, too many open files
+
+This is because default `ulimit` on Mac OS X is 256. Increate number of possibly open files to 10000 by:
+
+	ulimit -n 10000
+
 ## First start
 
   - What is happening during the bootsequence?
