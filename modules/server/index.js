@@ -78,18 +78,26 @@
      * @returns {*} Promise
      */
     MicroscratchApp.prototype.initialize = function () {
+        var d = deferred();
+
         var self = this;
 
         this.app = express();
         this.server = http.createServer(this.app);
 
-        return this.setup().then(function (res) {
+        this.setup().then(function (res) {
             return self.mongo.initialize(self);
         }).then(function (res) {
-                return self.sockets.initialize(self);
-            }).then(function (res) {
-                return deferred(self);
-            });
+            return self.sockets.initialize(self);
+        }).then(function (res) {
+            return deferred(self);
+        }).done(function(res) {
+            d.resolve(res);
+        }, function(err) {
+            throw err;
+        });
+
+        return d.promise();
     };
 
     /**

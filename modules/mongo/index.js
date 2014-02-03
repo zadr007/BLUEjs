@@ -235,6 +235,8 @@
             return self.initializeWatcher();
         }).done(function() {
             d.resolve(self);
+        }, function(err) {
+            throw err;
         });
 
         return d.promise();
