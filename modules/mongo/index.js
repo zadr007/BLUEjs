@@ -234,8 +234,7 @@
         }).then(function (res) {
             return self.initializeWatcher();
         }).done(function() {
-            logger.log("Mongo init done ...");
-                d.resolve(self);
+            d.resolve(self);
         });
 
         return d.promise();
