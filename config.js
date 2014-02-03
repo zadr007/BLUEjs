@@ -7,7 +7,7 @@
 // copies of the Software, and to permit persons to whom the Software is
 // furnished to do so, subject to the following conditions:
 //
-// The above copyright notice and this permission notice shall be included in
+// The above copyright notice and this permission notice shall be included inso
 // all copies or substantial portions of the Software.
 //
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
@@ -66,7 +66,7 @@
 
             solr: {
                 enabled: true,
-                uri: "http://apollocrawler.com:8983/solr/apollo"
+                uri: "http://apollocrawler.com:8080/solr/apollo"
             }
         },
 
