@@ -149,6 +149,12 @@
         console.log(s);
     };
 
+    /**
+     * Simple templating function, takes source file, replaces replacements and writes result to destination file
+     * @param source Path to Source file including placeholders to be replaced
+     * @param destination Path to destination file where to write processed (with placeholders replaced) result file
+     * @param replacements Map with replacements, key will be replaced with target
+     */
     module.exports.preprocessFile = function (source, destination, replacements) {
         var src = fs.readFileSync(source, 'utf8');
         var result = src.toString();

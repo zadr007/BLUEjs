@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "start": "node server.js",
-    "test": "mocha tests/*Spec?.js --reporter list"
+    "test": "mocha tests/**/*Spec*.js --reporter list"
   },
   "author": {
     "name": "Tomas Korcak",

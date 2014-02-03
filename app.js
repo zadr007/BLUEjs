@@ -26,6 +26,28 @@
         path = require('path'),
         utils = require('./modules/utils');
 
+    ///*
+    // Load Core Module
+    var Core = require('./modules/core');
+    var core = new Core({});
+
+    // Initialize DEFAULT confing
+    var Config = require('./modules/config');
+    var config = new Config(core.modules);
+    core.modules.config = config;
+
+    // Load Command Line Interface Module
+    var Cli = require('./modules/cli');
+    var cli = new Cli(core.modules);
+    core.modules.cli = cli;
+
+    cli.setup({
+        // TODO: Setup CLI options for this application here
+    });
+
+    cli.parse();
+    //*/
+
     var defaultConfig = "config.js";
     var defaultEnv = "local";
 
