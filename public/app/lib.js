@@ -42,6 +42,7 @@
                 '../app/helpers/object.js',
 
                 // Routes
+                '../app/routes/admin/index.js',
                 '../app/routes/application.js',
 
                 // Templates

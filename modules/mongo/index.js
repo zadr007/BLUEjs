@@ -36,6 +36,7 @@
         this.config = config;
         this.collections = {};
         this.models = {};
+        this.migrations = {};
     };
 
     /**
@@ -55,6 +56,12 @@
      * @type {array}
      */
     exports.prototype.collections = null;
+
+    /**
+     * Loaded migrations
+     * @type {null}
+     */
+    exports.prototype.migrations = null;
 
     /**
      * Loaded models
@@ -160,14 +167,58 @@
 
             self.models = res;
 
-            console.log(res);
-
             d.resolve(self);
         });
 
         return d.promise();
     };
 
+    exports.prototype.initializeWatcher = function() {
+        var self = this;
+        var opt = self.config.mongo.watcher;
+
+        var watcherEnabled = opt !== null && opt !== undefined && opt.toString() === "true" || opt.toString() === "1";
+        if (watcherEnabled) {
+            var Watcher = require('./watcher.js');
+            self.watcher = new Watcher(self);
+
+            return self.watcher.initialize();
+        } else {
+            return deferred(self);
+        }
+    };
+
+    exports.prototype.initializeMigrations = function () {
+        var d = deferred();
+
+        var self = this;
+        var migrationsDir = path.join(__dirname, "migrations");
+        fs.readdir(migrationsDir, function (err, files) {
+            var res = {};
+
+            files.forEach(function (file) {
+                var parts = file.split(".");
+                if(parts.length == 2 && parts[1].toLowerCase() == "js") {
+                    var fullPath = migrationsDir + '/' + file;
+
+                    var relPath = path.relative(__dirname, fullPath);
+                    logger.log("Loading migration file '" + relPath + "'");
+
+                    var migrationName = parts[0];
+
+                    var Migration = require(fullPath);
+                    var migration = new Migration(self);
+                    res[migrationName] = migration;
+                }
+            });
+
+            self.migrations = res;
+
+            d.resolve(self);
+        });
+
+        return d.promise();
+    };
 
     /**
      * Initializes Mongo wrapper
@@ -179,19 +230,15 @@
         var self = this;
         this.connect().then(function (res) {
             return self.initializeModels();
+        }).then(function(res) {
+            return self.initializeMigrations();
         }).then(function (res) {
-                var opt = self.config.mongo.watcher;
-
-                if (opt !== null && opt !== undefined && opt.toString() === "true" || opt.toString() === "1") {
-                    var Watcher = require('./watcher.js');
-                    self.watcher = new Watcher(self);
-
-                    return self.watcher.initialize();
-                } else {
-                    d.resolve(self);
-                }
-
-            });
+            return self.initializeWatcher();
+        }).done(function() {
+            d.resolve(self);
+        }, function(err) {
+            throw err;
+        });
 
         return d.promise();
     };

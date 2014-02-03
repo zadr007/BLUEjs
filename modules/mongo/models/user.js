@@ -30,6 +30,20 @@
 
     var exports = module.exports = function User(mongo) {
         Model.call(this, mongo);
+
+        Model.declare.call(this, 'User', {
+            name: String,
+            email: String,
+            emails: [String],
+            username: String,
+            provider: String,
+            hashed_password: String,
+            salt: String,
+            facebook: {},
+            twitter: {},
+            github: {},
+            google: {}
+        });
     };
 
     util.inherits(exports, Model);

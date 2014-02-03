@@ -25,6 +25,7 @@
         gzippo = require('gzippo'),
         http = require('http'),
         logger = require('../logger'),
+        MongoStore = require('connect-mongo')(express),
         path = require('path'),
         utils = require('../utils');
 
@@ -77,18 +78,26 @@
      * @returns {*} Promise
      */
     MicroscratchApp.prototype.initialize = function () {
+        var d = deferred();
+
         var self = this;
 
         this.app = express();
         this.server = http.createServer(this.app);
 
-        return this.setup().then(function (res) {
+        this.setup().then(function (res) {
             return self.mongo.initialize(self);
         }).then(function (res) {
-                return self.sockets.initialize(self);
-            }).then(function (res) {
-                return deferred(self);
-            });
+            return self.sockets.initialize(self);
+        }).then(function (res) {
+            return deferred(self);
+        }).done(function(res) {
+            d.resolve(res);
+        }, function(err) {
+            throw err;
+        });
+
+        return d.promise();
     };
 
     /**
@@ -121,19 +130,13 @@
         this.app.use(this.logger);
         this.app.use(this.app.router);
 
-        // Gzipped serving of static content if needed
-        if (this.config.server.gzip) {
-            this.app.use(gzippo.staticGzip(this.config.server.dirs.public));
-            this.app.use(gzippo.compress());
-        } else {
-            this.app.use(express.static(this.config.server.dirs.public));
-        }
+        // Initialize sessions
+        this.initSessions();
 
-        this.app.use(function (err, req, res, next) {
-            console.error(err.stack);
-            res.send(500, 'Something broke!');
-        });
+        // Initialize gzip
+        this.initGzip();
 
+        // Preprocess config template
         utils.preprocessFile(this.config.client.configTemplate,
             this.config.client.configDestination,
             {
@@ -150,6 +153,37 @@
     MicroscratchApp.prototype.main = function () {
         this.server.listen(this.config.server.port);
         logger.log('Listening on port ' + this.config.server.port);
+    };
+
+    MicroscratchApp.prototype.initSessions = function() {
+        this.app.cookieParser = express.cookieParser(this.config.server.session.secret);
+        this.app.use(this.app.cookieParser);
+
+        this.app.sessionStore = new MongoStore({ // jshint ignore:line
+            url: this.config.mongo.uri,
+            collection: 'Session',
+            auto_reconnect: true
+        });
+
+        this.app.use(express.session({
+            secret: this.config.server.session.secret,
+            store: this.app.sessionStore
+        }));
+    };
+
+    MicroscratchApp.prototype.initGzip = function() {
+        // Gzipped serving of static content if needed
+        if (this.config.server.gzip) {
+            this.app.use(gzippo.staticGzip(this.config.server.dirs.public));
+            this.app.use(gzippo.compress());
+        } else {
+            this.app.use(express.static(this.config.server.dirs.public));
+        }
+
+        this.app.use(function (err, req, res, next) {
+            console.error(err.stack);
+            res.send(500, 'Something broke!');
+        });
     };
 
     module.exports = MicroscratchApp;

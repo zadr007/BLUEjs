@@ -50,13 +50,17 @@
             },
 
             server: {
-                port: 7777,
+                port: 8888,
                 root: __dirname,
                 dirs: {
                     public: path.join(__dirname, "public"),
                     views: path.join(__dirname, "public/views")
                 },
-                gzip: false
+                gzip: false,
+
+                session: {
+                    secret: "This is cookie secret, change this!"
+                }
     
             },
 

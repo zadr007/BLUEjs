@@ -25,17 +25,13 @@
      * Module dependencies.
      */
     var events = require('events'),
-        Model = require('../model'),
+        Migration = require('../migration'),
         util = require('util');
 
-    var exports = module.exports = function Migration(mongo) {
-        Model.call(this, mongo);
-
-        Model.declare.call(this, "Migration", {
-            name: String
-        });
+    var exports = module.exports = function DefaultUsersMigration(mongo) {
+        Migration.call(this, mongo);
     };
 
-    util.inherits(exports, Model);
+    util.inherits(exports, Migration);
 
 })();

@@ -18,24 +18,19 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-(function () {
+(function() {
     'use strict';
 
-    /**
-     * Module dependencies.
-     */
-    var events = require('events'),
-        Model = require('../model'),
+    var mongoose = require('mongoose'),
+        events = require('events'),
         util = require('util');
 
     var exports = module.exports = function Migration(mongo) {
-        Model.call(this, mongo);
-
-        Model.declare.call(this, "Migration", {
-            name: String
-        });
+        this.mongo = mongo;
     };
 
-    util.inherits(exports, Model);
+    util.inherits(exports, events.EventEmitter);
+
+    exports.prototype.mongo = null;
 
 })();

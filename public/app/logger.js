@@ -54,31 +54,31 @@
                         },
 
                         log: function (msg) {
-                            if (console.log) {
+                            if (console && console.log) {
                                 console.log(this.format(msg));
                             }
                         },
 
                         debug: function (msg) {
-                            if (console.debug) {
+                            if (console && console.debug) {
                                 console.debug(this.format(msg));
                             }
                         },
 
                         error: function (msg) {
-                            if (console.error) {
+                            if (console && console.error) {
                                 console.error(this.format(msg));
                             }
                         },
 
                         info: function (msg) {
-                            if (console.info) {
+                            if (console && console.info) {
                                 console.info(this.format(msg));
                             }
                         },
 
                         warn: function (msg) {
-                            if (console.warn) {
+                            if (console && console.warn) {
                                 console.warn(this.format(msg));
                             }
                         }
