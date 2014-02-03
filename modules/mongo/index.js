@@ -177,7 +177,8 @@
         var self = this;
         var opt = self.config.mongo.watcher;
 
-        if (opt !== null && opt !== undefined && opt.toString() === "true" || opt.toString() === "1") {
+        var watcherEnabled = opt !== null && opt !== undefined && opt.toString() === "true" || opt.toString() === "1";
+        if (watcherEnabled) {
             var Watcher = require('./watcher.js');
             self.watcher = new Watcher(self);
 
