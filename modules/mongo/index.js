@@ -173,6 +173,20 @@
         return d.promise();
     };
 
+    exports.prototype.initializeWatcher = function() {
+        var self = this;
+        var opt = self.config.mongo.watcher;
+
+        if (opt !== null && opt !== undefined && opt.toString() === "true" || opt.toString() === "1") {
+            var Watcher = require('./watcher.js');
+            self.watcher = new Watcher(self);
+
+            return self.watcher.initialize();
+        } else {
+            return deferred(self);
+        }
+    };
+
     exports.prototype.initializeMigrations = function () {
         var d = deferred();
 
@@ -218,18 +232,11 @@
         }).then(function(res) {
             return self.initializeMigrations();
         }).then(function (res) {
-                var opt = self.config.mongo.watcher;
-
-                if (opt !== null && opt !== undefined && opt.toString() === "true" || opt.toString() === "1") {
-                    var Watcher = require('./watcher.js');
-                    self.watcher = new Watcher(self);
-
-                    return self.watcher.initialize();
-                } else {
-                    d.resolve(self);
-                }
-
-            });
+            return self.initializeWatcher();
+        }).done(function() {
+            logger.log("Mongo init done ...");
+                d.resolve(self);
+        });
 
         return d.promise();
     };
