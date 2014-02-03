@@ -28,7 +28,7 @@ Light Weight Web Application Framework using node.js, mongo, sockets, ember.js, 
 ### What are the principles?
 
  * Being [idiomatic](https://github.com/rwaldron/idiomatic.js) - All code in any code-base should look like a single person typed it, no matter how many people contributed.
- * Using [smart questions](http://www.catb.org/~esr/faqs/smart-questions.html)
+ * Asking [smart questions](http://www.catb.org/~esr/faqs/smart-questions.html).
    
 ### Why is called microscratch?
 
