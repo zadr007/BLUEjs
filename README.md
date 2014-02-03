@@ -19,15 +19,16 @@ Light Weight Web Application Framework using node.js, mongo, sockets, ember.js, 
 [![uptime](https://share.pingdom.com/banners/f06c9d22)](http://stats.pingdom.com/49gq27kjt2mp/1103301)
 ## What microscratch is - first day in school
 
-### What are the principles?
-
- * Being [idiomatic](https://github.com/rwaldron/idiomatic.js) - All code in any code-base should look like a single person typed it, no matter how many people contributed.
-
 ### What is the microscratch?
 
   microscratch is minimalistic opionated modern web application framework.
   
   For clarification of words and term used please see [glossary](https://github.com/korczis/microscratch/blob/master/GLOSSARY.md).
+
+### What are the principles?
+
+ * Being [idiomatic](https://github.com/rwaldron/idiomatic.js) - All code in any code-base should look like a single person typed it, no matter how many people contributed.
+ * Using [smart questions](http://www.catb.org/~esr/faqs/smart-questions.html)
    
 ### Why is called microscratch?
 
