@@ -12,7 +12,7 @@ Light Weight Web Application Framework using node.js, mongo, sockets, ember.js, 
 [![Build Status](https://travis-ci.org/ApolloCrawler/microscratch.png?branch=master)](https://travis-ci.org/ApolloCrawler/microscratch)
 [![Dependency Status](https://gemnasium.com/korczis/microscratch.png)](https://gemnasium.com/korczis/microscratch)
 [![Code Climate](https://codeclimate.com/repos/52eeccb869568029a80003ff/badges/3fd9b15792ebb7277355/gpa.png)](https://codeclimate.com/repos/52eeccb869568029a80003ff/feed)
-[![Total views](https://sourcegraph.com/api/repos/github.com/korczis/microscratch/counters/views.png)](https://sourcegraph.com/github.com/korczis/microscratch) 
+[![Total views](https://sourcegraph.com/api/repos/github.com/ApolloCrawler/microscratch/counters/views.png)](https://sourcegraph.com/github.com/ApolloCrawler/microscratch) 
 
 ### Uptime
 
