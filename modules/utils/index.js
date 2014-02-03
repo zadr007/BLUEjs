@@ -32,17 +32,30 @@
      * @param path string Path to config file
      * @param env string Environment used
      */
-    module.exports.loadConfig = function (path, env) {
+    module.exports.loadConfig = function (configPath, env) {
         if (env === undefined || env === null) {
             env = "local";
         }
 
-        var tmp = require(path);
+        var tmp = require(configPath);
 
         var glob = tmp._global || {};
         var loc = tmp[env] || {};
 
-        return merge(true, glob, loc);
+        var res = merge(true, glob, loc);
+
+        var userConfig = configPath + ".user";
+        if (fs.existsSync(userConfig)) {
+            tmp = require(userConfig);
+
+            glob = tmp._global || {};
+            loc = tmp[env] || {};
+
+            var override = merge(true, glob, loc);
+            res = merge(true, res, override);
+        }
+
+        return res;
     };
 
     /**
