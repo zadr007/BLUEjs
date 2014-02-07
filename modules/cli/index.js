@@ -29,22 +29,24 @@
      * @type {CliModule}
      */
     var exports = module.exports = function CliModule(modules) {
+        // Call super constructor
+        CliModule.super_.call(this, arguments);
     };
 
     util.inherits(exports, CoreModule);
 
     /**
-     * CLI options - passed from user's code
+     * CLI arguments - passed from user's code
      * @type {{}}
      */
-    exports.prototype.options = {};
+    exports.prototype.args = {};
 
     /**
      * Setups CLI - assigns options
      * @param options
      */
-    exports.prototype.setup = function(options) {
-        this.options = options;
+    exports.prototype.setup = function(args) {
+        this.args = args;
     };
 
     /**

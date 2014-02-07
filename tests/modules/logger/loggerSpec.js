@@ -36,6 +36,22 @@
             expect(LoggerModule).to.not.equal(null);
             expect(LoggerModule).to.not.equal(undefined);
         });
+
+        it('Has \'error\' method', function () {
+            expect(LoggerModule.error instanceof Function).to.equal(true);
+        });
+
+        it('Has \'info\' method', function () {
+            expect(LoggerModule.info instanceof Function).to.equal(true);
+        });
+
+        it('Has \'log\' method', function () {
+            expect(LoggerModule.log instanceof Function).to.equal(true);
+        });
+
+        it('Has \'warn\' method', function () {
+            expect(LoggerModule.warn instanceof Function).to.equal(true);
+        });
     });
 }());
 

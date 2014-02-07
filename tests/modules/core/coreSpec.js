@@ -55,9 +55,11 @@
         });
 
         it('Initializes Base Module \'modules\' property properly', function () {
-            expect(baseModule).to.not.equal(null);
-            expect(baseModule).to.not.equal(undefined);
             expect(baseModule.modules).to.be.empty;
+        });
+
+        it('Initializes Base Module \'options\' property properly', function () {
+            expect(baseModule.options).to.be.empty;
         });
 
         it('Loads Core module', function () {

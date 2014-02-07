@@ -29,6 +29,8 @@
      * @type {ConfigModule}
      */
     var exports = module.exports = function ConfigModule(modules) {
+        // Call super constructor
+        ConfigModule.super_.call(this, arguments);
     };
 
     util.inherits(exports, CoreModule);

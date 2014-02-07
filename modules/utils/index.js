@@ -27,12 +27,15 @@
         merge = require('node.extend'),
         moment = require('moment'),
         path = require('path');
+
+    var exports = module.exports = {};
+
     /**
      * Returns loaded config with merged environments
      * @param path string Path to config file
      * @param env string Environment used
      */
-    module.exports.loadConfig = function (configPath, env) {
+    exports.loadConfig = function (configPath, env) {
         if (env === undefined || env === null) {
             env = "local";
         }
@@ -64,7 +67,7 @@
      * @param prop Propert name in dot notation
      * @param value Value
      */
-    module.exports.setObjectProperty = function (obj, prop, value) {
+    exports.setObjectProperty = function (obj, prop, value) {
         if (typeof prop === "string") {
             prop = prop.split(".");
         }
@@ -88,7 +91,7 @@
      * @param dt Optional date time
      * @returns {*} Formatted timestamp
      */
-    module.exports.timestamp = function (fmt, dt) {
+    exports.timestamp = function (fmt, dt) {
         if (!fmt) {
             fmt = "YYYY/MM/DD HH:mm:ss.SSS";
         }
@@ -100,7 +103,7 @@
      * Returns UUID - Universaly Unique Identifier
      * @returns {*|string}
      */
-    module.exports.generateUUID = function () {
+    exports.generateUUID = function () {
         var d = new Date().getTime();
         var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
             var r = (d + Math.random() * 16) % 16 | 0;
@@ -115,7 +118,7 @@
      * @param dirPath Directory to process
      * @returns {Array} Array of nodes of that directory
      */
-    module.exports.getPathNodes = function (dirPath) {
+    exports.getPathNodes = function (dirPath) {
         var res = [];
 
         var files = fs.readdirSync(dirPath);
@@ -139,7 +142,7 @@
      * Print directory to console in `npm list` style using archy (https://github.com/substack/node-archy)
      * @param dirPath Path to print
      */
-    module.exports.printFileTree = function (dirPath) {
+    exports.printFileTree = function (dirPath) {
         var archy = require('archy');
         var s = archy({
             label: dirPath,
@@ -155,7 +158,7 @@
      * @param destination Path to destination file where to write processed (with placeholders replaced) result file
      * @param replacements Map with replacements, key will be replaced with target
      */
-    module.exports.preprocessFile = function (source, destination, replacements) {
+    exports.preprocessFile = function (source, destination, replacements) {
         var src = fs.readFileSync(source, 'utf8');
         var result = src.toString();
 

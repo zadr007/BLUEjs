@@ -25,12 +25,18 @@
      * Base Module
      * @type {BaseModule}
      */
-    var exports = module.exports = function BaseModule(modules) {
+    var exports = module.exports = function BaseModule(modules, options) {
         if(!modules) {
             modules = {};
         }
 
         this.modules = modules;
+
+        if(!options) {
+            options = {};
+        }
+
+        this.options = options;
     };
 
     /**
@@ -38,5 +44,11 @@
      * @type {{}}
      */
     exports.prototype.modules = {};
+
+    /**
+     * Options passed to constructor of module
+     * @type {{}}
+     */
+    exports.prototype.options = {};
 
 }());

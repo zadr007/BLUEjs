@@ -30,7 +30,7 @@
      */
     var exports = module.exports = function CoreModule(modules) {
         // Call super constructor
-        CoreModule.super_.call(this, modules);
+        CoreModule.super_.call(this, arguments);
 
         // There need to be core module, as it's provides other modules loading, monitoring, .... functionality.
         if(!this.modules.core) {

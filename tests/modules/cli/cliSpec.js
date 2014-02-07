@@ -62,6 +62,10 @@
         it('Has parse method', function () {
             expect(cliModule.setup instanceof Function).to.equal(true);
         });
+
+        it('Initializes arguments with {}', function () {
+            expect(cliModule.args).to.be.empty;
+        });
     });
 }());
 
