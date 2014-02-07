@@ -84,6 +84,10 @@
         it('Has \'preprocessFile\' method', function () {
             expect(UtilsModule.preprocessFile instanceof Function).to.equal(true);
         });
+
+        it('Has \'merge\' method', function () {
+            expect(UtilsModule.merge instanceof Function).to.equal(true);
+        });
     });
 }());
 

@@ -172,4 +172,20 @@
 
         fs.writeFileSync(destination, result, 'utf8');
     };
+
+    /**
+     * Merges to javascript objects
+     * @param orig Original object to be extended
+     * @param override Object with overrides
+     * @param deep True if deep merge is needed
+     * @returns {*}
+     */
+    exports.merge = function(orig, override, deep) {
+        if(deep) {
+            return merge(true, orig, override);
+        }
+
+        return (orig, override);
+    };
+
 }());
