@@ -32,11 +32,6 @@
     var path = require('path'),
         utils = require('../../../modules/utils');
 
-    // See http://chaijs.com/
-    // See http://sinonjs.org/
-    // See https://github.com/elliotf/mocha-sinon
-    // See https://github.com/domenic/sinon-chai
-
     describe('Module Scrapper', function () {
         var scrapper = null;
 

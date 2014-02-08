@@ -19,32 +19,42 @@
 // THE SOFTWARE.
 
 (function () {
-    'use strict';
 
-    var assert = require('assert'),
-        util = require('util'),
-        CoreModule = require('../core');
+    var child_process = require('child_process'),
+        chai = require('chai'),
+        expect = chai.expect;
 
-    // TODO: Eliminate following
-    var UtilsModule = require('../utils');
+    var Optimist = require('optimist');
 
-    /**
-     * Configuration module
-     * @type {ConfigModule}
-     */
-    var exports = module.exports = function ConfigModule(modules) {
-        // Call super constructor
-        ConfigModule.super_.call(this, arguments);
+    describe('Module CLI - setup', function () {
+        var CoreModule = null;
+        var CliModule = null;
+        var cliModule = null;
 
-        // assert(this.modules.utils);
-    };
+        beforeEach(function () {
+            CoreModule = require('../../../../modules/core');
 
-    util.inherits(exports, CoreModule);
+            CliModule = require('../../../../modules/cli');
+            cliModule = new CliModule();
+        });
 
-    exports.prototype.load = function(configFilePath) {
-        var cfg = UtilsModule.loadConfig(configFilePath);
+        it('Optimist object exists', function () {
+            var optimist = cliModule.args();
+            expect(optimist).to.not.equal(null);
+            expect(optimist).to.not.equal(undefined);
+        });
 
-        return UtilsModule.merge(this, cfg);
-    };
+        it('Implements \'default\' method', function() {
+            expect(Optimist.default instanceof Function).to.equal(true);
+        });
 
+        it('Implements \'describe\' method', function() {
+            expect(Optimist.describe instanceof Function).to.equal(true);
+        });
+
+        it('Implements \'usage\' method', function() {
+            expect(Optimist.usage instanceof Function).to.equal(true);
+        });
+    });
 }());
+

@@ -40,4 +40,6 @@
 
     util.inherits(exports, BaseModule);
 
+    exports.prototype.config = null;
+
 }());

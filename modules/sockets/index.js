@@ -26,11 +26,10 @@
         path = require('path');
     /**
      * sockets.io wrapper
-     * @type {Mongo}
+     * @type {Sockets}
      */
     var exports = module.exports = function Sockets(config) {
         this.config = config;
-        1
     };
 
     /**

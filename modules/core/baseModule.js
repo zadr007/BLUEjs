@@ -21,6 +21,9 @@
 (function () {
     'use strict';
 
+    var events = require('events'),
+        util = require('util');
+
     /**
      * Base Module
      * @type {BaseModule}
@@ -38,6 +41,8 @@
 
         this.options = options;
     };
+
+    util.inherits(exports, events.EventEmitter);
 
     /**
      * Modules exposed to external world.

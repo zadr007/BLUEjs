@@ -22,6 +22,7 @@
     'use strict';
 
     var util = require('util'),
+        Optimist = require('optimist'),
         CoreModule = require('../core');
 
     /**
@@ -31,29 +32,24 @@
     var exports = module.exports = function CliModule(modules) {
         // Call super constructor
         CliModule.super_.call(this, arguments);
+
+        this.argsInstance = Optimist;
     };
 
     util.inherits(exports, CoreModule);
 
     /**
      * CLI arguments - passed from user's code
-     * @type {{}}
+     * @type {null}
      */
-    exports.prototype.args = {};
+    exports.prototype.argsInstance = null;
 
     /**
      * Setups CLI - assigns options
      * @param options
      */
-    exports.prototype.setup = function(args) {
-        this.args = args;
-    };
-
-    /**
-     * Parses CLI arguments (ARGV)
-     */
-    exports.prototype.parse = function() {
-
+    exports.prototype.args = function() {
+        return this.argsInstance;
     };
 
 }());

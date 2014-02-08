@@ -47,11 +47,11 @@
             expect(configModule).to.not.equal(undefined);
         });
 
-        it('configModule subclass of CoreModule', function () {
+        it('Is subclass of CoreModule', function () {
             expect(configModule instanceof CoreModule).to.equal(true);
         });
 
-        it('configModule subclass of ConfigModule', function () {
+        it('Is subclass of ConfigModule', function () {
             expect(configModule instanceof ConfigModule).to.equal(true);
         });
     });

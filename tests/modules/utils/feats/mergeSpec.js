@@ -70,6 +70,8 @@
         it('Deep Merge works', function () {
             var res = UtilsModule.merge(personJoe, personJohny, true);
 
+            personJohny.firstName = "Carl";
+
             expect(res.firstName).to.equal("Johny");
             expect(res.lastName).to.equal("Black");
         });

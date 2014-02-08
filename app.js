@@ -24,6 +24,7 @@
     var deferred = require('deferred'),
         logger = require('./modules/logger'),
         path = require('path'),
+        util = require('util'),
         utils = require('./modules/utils');
 
     ///*
@@ -31,83 +32,41 @@
     var Core = require('./modules/core');
     var core = new Core({});
 
-    // Initialize DEFAULT confing
-    var Config = require('./modules/config');
-    var config = new Config(core.modules);
-    core.modules.config = config;
-
     // Load Command Line Interface Module
     var Cli = require('./modules/cli');
     var cli = new Cli(core.modules);
     core.modules.cli = cli;
 
-    cli.setup({
-        // TODO: Setup CLI options for this application here
-    });
+    // Setup CLI options
+    cli.args()
+        .usage('Simple Microscratch Application.\nUsage: $0')
+        .describe('h, help', 'Show Help')
+        .describe('c, config', 'Config file')
+        .default('c, config', path.join(__dirname, './config'))
+        .describe('e, env', 'Specify environment')
+        .default('e, env', 'local')
+        .describe('o, option', 'Override option (name=value, server.port=1234)')
+        .describe('v, verbose', 'Verbose output');
 
-    cli.parse();
-    //*/
-
-    var defaultConfig = "config.js";
-    var defaultEnv = "local";
-
-    var opts = require('optimist')
-            .usage('Simple Microscratch Application.\nUsage: $0')
-            .describe('h, help', 'Show Help')
-            .describe('c, config', 'Config file')
-            .default('c, config', defaultConfig)
-            .describe('e, env', 'Specify environment')
-            .default('e, env', defaultEnv)
-            .describe('o, option', 'Override option (name=value, server.port=1234)')
-            .describe('v, verbose', 'Verbose output')
-        ;
-
-    var argv = opts.argv;
-
-    if (argv["v"] || argv["verbose"]) {
-        logger.log("Parsed options: " + JSON.stringify(argv, null, 4));
-    }
+    var args = cli.args();
+    var argv = args.argv;
 
     if (argv["h"] || argv["help"]) {
-        console.log(opts.help());
+        console.log(args.help());
         return;
     }
 
-    var configPath = argv["c"] || argv["config"] || defaultConfig;
-    var env = argv["e"] || argv["env"] || defaultEnv;
+    // Load app module
+    var AppModule = require('./modules/core/app');
 
-    /**
-     * Loaded config file
-     * @type {*}
-     */
-    var config = utils.loadConfig(path.join(__dirname, configPath), env);
+    var App = function(modules) {
+        App.super_.call(this, modules);
+    };
 
-    if (argv["v"] !== undefined || argv["verbose"] !== undefined) {
-        config.verbose = argv["v"] || argv["verbose"];
-    }
+    util.inherits(App, AppModule);
 
-    var opts = argv["o"] || argv["option"];
-    if (opts) {
-        if (Object.prototype.toString.call(opts) !== '[object Array]') {
-            opts = [opts];
-        }
-
-        for (var i = 0; i < opts.length; i++) {
-            var opt = opts[i];
-            var tokens = opt.split("=");
-            utils.setObjectProperty(config, tokens[0], tokens[1]);
-        }
-    }
-
-    if (config.verbose) {
-        logger.log("Config loaded: " + JSON.stringify(config, null, 4));
-    }
-
-    //*
-    var Server = require('./modules/server');
-    var app = new Server(config);
-    app.initialize().done(function (res) {
-        app.main();
-    });
+    // Create app instance
+    var app = new App(core.modules);
+    app.run();
     //*/
 }());

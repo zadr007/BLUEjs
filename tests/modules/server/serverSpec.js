@@ -19,32 +19,23 @@
 // THE SOFTWARE.
 
 (function () {
-    'use strict';
 
-    var assert = require('assert'),
-        util = require('util'),
-        CoreModule = require('../core');
+    var child_process = require('child_process'),
+        chai = require('chai'),
+        expect = chai.expect,
+        path = require('path');
 
-    // TODO: Eliminate following
-    var UtilsModule = require('../utils');
+    describe('Module Server', function () {
+        var ServerModule = null;
 
-    /**
-     * Configuration module
-     * @type {ConfigModule}
-     */
-    var exports = module.exports = function ConfigModule(modules) {
-        // Call super constructor
-        ConfigModule.super_.call(this, arguments);
+        beforeEach(function () {
+            ServerModule = require(path.join(__dirname, "../../../modules/server"));
+        });
 
-        // assert(this.modules.utils);
-    };
-
-    util.inherits(exports, CoreModule);
-
-    exports.prototype.load = function(configFilePath) {
-        var cfg = UtilsModule.loadConfig(configFilePath);
-
-        return UtilsModule.merge(this, cfg);
-    };
-
+        it('Module Exists', function () {
+            expect(ServerModule).to.not.equal(null);
+            expect(ServerModule).to.not.equal(undefined);
+        });
+    });
 }());
+

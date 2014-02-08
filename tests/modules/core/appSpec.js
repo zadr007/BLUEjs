@@ -19,32 +19,43 @@
 // THE SOFTWARE.
 
 (function () {
-    'use strict';
 
-    var assert = require('assert'),
-        util = require('util'),
-        CoreModule = require('../core');
+    var child_process = require('child_process'),
+        chai = require('chai'),
+        expect = chai.expect;
 
-    // TODO: Eliminate following
-    var UtilsModule = require('../utils');
+    var CoreModule = require('../../../modules/core');
 
-    /**
-     * Configuration module
-     * @type {ConfigModule}
-     */
-    var exports = module.exports = function ConfigModule(modules) {
-        // Call super constructor
-        ConfigModule.super_.call(this, arguments);
+    describe('Module Core - App', function () {
+        var AppModule = null;
+        var appModule = null;
 
-        // assert(this.modules.utils);
-    };
+        beforeEach(function () {
+            AppModule = require('../../../modules/core/app');
+            appModule = new AppModule();
+        });
 
-    util.inherits(exports, CoreModule);
+        it('Loads module', function () {
+            expect(AppModule).to.not.equal(null);
+            expect(AppModule).to.not.equal(undefined);
+        });
 
-    exports.prototype.load = function(configFilePath) {
-        var cfg = UtilsModule.loadConfig(configFilePath);
+        it('Creates Instance', function () {
+            expect(appModule).to.not.equal(null);
+            expect(appModule).to.not.equal(undefined);
+        });
 
-        return UtilsModule.merge(this, cfg);
-    };
+        it('Is subclass of CoreModule', function () {
+            expect(appModule instanceof CoreModule).to.equal(true);
+        });
 
+        it('Is subclass of AppModule', function () {
+            expect(appModule instanceof AppModule).to.equal(true);
+        });
+
+        it('Implements \'run\' method', function() {
+            expect(appModule.run instanceof Function).to.equal(true);
+        });
+    });
 }());
+

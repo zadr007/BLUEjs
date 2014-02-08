@@ -25,6 +25,8 @@
         expect = chai.expect;
 
 
+    var events = require('events');
+
     describe('Module Core', function () {
         var BaseModule = null;
         var baseModule = null;
@@ -48,6 +50,10 @@
         it('Creates Base Module Instance', function () {
             expect(baseModule).to.not.equal(null);
             expect(baseModule).to.not.equal(undefined);
+        });
+
+        it('baseModule subclass of Events.EventEmitter', function () {
+            expect(baseModule instanceof events.EventEmitter).to.equal(true);
         });
 
         it('baseModule subclass of BaseModule', function () {

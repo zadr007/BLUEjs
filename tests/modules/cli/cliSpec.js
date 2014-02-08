@@ -24,6 +24,7 @@
         chai = require('chai'),
         expect = chai.expect;
 
+    var Optimist = require('optimist');
 
     describe('Module CLI', function () {
         var CoreModule = null;
@@ -47,24 +48,12 @@
             expect(cliModule).to.not.equal(undefined);
         });
 
-        it('cliModule subclass of CoreModule', function () {
+        it('Is subclass of CoreModule', function () {
             expect(cliModule instanceof CoreModule).to.equal(true);
         });
 
-        it('cliModule subclass of CliModule', function () {
+        it('Is subclass of CliModule', function () {
             expect(cliModule instanceof CliModule).to.equal(true);
-        });
-
-        it('Has setup method', function () {
-            expect(cliModule.setup instanceof Function).to.equal(true);
-        });
-
-        it('Has parse method', function () {
-            expect(cliModule.setup instanceof Function).to.equal(true);
-        });
-
-        it('Initializes arguments with {}', function () {
-            expect(cliModule.args).to.be.empty;
         });
     });
 }());
