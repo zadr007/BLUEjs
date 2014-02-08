@@ -19,18 +19,23 @@
 // THE SOFTWARE.
 
 (function () {
-    'use strict';
 
-    if (typeof define !== 'function') {
-        var define = require('amdefine')(module);
-    }
+    var child_process = require('child_process'),
+        chai = require('chai'),
+        expect = chai.expect,
+        path = require('path');
 
-    define(['../core', 'util'], function(core, util) {
-        var exports = module.exports = function SolrModule() {
+    describe('Module Server', function () {
+        var ServerModule = null;
 
-        };
+        beforeEach(function () {
+            ServerModule = require(path.join(__dirname, "../../../modules/server"));
+        });
 
-        util.inherits(exports, core);
+        it('Module Exists', function () {
+            expect(ServerModule).to.not.equal(null);
+            expect(ServerModule).to.not.equal(undefined);
+        });
     });
-
 }());
+

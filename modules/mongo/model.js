@@ -21,44 +21,44 @@
 (function() {
     'use strict';
 
-    var mongoose = require('mongoose'),
-        events = require('events'),
-        timestamps = require("mongoose-times"),
-        Schema = mongoose.Schema,
-        util = require('util');
+    if (typeof define !== 'function') {
+        var define = require('amdefine')(module);
+    }
 
-    var exports = module.exports = function Model(mongo) {
-        this.mongo = mongo;
-    };
+    define(['events', 'mongoose', 'mongoose-times', 'util'], function(events, mongoose, timestamps, util) {
+        var exports = module.exports = function Model(mongo) {
+            this.mongo = mongo;
+        };
 
-    util.inherits(exports, events.EventEmitter);
+        util.inherits(exports, events.EventEmitter);
 
-    exports.prototype.mongo = null;
+        exports.prototype.mongo = null;
 
-    exports.prototype.schema = null;
+        exports.prototype.schema = null;
 
-    exports.prototype.wirePlugin = function(schema, plugin) {
-        var p = require(plugin.path);
-        schema.plugin(p, plugin.options);
+        exports.prototype.wirePlugin = function(schema, plugin) {
+            var p = require(plugin.path);
+            schema.plugin(p, plugin.options);
 
-    };
+        };
 
-    exports.declare = function(name, schema) {
-        /**
-         * Client Schema
-         */
-        var ObjectSchema = new Schema(schema);
+        exports.declare = function(name, schema) {
+            /**
+             * Client Schema
+             */
+            var objectSchema = new  mongoose.Schema(schema);
 
-        ObjectSchema.plugin(timestamps, {
-            created: "createdAt",
-            lastUpdated: "updatedAt"
-        });
+            objectSchema.plugin(timestamps, {
+                created: "createdAt",
+                lastUpdated: "updatedAt"
+            });
 
-        mongoose.model(name, ObjectSchema);
+            mongoose.model(name, objectSchema);
 
-        this.schema = ObjectSchema;
+            this.schema = objectSchema;
 
-        return this.schema;
-    };
+            return this.schema;
+        };
+    });
 
 })();

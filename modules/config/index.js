@@ -21,18 +21,43 @@
 (function () {
     'use strict';
 
-    var util = require('util'),
-        CoreModule = require('../core');
+    if (typeof define !== 'function') {
+        var define = require('amdefine')(module);
+    }
 
-    /**
-     * Configuration module
-     * @type {ConfigModule}
-     */
-    var exports = module.exports = function ConfigModule(modules) {
-        // Call super constructor
-        ConfigModule.super_.call(this, arguments);
-    };
+    define(["../core", '../utils', 'path', 'util'], function (core, utils, path, util) {
+        /**
+         * Configuration
+         * @type {ConfigModule}
+         */
+        var exports = module.exports = function ConfigModule() {
+        };
 
-    util.inherits(exports, CoreModule);
+        util.inherits(exports, core);
 
+        /**
+         * CLI arguments - passed from user's code
+         * @type {null}
+         */
+        exports.prototype.argsInstance = null;
+
+        /**
+         * Setups CLI - assigns options
+         * @param options
+         */
+        exports.prototype.load = function(configPath, env) {
+            if(!env) {
+                env = "local";
+            }
+
+            var cfg = utils.loadConfig(configPath, env);
+            for(var prop in cfg) {
+                if(cfg.hasOwnProperty(prop)) {
+                    this[prop] = cfg[prop];
+                }
+            }
+
+            return this;
+        };
+    });
 }());

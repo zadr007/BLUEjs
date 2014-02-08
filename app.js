@@ -21,93 +21,82 @@
 (function () {
     'use strict';
 
-    var deferred = require('deferred'),
-        logger = require('./modules/logger'),
-        path = require('path'),
-        utils = require('./modules/utils');
+    if (typeof define !== 'function') {
+        var define = require('amdefine')(module);
+    }
 
-    ///*
-    // Load Core Module
-    var Core = require('./modules/core');
-    var core = new Core({});
+    var requirejs = require('requirejs');
 
-    // Initialize DEFAULT confing
-    var Config = require('./modules/config');
-    var config = new Config(core.modules);
-    core.modules.config = config;
-
-    // Load Command Line Interface Module
-    var Cli = require('./modules/cli');
-    var cli = new Cli(core.modules);
-    core.modules.cli = cli;
-
-    cli.setup({
-        // TODO: Setup CLI options for this application here
+    requirejs.config({
+        //Pass the top-level main.js/index.js require
+        //function to requirejs so that node modules
+        //are loaded relative to the top-level JS file.
+        nodeRequire: require
     });
 
-    cli.parse();
-    //*/
+    var deps = [
+        './modules/cli',
+        './modules/core',
+        './modules/core/app',
+        './modules/config',
+        './modules/logger',
+        './modules/utils',
+        'deferred',
+        'util',
+        'path'
+    ];
 
-    var defaultConfig = "config.js";
-    var defaultEnv = "local";
+    define(deps, function (Cli, Core, CoreApp, Config, logger, utils, deferred, util, path) {
+        ///*
+        var core = new Core({});
 
-    var opts = require('optimist')
+        // Load Command Line Interface Module
+        var cli = new Cli(core.modules);
+
+        // Setup CLI options
+        cli.args()
             .usage('Simple Microscratch Application.\nUsage: $0')
             .describe('h, help', 'Show Help')
             .describe('c, config', 'Config file')
-            .default('c, config', defaultConfig)
+            .default('c, config', path.join(__dirname, './config'))
             .describe('e, env', 'Specify environment')
-            .default('e, env', defaultEnv)
+            .default('e, env', 'local')
             .describe('o, option', 'Override option (name=value, server.port=1234)')
-            .describe('v, verbose', 'Verbose output')
-        ;
+            .describe('v, verbose', 'Verbose output');
 
-    var argv = opts.argv;
+        var args = cli.args();
+        var argv = args.argv;
 
-    if (argv["v"] || argv["verbose"]) {
-        logger.log("Parsed options: " + JSON.stringify(argv, null, 4));
-    }
-
-    if (argv["h"] || argv["help"]) {
-        console.log(opts.help());
-        return;
-    }
-
-    var configPath = argv["c"] || argv["config"] || defaultConfig;
-    var env = argv["e"] || argv["env"] || defaultEnv;
-
-    /**
-     * Loaded config file
-     * @type {*}
-     */
-    var config = utils.loadConfig(path.join(__dirname, configPath), env);
-
-    if (argv["v"] !== undefined || argv["verbose"] !== undefined) {
-        config.verbose = argv["v"] || argv["verbose"];
-    }
-
-    var opts = argv["o"] || argv["option"];
-    if (opts) {
-        if (Object.prototype.toString.call(opts) !== '[object Array]') {
-            opts = [opts];
+        if (argv["v"] || argv["verbose"]) {
+            console.log("Parsed options: " + JSON.stringify(argv, null, 4));
         }
 
-        for (var i = 0; i < opts.length; i++) {
-            var opt = opts[i];
-            var tokens = opt.split("=");
-            utils.setObjectProperty(config, tokens[0], tokens[1]);
+        if (argv["h"] || argv["help"]) {
+            console.log(args.help());
+            return;
         }
-    }
 
-    if (config.verbose) {
-        logger.log("Config loaded: " + JSON.stringify(config, null, 4));
-    }
+        // Load app module
+        function App(config, cli) {
+            App.super_.call(this, config, cli);
+        };
 
-    //*
-    var Server = require('./modules/server');
-    var app = new Server(config);
-    app.initialize().done(function (res) {
-        app.main();
+        util.inherits(App, CoreApp);
+
+        var config = new Config();
+        config.load(path.join(__dirname, 'config.js'), argv['e'] || "local");
+
+        if (argv['v'] || argv['verbose']) {
+            config.verbose = true;
+        }
+
+        if(config.verbose) {
+            logger.log("Config loaded: " + JSON.stringify(config, null, 4));
+        }
+
+        // Create app instance
+        var app = new App(config, cli);
+        app.run();
+        //*/
     });
-    //*/
 }());

@@ -21,23 +21,20 @@
 (function () {
     'use strict';
 
-    var util = require('util'),
-        BaseModule = require('./baseModule.js');
+    if (typeof define !== 'function') {
+        var define = require('amdefine')(module);
+    }
 
-    /**
-     * Core Module
-     * @type {CoreModule}
-     */
-    var exports = module.exports = function CoreModule(modules) {
-        // Call super constructor
-        CoreModule.super_.call(this, arguments);
+    define(['events', 'util'], function(events, util) {
+        /**
+         * Core Module
+         * @type {CoreModule}
+         */
+        var exports = module.exports = function CoreModule() {
 
-        // There need to be core module, as it's provides other modules loading, monitoring, .... functionality.
-        if(!this.modules.core) {
-            this.modules.core = this;
-        }
-    };
+        };
 
-    util.inherits(exports, BaseModule);
+        util.inherits(exports, events.EventEmitter);
+    });
 
 }());

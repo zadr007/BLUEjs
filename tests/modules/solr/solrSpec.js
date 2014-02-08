@@ -19,36 +19,23 @@
 // THE SOFTWARE.
 
 (function () {
-    'use strict';
 
-    /**
-     * Base Module
-     * @type {BaseModule}
-     */
-    var exports = module.exports = function BaseModule(modules, options) {
-        if(!modules) {
-            modules = {};
-        }
+    var child_process = require('child_process'),
+        chai = require('chai'),
+        expect = chai.expect,
+        path = require('path');
 
-        this.modules = modules;
+    describe('Module Solr', function () {
+        var SolrModule = null;
 
-        if(!options) {
-            options = {};
-        }
+        beforeEach(function () {
+            SolrModule = require(path.join(__dirname, "../../../modules/solr"));
+        });
 
-        this.options = options;
-    };
-
-    /**
-     * Modules exposed to external world.
-     * @type {{}}
-     */
-    exports.prototype.modules = {};
-
-    /**
-     * Options passed to constructor of module
-     * @type {{}}
-     */
-    exports.prototype.options = {};
-
+        it('Module Exists', function () {
+            expect(SolrModule).to.not.equal(null);
+            expect(SolrModule).to.not.equal(undefined);
+        });
+    });
 }());
+

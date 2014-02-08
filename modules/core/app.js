@@ -25,12 +25,47 @@
         var define = require('amdefine')(module);
     }
 
-    define(['../core', 'util'], function(core, util) {
-        var exports = module.exports = function SolrModule() {
-
+    define(['./index', '../utils', 'path', 'util'], function(CoreModule, utils, path, util) {
+        var exports = module.exports = function CoreApp(config, cli) {
+            this.config = config;
+            this.cli = cli;
         };
 
-        util.inherits(exports, core);
+        util.inherits(exports, CoreModule);
+
+        exports.prototype.config = null;
+
+        exports.prototype.cli = null;
+
+
+        exports.prototype.parseCliOptions = function() {
+            var argv = this.cli.args().argv;
+
+            var opts = argv["o"] || argv["option"];
+            if (opts) {
+                if (Object.prototype.toString.call(opts) !== '[object Array]') {
+                    opts = [opts];
+                }
+
+                for (var i = 0; i < opts.length; i++) {
+                    var opt = opts[i];
+                    var tokens = opt.split("=");
+                    utils.setObjectProperty(this.config, tokens[0], tokens[1]);
+                }
+            }
+        };
+
+        exports.prototype.run = function() {
+            if(this.cli) {
+                this.parseCliOptions();
+            }
+
+            var Server = require('../server');
+            var app = new Server(this.config);
+            app.initialize().done(function (res) {
+                app.main();
+            });
+        };
     });
 
 }());

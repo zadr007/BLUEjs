@@ -19,18 +19,42 @@
 // THE SOFTWARE.
 
 (function () {
-    'use strict';
 
-    if (typeof define !== 'function') {
-        var define = require('amdefine')(module);
-    }
+    var child_process = require('child_process'),
+        chai = require('chai'),
+        expect = chai.expect;
 
-    define(['../core', 'util'], function(core, util) {
-        var exports = module.exports = function SolrModule() {
+    var Optimist = require('optimist');
 
-        };
+    describe('Module CLI - setup', function () {
+        var CoreModule = null;
+        var CliModule = null;
+        var cliModule = null;
 
-        util.inherits(exports, core);
+        beforeEach(function () {
+            CoreModule = require('../../../../modules/core');
+
+            CliModule = require('../../../../modules/cli');
+            cliModule = new CliModule();
+        });
+
+        it('Optimist object exists', function () {
+            var optimist = cliModule.args();
+            expect(optimist).to.not.equal(null);
+            expect(optimist).to.not.equal(undefined);
+        });
+
+        it('Implements \'default\' method', function() {
+            expect(Optimist.default instanceof Function).to.equal(true);
+        });
+
+        it('Implements \'describe\' method', function() {
+            expect(Optimist.describe instanceof Function).to.equal(true);
+        });
+
+        it('Implements \'usage\' method', function() {
+            expect(Optimist.usage instanceof Function).to.equal(true);
+        });
     });
-
 }());
+

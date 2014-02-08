@@ -21,36 +21,37 @@
 (function () {
     'use strict';
 
-    var deferred = require('deferred'),
-        fs = require('fs'),
-        path = require('path'),
-        utils = require('../utils');
+    if (typeof define !== 'function') {
+        var define = require('amdefine')(module);
+    }
 
-    /**
-     * Intializes router
-     * @param microscratch Microscratch app which this router belongs to
-     * @param app Express app which this router belongs to
-     */
-    module.exports.initialize = function (microscratch, app) {
-        var d = deferred();
+    define(['../utils', 'deferred', 'fs', 'path'], function(utils, deferred, fs, path) {
+        /**
+         * Intializes router
+         * @param microscratch Microscratch app which this router belongs to
+         * @param app Express app which this router belongs to
+         */
+        module.exports.initialize = function (microscratch, app) {
+            var d = deferred();
 
-        var readdir = deferred.promisify(fs.readdir);
+            var readdir = deferred.promisify(fs.readdir);
 
-        var self = this;
-        var routesDir = path.join(__dirname, './routes');
-        readdir(routesDir).then(function (files) {
-            for (var i = 0; i < files.length; i++) {
-                var routePath = "./routes/" + files[i];
+            var self = this;
+            var routesDir = path.join(__dirname, './routes');
+            readdir(routesDir).then(function (files) {
+                for (var i = 0; i < files.length; i++) {
+                    var routePath = "./routes/" + files[i];
 
-                var route = require(routePath);
-                route(microscratch, app);
-            }
+                    var route = require(routePath);
+                    route(microscratch, app);
+                }
 
-            d.resolve(self);
-        });
+                d.resolve(self);
+            });
 
-        return d.promise();
+            return d.promise();
 
-    };
+        };
+    });
 
 }());

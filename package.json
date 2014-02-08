@@ -35,7 +35,9 @@
     "connect-mongo": "~0.4.0",
     "gzippo": "git://github.com/korczis/gzippo.git",
     "archy": "0.0.2",
-    "grunt-forever": "~0.4.1"
+    "grunt-forever": "~0.4.1",
+    "requirejs": "~2.1.10",
+    "amdefine": "~0.1.0"
   },
   "devDependencies": {
     "mocha": "~1.17.0",

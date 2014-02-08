@@ -21,28 +21,30 @@
 (function () {
     'use strict';
 
-    var deferred = require('deferred'),
-        request = require('request'),
-        cheerio = require('cheerio');
+    if (typeof define !== 'function') {
+        var define = require('amdefine')(module);
+    }
 
-    exports.deferredRequest = function (url) {
-        var d = deferred();
+    define(['deferred', 'request'], function(deferred, request) {
+        exports.deferredRequest = function (url) {
+            var d = deferred();
 
-        request(url, function (err, resp, body) {
-            if (err) {
-                d.reject(new Error("Unable to fetch '" + url + "', reason: " + err));
-                return;
-            }
+            request(url, function (err, resp, body) {
+                if (err) {
+                    d.reject(new Error("Unable to fetch '" + url + "', reason: " + err));
+                    return;
+                }
 
-            if (resp.statusCode !== 200) {
-                d.reject(new Error("Unable to fetch '" + url + "', code: " + resp.statusCode));
-                return;
-            }
+                if (resp.statusCode !== 200) {
+                    d.reject(new Error("Unable to fetch '" + url + "', code: " + resp.statusCode));
+                    return;
+                }
 
-            d.resolve(body);
-        });
+                d.resolve(body);
+            });
 
-        return d.promise();
-    };
+            return d.promise();
+        };
+    });
 
 }());

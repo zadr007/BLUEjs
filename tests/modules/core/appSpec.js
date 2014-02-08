@@ -19,18 +19,43 @@
 // THE SOFTWARE.
 
 (function () {
-    'use strict';
 
-    if (typeof define !== 'function') {
-        var define = require('amdefine')(module);
-    }
+    var child_process = require('child_process'),
+        chai = require('chai'),
+        expect = chai.expect;
 
-    define(['../core', 'util'], function(core, util) {
-        var exports = module.exports = function SolrModule() {
+    var CoreModule = require('../../../modules/core');
 
-        };
+    describe('Module Core - App', function () {
+        var AppModule = null;
+        var appModule = null;
 
-        util.inherits(exports, core);
+        beforeEach(function () {
+            AppModule = require('../../../modules/core/app');
+            appModule = new AppModule();
+        });
+
+        it('Loads module', function () {
+            expect(AppModule).to.not.equal(null);
+            expect(AppModule).to.not.equal(undefined);
+        });
+
+        it('Creates Instance', function () {
+            expect(appModule).to.not.equal(null);
+            expect(appModule).to.not.equal(undefined);
+        });
+
+        it('Is subclass of CoreModule', function () {
+            expect(appModule instanceof CoreModule).to.equal(true);
+        });
+
+        it('Is subclass of AppModule', function () {
+            expect(appModule instanceof AppModule).to.equal(true);
+        });
+
+        it('Implements \'run\' method', function() {
+            expect(appModule.run instanceof Function).to.equal(true);
+        });
     });
-
 }());
+

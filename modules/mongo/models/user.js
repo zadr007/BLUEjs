@@ -21,31 +21,30 @@
 (function () {
     'use strict';
 
-    /**
-     * Module dependencies.
-     */
-    var events = require('events'),
-        Model = require('../model'),
-        util = require('util');
+    if (typeof define !== 'function') {
+        var define = require('amdefine')(module);
+    }
 
-    var exports = module.exports = function User(mongo) {
-        Model.call(this, mongo);
+    define(['../model', 'events', 'util'], function(Model, events, util) {
+        var exports = module.exports = function User(mongo) {
+            User.super_.call(this, mongo);
 
-        Model.declare.call(this, 'User', {
-            name: String,
-            email: String,
-            emails: [String],
-            username: String,
-            provider: String,
-            hashed_password: String,
-            salt: String,
-            facebook: {},
-            twitter: {},
-            github: {},
-            google: {}
-        });
-    };
+            Model.declare.call(this, 'User', {
+                name: String,
+                email: String,
+                emails: [String],
+                username: String,
+                provider: String,
+                hashed_password: String,
+                salt: String,
+                facebook: {},
+                twitter: {},
+                github: {},
+                google: {}
+            });
+        };
 
-    util.inherits(exports, Model);
+        util.inherits(exports, Model);
+    });
 
 })();
