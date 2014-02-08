@@ -55,7 +55,9 @@
         }
 
         // Initialize config
-        var config = utils.loadConfig(path.join(__dirname, '../../config.js'));
+        var env = argv["e"] || "local";
+
+        var config = utils.loadConfig(path.join(__dirname, '../../config.js'), env);
 
         // Hard-coded load of config
         this.modules.config = config;
