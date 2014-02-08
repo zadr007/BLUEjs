@@ -21,226 +21,231 @@
 (function () {
     'use strict';
 
-    var deferred = require('deferred'),
-        fs = require('fs'),
-        logger = require('../logger'),
-        mongodb = require('mongodb'),
-        mongoose = require('mongoose'),
-        path = require('path');
+    if (typeof define !== 'function') {
+        var define = require('amdefine')(module);
+    }
 
-    /**
-     * Mongo wrapper
-     * @type {Mongo}
-     */
-    var exports = module.exports = function Mongo(config) {
-        this.config = config;
-        this.collections = {};
-        this.models = {};
-        this.migrations = {};
-    };
+    define(['../core', 'deferred', 'fs', 'mongodb', 'mongoose', 'path', 'util'], function(core, deferred, fs, mongodb, mongoose, path, util) {
 
-    /**
-     * Config to be used
-     * @type {object}
-     */
-    exports.prototype.config = null;
+        var logger = require('../logger');
 
-    /**
-     * Active MongoDB database
-     * @type {object}
-     */
-    exports.prototype.db = null;
+        /**
+         * Mongo wrapper
+         * @type {Mongo}
+         */
+        var exports = module.exports = function Mongo(config) {
+            this.config = config;
+            this.collections = {};
+            this.models = {};
+            this.migrations = {};
+        };
 
-    /**
-     * Preloaded collections
-     * @type {array}
-     */
-    exports.prototype.collections = null;
+        util.inherits(exports, core);
 
-    /**
-     * Loaded migrations
-     * @type {null}
-     */
-    exports.prototype.migrations = null;
+        /**
+         * Config to be used
+         * @type {object}
+         */
+        exports.prototype.config = null;
 
-    /**
-     * Loaded models
-     * @type {null}
-     */
-    exports.prototype.models = null;
+        /**
+         * Active MongoDB database
+         * @type {object}
+         */
+        exports.prototype.db = null;
 
-    /**
-     * Connects to mongo
-     * @returns {*} Promise
-     */
-    exports.prototype.connect = function () {
-        var d = deferred();
+        /**
+         * Preloaded collections
+         * @type {array}
+         */
+        exports.prototype.collections = null;
 
-        var MongoClient = require('mongodb').MongoClient;
+        /**
+         * Loaded migrations
+         * @type {null}
+         */
+        exports.prototype.migrations = null;
 
-        var self = this;
+        /**
+         * Loaded models
+         * @type {null}
+         */
+        exports.prototype.models = null;
 
-        MongoClient.connect(this.config.mongo.uri, function (err, db) {
-            if (err) {
-                throw new Error("Cannot connect to DB '" + self.config.mongo.uri + "'");
-            }
+        /**
+         * Connects to mongo
+         * @returns {*} Promise
+         */
+        exports.prototype.connect = function () {
+            var d = deferred();
 
-            if (self.config.verbose) {
-                logger.log("Connected to DB '" + self.config.mongo.uri + "'");
-            }
+            var MongoClient = require('mongodb').MongoClient;
 
-            self.db = db;
-            d.resolve(self.db);
-        });
+            var self = this;
 
-        return d.promise();
-    };
-
-    /**
-     * Loads collection by name and caches it (do not use for BIG collections!)
-     * @param collectionName {string} Name of the collection to be loaded
-     * @returns {*} Promise
-     */
-    exports.prototype.loadCollection = function (collectionName) {
-        var d = deferred();
-
-        if (this.config.verbose) {
-            logger.log("Loading collection '" + collectionName + "'");
-        }
-
-
-        var collection = this.db.collection(collectionName);
-
-        var self = this;
-        collection.find().toArray(function (err, data) {
-            if (err) {
-                d.reject(new Error(err));
-                return;
-            }
-
-            self.collections[collectionName] = data;
-
-            d.resolve(data);
-        });
-
-        return d.promise();
-    };
-
-    /**
-     * Returns loaded collection by name as promise
-     * @param collectionName
-     * @returns {*}
-     */
-    exports.prototype.getCollection = function (collectionName) {
-        if (this.config.verbose) {
-            logger.log("Loading collection '" + collectionName + "'");
-        }
-
-        var collection = this.db.collection(collectionName);
-
-        return deferred(collection);
-    };
-
-    exports.prototype.initializeModels = function () {
-        var d = deferred();
-
-        var self = this;
-        var modelsDir = path.join(__dirname, "models");
-        fs.readdir(modelsDir, function (err, files) {
-            var res = {};
-
-            files.forEach(function (file) {
-                var parts = file.split(".");
-                if(parts.length == 2 && parts[1].toLowerCase() == "js") {
-                    var fullPath = modelsDir + '/' + file;
-
-                    var relPath = path.relative(__dirname, fullPath);
-                    logger.log("Loading model file '" + relPath + "'");
-
-                    var modelName = parts[0];
-
-                    var Model = require(fullPath);
-                    var model = new Model(self);
-                    res[modelName] = model;
+            MongoClient.connect(this.config.mongo.uri, function (err, db) {
+                if (err) {
+                    throw new Error("Cannot connect to DB '" + self.config.mongo.uri + "'");
                 }
+
+                if (self.config.verbose) {
+                    logger.log("Connected to DB '" + self.config.mongo.uri + "'");
+                }
+
+                self.db = db;
+                d.resolve(self.db);
             });
 
-            self.models = res;
+            return d.promise();
+        };
 
-            d.resolve(self);
-        });
+        /**
+         * Loads collection by name and caches it (do not use for BIG collections!)
+         * @param collectionName {string} Name of the collection to be loaded
+         * @returns {*} Promise
+         */
+        exports.prototype.loadCollection = function (collectionName) {
+            var d = deferred();
 
-        return d.promise();
-    };
+            if (this.config.verbose) {
+                logger.log("Loading collection '" + collectionName + "'");
+            }
 
-    exports.prototype.initializeWatcher = function() {
-        var self = this;
-        var opt = self.config.mongo.watcher;
 
-        var watcherEnabled = opt !== null && opt !== undefined && opt.toString() === "true" || opt.toString() === "1";
-        if (watcherEnabled) {
-            var Watcher = require('./watcher.js');
-            self.watcher = new Watcher(self);
+            var collection = this.db.collection(collectionName);
 
-            return self.watcher.initialize();
-        } else {
-            return deferred(self);
-        }
-    };
-
-    exports.prototype.initializeMigrations = function () {
-        var d = deferred();
-
-        var self = this;
-        var migrationsDir = path.join(__dirname, "migrations");
-        fs.readdir(migrationsDir, function (err, files) {
-            var res = {};
-
-            files.forEach(function (file) {
-                var parts = file.split(".");
-                if(parts.length == 2 && parts[1].toLowerCase() == "js") {
-                    var fullPath = migrationsDir + '/' + file;
-
-                    var relPath = path.relative(__dirname, fullPath);
-                    logger.log("Loading migration file '" + relPath + "'");
-
-                    var migrationName = parts[0];
-
-                    var Migration = require(fullPath);
-                    var migration = new Migration(self);
-                    res[migrationName] = migration;
+            var self = this;
+            collection.find().toArray(function (err, data) {
+                if (err) {
+                    d.reject(new Error(err));
+                    return;
                 }
+
+                self.collections[collectionName] = data;
+
+                d.resolve(data);
             });
 
-            self.migrations = res;
+            return d.promise();
+        };
 
-            d.resolve(self);
-        });
+        /**
+         * Returns loaded collection by name as promise
+         * @param collectionName
+         * @returns {*}
+         */
+        exports.prototype.getCollection = function (collectionName) {
+            if (this.config.verbose) {
+                logger.log("Loading collection '" + collectionName + "'");
+            }
 
-        return d.promise();
-    };
+            var collection = this.db.collection(collectionName);
 
-    /**
-     * Initializes Mongo wrapper
-     * @returns {*} Promise
-     */
-    exports.prototype.initialize = function () {
-        var d = deferred();
+            return deferred(collection);
+        };
 
-        var self = this;
-        this.connect().then(function (res) {
-            return self.initializeModels();
-        }).then(function(res) {
-            return self.initializeMigrations();
-        }).then(function (res) {
-            return self.initializeWatcher();
-        }).done(function() {
-            d.resolve(self);
-        }, function(err) {
-            throw err;
-        });
+        exports.prototype.initializeModels = function () {
+            var d = deferred();
 
-        return d.promise();
-    };
+            var self = this;
+            var modelsDir = path.join(__dirname, "models");
+            fs.readdir(modelsDir, function (err, files) {
+                var res = {};
+
+                files.forEach(function (file) {
+                    var parts = file.split(".");
+                    if(parts.length == 2 && parts[1].toLowerCase() == "js") {
+                        var fullPath = modelsDir + '/' + file;
+
+                        var relPath = path.relative(__dirname, fullPath);
+                        logger.log("Loading model file '" + relPath + "'");
+
+                        var modelName = parts[0];
+
+                        var Model = require(fullPath);
+                        var model = new Model(self);
+                        res[modelName] = model;
+                    }
+                });
+
+                self.models = res;
+
+                d.resolve(self);
+            });
+
+            return d.promise();
+        };
+
+        exports.prototype.initializeWatcher = function() {
+            var self = this;
+            var opt = self.config.mongo.watcher;
+
+            var watcherEnabled = opt !== null && opt !== undefined && opt.toString() === "true" || opt.toString() === "1";
+            if (watcherEnabled) {
+                var Watcher = require('./watcher.js');
+                self.watcher = new Watcher(self);
+
+                return self.watcher.initialize();
+            } else {
+                return deferred(self);
+            }
+        };
+
+        exports.prototype.initializeMigrations = function () {
+            var d = deferred();
+
+            var self = this;
+            var migrationsDir = path.join(__dirname, "migrations");
+            fs.readdir(migrationsDir, function (err, files) {
+                var res = {};
+
+                files.forEach(function (file) {
+                    var parts = file.split(".");
+                    if(parts.length == 2 && parts[1].toLowerCase() == "js") {
+                        var fullPath = migrationsDir + '/' + file;
+
+                        var relPath = path.relative(__dirname, fullPath);
+                        logger.log("Loading migration file '" + relPath + "'");
+
+                        var migrationName = parts[0];
+
+                        var Migration = require(fullPath);
+                        var migration = new Migration(self);
+                        res[migrationName] = migration;
+                    }
+                });
+
+                self.migrations = res;
+
+                d.resolve(self);
+            });
+
+            return d.promise();
+        };
+
+        /**
+         * Initializes Mongo wrapper
+         * @returns {*} Promise
+         */
+        exports.prototype.initialize = function () {
+            var d = deferred();
+
+            var self = this;
+            this.connect().then(function (res) {
+                return self.initializeModels();
+            }).then(function(res) {
+                    return self.initializeMigrations();
+                }).then(function (res) {
+                    return self.initializeWatcher();
+                }).done(function() {
+                    d.resolve(self);
+                }, function(err) {
+                    throw err;
+                });
+
+            return d.promise();
+        };
+
+    });
 
 }());

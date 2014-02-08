@@ -21,35 +21,36 @@
 (function () {
     'use strict';
 
-    var util = require('util'),
-        Optimist = require('optimist'),
-        CoreModule = require('../core');
+    if (typeof define !== 'function') {
+        var define = require('amdefine')(module);
+    }
 
-    /**
-     * Command Line Interface
-     * @type {CliModule}
-     */
-    var exports = module.exports = function CliModule(modules) {
-        // Call super constructor
-        CliModule.super_.call(this, arguments);
+    define(["../core", "util", "Optimist"], function (core, util, Optimist) {
+        /**
+         * Command Line Interface
+         * @type {CliModule}
+         */
+        var exports = module.exports = function CliModule(modules) {
+            // Call super constructor
+            CliModule.super_.call(this, arguments);
 
-        this.argsInstance = Optimist;
-    };
+            this.argsInstance = Optimist;
+        };
 
-    util.inherits(exports, CoreModule);
+        util.inherits(exports, core);
 
-    /**
-     * CLI arguments - passed from user's code
-     * @type {null}
-     */
-    exports.prototype.argsInstance = null;
+        /**
+         * CLI arguments - passed from user's code
+         * @type {null}
+         */
+        exports.prototype.argsInstance = null;
 
-    /**
-     * Setups CLI - assigns options
-     * @param options
-     */
-    exports.prototype.args = function() {
-        return this.argsInstance;
-    };
-
+        /**
+         * Setups CLI - assigns options
+         * @param options
+         */
+        exports.prototype.args = function() {
+            return this.argsInstance;
+        };
+    });
 }());

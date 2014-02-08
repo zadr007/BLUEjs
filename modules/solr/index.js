@@ -21,25 +21,16 @@
 (function () {
     'use strict';
 
-    var deferred = require('deferred'),
-        merge = require('node.extend'),
-        path = require('path');
-    /**
-     * Solr wrapper
-     * @type {Solr}
-     */
-    var exports = module.exports = function Solr(config) {
-        this.config = config;
-    };
+    if (typeof define !== 'function') {
+        var define = require('amdefine')(module);
+    }
 
-    /**
-     * Initializes Solr wrapper
-     * @returns {*} Promise
-     */
-    exports.prototype.initialize = function (app) {
-        this.app = app;
+    define(['../core', 'util'], function(core, util) {
+        var exports = module.exports = function SolrModule() {
 
-        return deferred(true);
-    };
+        };
+
+        util.inherits(exports, core);
+    });
 
 }());

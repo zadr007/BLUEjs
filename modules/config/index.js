@@ -21,30 +21,43 @@
 (function () {
     'use strict';
 
-    var assert = require('assert'),
-        util = require('util'),
-        CoreModule = require('../core');
+    if (typeof define !== 'function') {
+        var define = require('amdefine')(module);
+    }
 
-    // TODO: Eliminate following
-    var UtilsModule = require('../utils');
+    define(["../core", '../utils', 'path', 'util'], function (core, utils, path, util) {
+        /**
+         * Configuration
+         * @type {ConfigModule}
+         */
+        var exports = module.exports = function ConfigModule() {
+        };
 
-    /**
-     * Configuration module
-     * @type {ConfigModule}
-     */
-    var exports = module.exports = function ConfigModule(modules) {
-        // Call super constructor
-        ConfigModule.super_.call(this, arguments);
+        util.inherits(exports, core);
 
-        // assert(this.modules.utils);
-    };
+        /**
+         * CLI arguments - passed from user's code
+         * @type {null}
+         */
+        exports.prototype.argsInstance = null;
 
-    util.inherits(exports, CoreModule);
+        /**
+         * Setups CLI - assigns options
+         * @param options
+         */
+        exports.prototype.load = function(configPath, env) {
+            if(!env) {
+                env = "local";
+            }
 
-    exports.prototype.load = function(configFilePath) {
-        var cfg = UtilsModule.loadConfig(configFilePath);
+            var cfg = utils.loadConfig(configPath, env);
+            for(var prop in cfg) {
+                if(cfg.hasOwnProperty(prop)) {
+                    this[prop] = cfg[prop];
+                }
+            }
 
-        return UtilsModule.merge(this, cfg);
-    };
-
+            return this;
+        };
+    });
 }());

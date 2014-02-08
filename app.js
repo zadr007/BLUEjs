@@ -21,52 +21,78 @@
 (function () {
     'use strict';
 
-    var deferred = require('deferred'),
-        logger = require('./modules/logger'),
-        path = require('path'),
-        util = require('util'),
-        utils = require('./modules/utils');
-
-    ///*
-    // Load Core Module
-    var Core = require('./modules/core');
-    var core = new Core({});
-
-    // Load Command Line Interface Module
-    var Cli = require('./modules/cli');
-    var cli = new Cli(core.modules);
-    core.modules.cli = cli;
-
-    // Setup CLI options
-    cli.args()
-        .usage('Simple Microscratch Application.\nUsage: $0')
-        .describe('h, help', 'Show Help')
-        .describe('c, config', 'Config file')
-        .default('c, config', path.join(__dirname, './config'))
-        .describe('e, env', 'Specify environment')
-        .default('e, env', 'local')
-        .describe('o, option', 'Override option (name=value, server.port=1234)')
-        .describe('v, verbose', 'Verbose output');
-
-    var args = cli.args();
-    var argv = args.argv;
-
-    if (argv["h"] || argv["help"]) {
-        console.log(args.help());
-        return;
+    if (typeof define !== 'function') {
+        var define = require('amdefine')(module);
     }
 
-    // Load app module
-    var AppModule = require('./modules/core/app');
+    var requirejs = require('requirejs');
 
-    var App = function(modules) {
-        App.super_.call(this, modules);
-    };
+    requirejs.config({
+        //Pass the top-level main.js/index.js require
+        //function to requirejs so that node modules
+        //are loaded relative to the top-level JS file.
+        nodeRequire: require
+    });
 
-    util.inherits(App, AppModule);
+    var deps = [
+        './modules/cli',
+        './modules/core',
+        './modules/core/app',
+        './modules/config',
+        './modules/logger',
+        './modules/utils',
+        'deferred',
+        'util',
+        'path'
+    ];
 
-    // Create app instance
-    var app = new App(core.modules);
-    app.run();
-    //*/
+    define(deps, function (Cli, Core, CoreApp, Config, logger, utils, deferred, util, path) {
+        ///*
+        var core = new Core({});
+
+        // Load Command Line Interface Module
+        var cli = new Cli(core.modules);
+
+        // Setup CLI options
+        cli.args()
+            .usage('Simple Microscratch Application.\nUsage: $0')
+            .describe('h, help', 'Show Help')
+            .describe('c, config', 'Config file')
+            .default('c, config', path.join(__dirname, './config'))
+            .describe('e, env', 'Specify environment')
+            .default('e, env', 'local')
+            .describe('o, option', 'Override option (name=value, server.port=1234)')
+            .describe('v, verbose', 'Verbose output');
+
+        var args = cli.args();
+        var argv = args.argv;
+
+        if (argv["v"] || argv["verbose"]) {
+            console.log("Parsed options: " + JSON.stringify(argv, null, 4));
+        }
+
+        if (argv["h"] || argv["help"]) {
+            console.log(args.help());
+            return;
+        }
+
+        // Load app module
+        function App(config, cli) {
+            App.super_.call(this, config, cli);
+        };
+
+        util.inherits(App, CoreApp);
+
+        var config = new Config();
+        config.load(path.join(__dirname, 'config.js'), argv['e'] || "local");
+
+        if (argv['v'] || argv['verbose']) {
+            logger.log("Config loaded: " + JSON.stringify(config, null, 4));
+        }
+
+        // Create app instance
+        var app = new App(config, cli);
+        app.run();
+        //*/
+    });
 }());

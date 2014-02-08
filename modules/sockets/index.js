@@ -21,53 +21,56 @@
 (function () {
     'use strict';
 
-    var deferred = require('deferred'),
-        merge = require('node.extend'),
-        path = require('path');
-    /**
-     * sockets.io wrapper
-     * @type {Sockets}
-     */
-    var exports = module.exports = function Sockets(config) {
-        this.config = config;
-    };
+    if (typeof define !== 'function') {
+        var define = require('amdefine')(module);
+    }
 
-    /**
-     * Config to be used
-     * @type {object}
-     */
-    exports.prototype.config = null;
-
-    /**
-     * Application to be used
-     * @type {object}
-     */
-    exports.prototype.app = null;
-
-    /**
-     * Initializes Mongo wrapper
-     * @returns {*} Promise
-     */
-    exports.prototype.initialize = function (app) {
-        var d = deferred();
-
-        this.app = app;
-
-        var socketOptions = {
-            log: this.config.verbose
+    define(['../core', 'deferred', 'util'], function(core, deferred, util) {
+        /**
+         * sockets.io wrapper
+         * @type {Sockets}
+         */
+        var exports = module.exports = function Sockets(config) {
+            this.config = config;
         };
 
-        this.io = require('socket.io').listen(this.app.server, socketOptions);
+        /**
+         * Config to be used
+         * @type {object}
+         */
+        exports.prototype.config = null;
 
-        var self = this;
+        /**
+         * Application to be used
+         * @type {object}
+         */
+        exports.prototype.app = null;
 
-        this.io.sockets.on('connection', function (socket) {
-            socket.on('msg', function (data) {
-                // TODO: Process here
+        /**
+         * Initializes Mongo wrapper
+         * @returns {*} Promise
+         */
+        exports.prototype.initialize = function (app) {
+            var d = deferred();
+
+            this.app = app;
+
+            var socketOptions = {
+                log: this.config.verbose
+            };
+
+            this.io = require('socket.io').listen(this.app.server, socketOptions);
+
+            var self = this;
+
+            this.io.sockets.on('connection', function (socket) {
+                socket.on('msg', function (data) {
+                    // TODO: Process here
+                });
             });
-        });
 
-        return deferred(this);
-    };
+            return deferred(this);
+        };
+    });
 
 }());

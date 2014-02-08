@@ -21,28 +21,30 @@
 (function () {
     'use strict';
 
-    var deferred = require('deferred'),
-        fs = require('fs'),
-        path = require('path'),
-        utils = require('../utils');
+    if (typeof define !== 'function') {
+        var define = require('amdefine')(module);
+    }
 
-    var Reloader = function () {
-        var Server = require('./index.js');
+    define(['../utils', 'fs', 'path'], function(utils, fs, path) {
+        function Reloader() {
+            var Server = require('./index.js');
 
-        this.config = utils.loadConfig(path.join(__dirname, "../../config.js"));
+            this.config = utils.loadConfig(path.join(__dirname, "../../config.js"));
 
-        this.app = new Server(this.config);
+            this.app = new Server(this.config);
 
-        this.queue = this.app.initialize();
-    };
+            this.queue = this.app.initialize();
+        };
 
-    Reloader.prototype.config = null;
+        Reloader.prototype.config = null;
 
-    Reloader.prototype.app = null;
+        Reloader.prototype.app = null;
 
-    Reloader.prototype.queue = null;
+        Reloader.prototype.queue = null;
 
-    var reloader = new Reloader();
+        var reloader = new Reloader();
 
-    module.exports = reloader.app.app;
+        module.exports = reloader.app.app;
+    });
+
 }());
