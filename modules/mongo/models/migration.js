@@ -21,21 +21,20 @@
 (function () {
     'use strict';
 
-    /**
-     * Module dependencies.
-     */
-    var events = require('events'),
-        Model = require('../model'),
-        util = require('util');
+    if (typeof define !== 'function') {
+        var define = require('amdefine')(module);
+    }
 
-    var exports = module.exports = function Migration(mongo) {
-        Model.call(this, mongo);
+    define(['../model', 'events', 'util'], function(Model, events, util) {
+        var exports = module.exports = function Migration(mongo) {
+            Migration.super_.call(this, mongo);
 
-        Model.declare.call(this, "Migration", {
-            name: String
-        });
-    };
+            Model.declare.call(this, "Migration", {
+                name: String
+            });
+        };
 
-    util.inherits(exports, Model);
+        util.inherits(exports, Model);
+    });
 
 })();

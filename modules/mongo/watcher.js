@@ -21,11 +21,21 @@
 (function () {
     'use strict';
 
-    var deferred = require('deferred'),
-        logger = require('../logger'),
-        merge = require('node.extend'),
-        mongodb = require('mongodb'),
-        mongoose = require('mongoose');
+    if (typeof define !== 'function') {
+        var define = require('amdefine')(module);
+    }
+
+    var deps = [
+        '../logger',
+        'deferred',
+        'mongodb',
+        'mongoose',
+        'node.extend'
+    ];
+
+    define(deps, function(logger, deferred, mongodb, mongoose, merge) {
+
+    });
 
     var defaultOpts = {
         onDebug: logger.log

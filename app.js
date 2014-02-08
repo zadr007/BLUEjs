@@ -87,6 +87,10 @@
         config.load(path.join(__dirname, 'config.js'), argv['e'] || "local");
 
         if (argv['v'] || argv['verbose']) {
+            config.verbose = true;
+        }
+
+        if(config.verbose) {
             logger.log("Config loaded: " + JSON.stringify(config, null, 4));
         }
 

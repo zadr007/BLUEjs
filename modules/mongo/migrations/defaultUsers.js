@@ -21,17 +21,20 @@
 (function () {
     'use strict';
 
-    /**
-     * Module dependencies.
-     */
-    var events = require('events'),
-        Migration = require('../migration'),
-        util = require('util');
+    if (typeof define !== 'function') {
+        var define = require('amdefine')(module);
+    }
 
-    var exports = module.exports = function DefaultUsersMigration(mongo) {
-        Migration.call(this, mongo);
-    };
+    if (typeof define !== 'function') {
+        var define = require('amdefine')(module);
+    }
 
-    util.inherits(exports, Migration);
+    define(['../migration', 'events', 'util'], function(Migration, events, util) {
+        var exports = module.exports = function DefaultUsersMigration(mongo) {
+            DefaultUsersMigration.super_.call(this, mongo);
+        };
+
+        util.inherits(exports, Migration);
+    });
 
 })();

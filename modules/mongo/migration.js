@@ -21,16 +21,18 @@
 (function() {
     'use strict';
 
-    var mongoose = require('mongoose'),
-        events = require('events'),
-        util = require('util');
+    if (typeof define !== 'function') {
+        var define = require('amdefine')(module);
+    }
 
-    var exports = module.exports = function Migration(mongo) {
-        this.mongo = mongo;
-    };
+    define(['events', 'mongoose', 'util'], function(events, mongoose, util) {
+        var exports = module.exports = function Migration(mongo) {
+            this.mongo = mongo;
+        };
 
-    util.inherits(exports, events.EventEmitter);
+        util.inherits(exports, events.EventEmitter);
 
-    exports.prototype.mongo = null;
+        exports.prototype.mongo = null;
+    });
 
 })();
