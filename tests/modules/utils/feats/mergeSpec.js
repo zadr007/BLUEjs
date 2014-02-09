@@ -19,61 +19,68 @@
 // THE SOFTWARE.
 
 (function () {
+    'use strict';
 
-    var child_process = require('child_process'),
-        chai = require('chai'),
-        expect = chai.expect;
+    if (typeof define !== 'function') {
+        var define = require('amdefine')(module);
+    }
 
-    describe('Module Utils - Merge', function () {
-        var UtilsModule = null,
-            personJoe = null,
-            personJohny = null;
+    define(['chai', 'dependable', 'requirejs'], function (chai, dependable, requirejs) {
+        requirejs.config(require('../../../../require.js'));
 
-        beforeEach(function () {
-            UtilsModule = require('../../../../modules/utils');
+        var expect = chai.expect;
 
-            personJoe = {
-                firstName: "Joe",
-                lastName: "Doe",
-                address: {
-                    country: "USA",
-                    city: "New York"
-                }
-            };
+        describe('Module Utils - Merge', function () {
+            var UtilsModule = null,
+                personJoe = null,
+                personJohny = null;
 
-            personJohny = {
-                firstName: "Johny",
-                lastName: "Black",
-                address: {
-                    country: "USB",
-                    city: "Old York"
-                }
-            };
-        });
+            beforeEach(function () {
+                UtilsModule = require('../../../../modules/utils');
 
-        it('Basic Merge works', function () {
-            var res = UtilsModule.merge(personJoe, personJohny);
+                personJoe = {
+                    firstName: "Joe",
+                    lastName: "Doe",
+                    address: {
+                        country: "USA",
+                        city: "New York"
+                    }
+                };
 
-            expect(res.firstName).to.equal("Johny");
-            expect(res.lastName).to.equal("Black");
-        });
+                personJohny = {
+                    firstName: "Johny",
+                    lastName: "Black",
+                    address: {
+                        country: "USB",
+                        city: "Old York"
+                    }
+                };
+            });
 
-        it('Shallow Merge works', function () {
-            var res = UtilsModule.merge(personJoe, personJohny);
+            it('Basic Merge works', function () {
+                var res = UtilsModule.merge(personJoe, personJohny);
 
-            personJohny.firstName = "Carl";
+                expect(res.firstName).to.equal("Johny");
+                expect(res.lastName).to.equal("Black");
+            });
 
-            expect(res.firstName).to.equal("Carl");
-            expect(res.lastName).to.equal("Black");
-        });
+            it('Shallow Merge works', function () {
+                var res = UtilsModule.merge(personJoe, personJohny);
 
-        it('Deep Merge works', function () {
-            var res = UtilsModule.merge(personJoe, personJohny, true);
+                personJohny.firstName = "Carl";
 
-            personJohny.firstName = "Carl";
+                expect(res.firstName).to.equal("Carl");
+                expect(res.lastName).to.equal("Black");
+            });
 
-            expect(res.firstName).to.equal("Johny");
-            expect(res.lastName).to.equal("Black");
+            it('Deep Merge works', function () {
+                var res = UtilsModule.merge(personJoe, personJohny, true);
+
+                personJohny.firstName = "Carl";
+
+                expect(res.firstName).to.equal("Johny");
+                expect(res.lastName).to.equal("Black");
+            });
         });
     });
 }());

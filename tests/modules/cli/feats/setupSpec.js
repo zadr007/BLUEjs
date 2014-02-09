@@ -19,41 +19,48 @@
 // THE SOFTWARE.
 
 (function () {
+    'use strict';
 
-    var child_process = require('child_process'),
-        chai = require('chai'),
-        expect = chai.expect;
+    if (typeof define !== 'function') {
+        var define = require('amdefine')(module);
+    }
 
-    var Optimist = require('optimist');
+    define(['chai', 'dependable', 'requirejs'], function (chai, dependable, requirejs) {
+        requirejs.config(require('../../../../require.js'));
 
-    describe('Module CLI - setup', function () {
-        var CoreModule = null;
-        var CliModule = null;
-        var cliModule = null;
+        var expect = chai.expect;
 
-        beforeEach(function () {
-            CoreModule = require('../../../../modules/core');
+        var Optimist = require('optimist');
 
-            CliModule = require('../../../../modules/cli');
-            cliModule = new CliModule();
-        });
+        describe('Module CLI - setup', function () {
+            var CoreModule = null;
+            var CliModule = null;
+            var cliModule = null;
 
-        it('Optimist object exists', function () {
-            var optimist = cliModule.args();
-            expect(optimist).to.not.equal(null);
-            expect(optimist).to.not.equal(undefined);
-        });
+            beforeEach(function () {
+                CoreModule = require('../../../../modules/core');
 
-        it('Implements \'default\' method', function() {
-            expect(Optimist.default instanceof Function).to.equal(true);
-        });
+                CliModule = require('../../../../modules/cli');
+                cliModule = new CliModule();
+            });
 
-        it('Implements \'describe\' method', function() {
-            expect(Optimist.describe instanceof Function).to.equal(true);
-        });
+            it('Optimist object exists', function () {
+                var optimist = cliModule.args();
+                expect(optimist).to.not.equal(null);
+                expect(optimist).to.not.equal(undefined);
+            });
 
-        it('Implements \'usage\' method', function() {
-            expect(Optimist.usage instanceof Function).to.equal(true);
+            it('Implements \'default\' method', function () {
+                expect(Optimist.default instanceof Function).to.equal(true);
+            });
+
+            it('Implements \'describe\' method', function () {
+                expect(Optimist.describe instanceof Function).to.equal(true);
+            });
+
+            it('Implements \'usage\' method', function () {
+                expect(Optimist.usage instanceof Function).to.equal(true);
+            });
         });
     });
 }());

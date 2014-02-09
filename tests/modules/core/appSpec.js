@@ -19,42 +19,49 @@
 // THE SOFTWARE.
 
 (function () {
+    'use strict';
 
-    var child_process = require('child_process'),
-        chai = require('chai'),
-        expect = chai.expect;
+    if (typeof define !== 'function') {
+        var define = require('amdefine')(module);
+    }
 
-    var CoreModule = require('../../../modules/core');
+    define(['chai', 'dependable', 'requirejs'], function (chai, dependable, requirejs) {
+        requirejs.config(require('../../../require.js'));
 
-    describe('Module Core - App', function () {
-        var AppModule = null;
-        var appModule = null;
+        var expect = chai.expect;
 
-        beforeEach(function () {
-            AppModule = require('../../../modules/core/app');
-            appModule = new AppModule();
-        });
+        var CoreModule = require('../../../modules/core');
 
-        it('Loads module', function () {
-            expect(AppModule).to.not.equal(null);
-            expect(AppModule).to.not.equal(undefined);
-        });
+        describe('Module Core - App', function () {
+            var AppModule = null;
+            var appModule = null;
 
-        it('Creates Instance', function () {
-            expect(appModule).to.not.equal(null);
-            expect(appModule).to.not.equal(undefined);
-        });
+            beforeEach(function () {
+                AppModule = require('../../../modules/core/app');
+                appModule = new AppModule();
+            });
 
-        it('Is subclass of CoreModule', function () {
-            expect(appModule instanceof CoreModule).to.equal(true);
-        });
+            it('Loads module', function () {
+                expect(AppModule).to.not.equal(null);
+                expect(AppModule).to.not.equal(undefined);
+            });
 
-        it('Is subclass of AppModule', function () {
-            expect(appModule instanceof AppModule).to.equal(true);
-        });
+            it('Creates Instance', function () {
+                expect(appModule).to.not.equal(null);
+                expect(appModule).to.not.equal(undefined);
+            });
 
-        it('Implements \'run\' method', function() {
-            expect(appModule.run instanceof Function).to.equal(true);
+            it('Is subclass of CoreModule', function () {
+                expect(appModule instanceof CoreModule).to.equal(true);
+            });
+
+            it('Is subclass of AppModule', function () {
+                expect(appModule instanceof AppModule).to.equal(true);
+            });
+
+            it('Implements \'run\' method', function () {
+                expect(appModule.run instanceof Function).to.equal(true);
+            });
         });
     });
 }());

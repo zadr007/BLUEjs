@@ -19,22 +19,28 @@
 // THE SOFTWARE.
 
 (function () {
+    'use strict';
 
-    var child_process = require('child_process'),
-        chai = require('chai'),
-        expect = chai.expect,
-        path = require('path');
+    if (typeof define !== 'function') {
+        var define = require('amdefine')(module);
+    }
 
-    describe('Module Server', function () {
-        var ServerModule = null;
+    define(['chai', 'dependable', 'path', 'requirejs'], function (chai, dependable, path, requirejs) {
+        requirejs.config(require('../../../require.js'));
 
-        beforeEach(function () {
-            ServerModule = require(path.join(__dirname, "../../../modules/server"));
-        });
+        var expect = chai.expect;
 
-        it('Module Exists', function () {
-            expect(ServerModule).to.not.equal(null);
-            expect(ServerModule).to.not.equal(undefined);
+        describe('Module Server', function () {
+            var ServerModule = null;
+
+            beforeEach(function () {
+                ServerModule = require(path.join(__dirname, "../../../modules/server"));
+            });
+
+            it('Module Exists', function () {
+                expect(ServerModule).to.not.equal(null);
+                expect(ServerModule).to.not.equal(undefined);
+            });
         });
     });
 }());
