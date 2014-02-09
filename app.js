@@ -39,14 +39,16 @@
         './modules/core',
         './modules/core/app',
         './modules/config',
+        './modules/etl',
         './modules/logger',
+        './modules/mongo',
         './modules/utils',
         'deferred',
         'util',
         'path'
     ];
 
-    define(deps, function (Cli, Core, CoreApp, Config, logger, utils, deferred, util, path) {
+    define(deps, function (Cli, Core, CoreApp, Config, Etl, logger, Mongo, utils, deferred, util, path) {
         ///*
         var core = new Core({});
 

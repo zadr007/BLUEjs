@@ -37,7 +37,8 @@
     "archy": "0.0.2",
     "grunt-forever": "~0.4.1",
     "requirejs": "~2.1.10",
-    "amdefine": "~0.1.0"
+    "amdefine": "~0.1.0",
+    "csv": "~0.3.7"
   },
   "devDependencies": {
     "mocha": "~1.17.0",
