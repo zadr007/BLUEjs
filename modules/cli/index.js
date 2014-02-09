@@ -25,7 +25,7 @@
         var define = require('amdefine')(module);
     }
 
-    define(["../core", "util", "Optimist"], function (core, util, Optimist) {
+    define(["../core", "util", "optimist"], function (core, util, Optimist) {
         /**
          * Command Line Interface
          * @type {CliModule}
