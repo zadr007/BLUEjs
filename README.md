@@ -14,7 +14,6 @@ Light Weight Web Application Framework using node.js, mongo, sockets, ember.js, 
 [![Code Climate](https://codeclimate.com/repos/52eeccb869568029a80003ff/badges/3fd9b15792ebb7277355/gpa.png)](https://codeclimate.com/repos/52eeccb869568029a80003ff/feed)
 [![Total views](https://sourcegraph.com/api/repos/github.com/ApolloCrawler/microscratch/counters/views.png)](https://sourcegraph.com/github.com/ApolloCrawler/microscratch) 
 
-
 ### Uptime
 
 [![uptime](https://share.pingdom.com/banners/f06c9d22)](http://stats.pingdom.com/49gq27kjt2mp/1103301)
