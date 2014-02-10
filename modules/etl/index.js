@@ -24,12 +24,12 @@
     var define = require('amdefine')(module);
 
     var deps = [
-        "../core",
         "util",
-        "csv"
+        "csv",
+        "../core"
     ];
 
-    define(deps, function (core, util, Csv) {
+    define(deps, function (util, Csv, core) {
         /**
          * ETL Interface
          * @type {EtlModule}

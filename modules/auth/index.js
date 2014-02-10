@@ -24,11 +24,11 @@
     var define = require('amdefine')(module);
 
     var deps = [
-        "../core",
-        "util"
+        "util",
+        "../core"
     ];
 
-    define(deps, function (core, util) {
+    define(deps, function (util, core) {
         /**
          * Authentication and Authorization Interface
          * @type {AuthModule}

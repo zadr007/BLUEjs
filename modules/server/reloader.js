@@ -24,9 +24,9 @@
     var define = require('amdefine')(module);
 
     var deps = [
-        '../utils',
         'fs',
-        'path'
+        'path',
+        '../utils'
     ];
 
     define(deps, function(utils, fs, path) {

@@ -24,13 +24,14 @@
     var define = require('amdefine')(module);
 
     var deps = [
-        './index',
-        '../utils',
         'path',
-        'util'
+        'util',
+        './index',
+        '../server',
+        '../utils'
     ];
 
-    define(deps, function(CoreModule, utils, path, util) {
+    define(deps, function(path, util, CoreModule, ServerModule, utils) {
         var exports = module.exports = function CoreApp(config, cli) {
             this.config = config;
             this.cli = cli;
@@ -65,8 +66,7 @@
                 this.parseCliOptions();
             }
 
-            var Server = require('../server');
-            var app = new Server(this.config);
+            var app = new ServerModule(this.config);
             app.initialize().done(function (res) {
                 app.main();
             });

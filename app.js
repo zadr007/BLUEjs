@@ -45,6 +45,7 @@
     define(deps, function (Cli, Core, CoreApp, Config, Etl, logger, Mongo, utils, deferred, util, path) {
         ///*
         var core = new Core({});
+        core.loadAllModules();
 
         // Load Command Line Interface Module
         var cli = new Cli(core.modules);

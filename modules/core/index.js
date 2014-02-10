@@ -24,11 +24,14 @@
     var define = require('amdefine')(module);
 
     var deps = [
+        'dependable',
         'events',
+        'fs',
+        'path',
         'util'
     ];
 
-    define(deps, function(events, util) {
+    define(deps, function (dependable, events, fs, path, util) {
         /**
          * Core Module
          * @type {CoreModule}
@@ -38,6 +41,25 @@
         };
 
         util.inherits(exports, events.EventEmitter);
+
+        exports.prototype.loadAllModules = function () {
+            var res = dependable.container();
+
+            console.log("Loading all modules");
+            var modulesDir = path.join(__dirname, '..');
+            fs.readdir(modulesDir, function (err, files) {
+                files.forEach(function (file) {
+                    var modulePath = path.join(modulesDir, file);
+
+                    res.register(file, require(modulePath));
+                });
+            });
+
+            res.register("resolver", this);
+
+            return res;
+        };
+
     });
 
 }());
