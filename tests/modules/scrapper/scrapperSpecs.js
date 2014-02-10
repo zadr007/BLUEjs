@@ -21,9 +21,7 @@
 (function () {
     'use strict';
 
-    if (typeof define !== 'function') {
-        var define = require('amdefine')(module);
-    }
+    var define = require('amdefine')(module);
 
     var deps = [
         'chai',
@@ -32,6 +30,7 @@
         'requirejs',
         "../../../modules/scrapper"
     ];
+
     define(deps, function (chai, dependable, path, requirejs, ScrapperModule) {
         requirejs.config(require('../../../require.js'));
 
