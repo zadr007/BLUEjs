@@ -25,23 +25,33 @@
         var define = require('amdefine')(module);
     }
 
-    define(['chai', 'dependable', 'path', 'requirejs'], function (chai, dependable, path, requirejs) {
-        requirejs.config(require('../../../require.js'));
+    define(["../core", "util"], function (core, util) {
+        /**
+         * Authentication and Authorization Interface
+         * @type {AuthModule}
+         */
+        var exports = module.exports = function AuthModule(resolver) {
+            // Call super constructor
+            AuthModule.super_.call(this, arguments);
 
-        var expect = chai.expect;
+            this.mongo = resolver.get('mongo');
+        };
 
-        describe('Module Sockets', function () {
-            var SocketsModule = null;
+        util.inherits(exports, core);
 
-            beforeEach(function () {
-                SocketsModule = require(path.join(__dirname, "../../../modules/sockets"));
-            });
+        exports.prototype.mongo = null;
 
-            it('Module Exists', function () {
-                expect(SocketsModule).to.not.equal(null);
-                expect(SocketsModule).to.not.equal(undefined);
-            });
-        });
+        exports.prototype.userAdd = function(user) {
+
+        };
+
+        exports.prototype.userRemove = function(user) {
+
+        };
+
+        exports.prototype.userList = function() {
+
+        };
+
     });
 }());
-

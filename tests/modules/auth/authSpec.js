@@ -25,39 +25,49 @@
         var define = require('amdefine')(module);
     }
 
-    define(['chai', 'dependable', 'requirejs'], function (chai, dependable, requirejs) {
+    define(['chai', 'dependable', 'requirejs'], function(chai, dependable, requirejs) {
         requirejs.config(require('../../../require.js'));
 
         var expect = chai.expect;
 
-        describe('Module Config', function () {
+        describe('Module Auth', function () {
             var CoreModule = null;
-            var ConfigModule = null;
-            var configModule = null;
+            var MongoModule = null;
+            var AuthModule = null;
+            var authModule = null;
 
             beforeEach(function () {
                 CoreModule = require('../../../modules/core');
+                AuthModule = require('../../../modules/auth');
+                MongoModule = require('../../../modules/mongo');
 
-                ConfigModule = require('../../../modules/config');
-                configModule = new ConfigModule();
+                var resolver = dependable.container();
+                resolver.register("config", {});
+                resolver.register("mongo", new MongoModule());
+
+                authModule = new AuthModule(resolver);
             });
 
             it('Loads module', function () {
-                expect(ConfigModule).to.not.equal(null);
-                expect(ConfigModule).to.not.equal(undefined);
+                expect(AuthModule).to.not.equal(null);
+                expect(AuthModule).to.not.equal(undefined);
             });
 
             it('Creates Instance', function () {
-                expect(configModule).to.not.equal(null);
-                expect(configModule).to.not.equal(undefined);
+                expect(authModule).to.not.equal(null);
+                expect(authModule).to.not.equal(undefined);
             });
 
             it('Is subclass of CoreModule', function () {
-                expect(configModule instanceof CoreModule).to.equal(true);
+                expect(authModule instanceof CoreModule).to.equal(true);
             });
 
-            it('Is subclass of ConfigModule', function () {
-                expect(configModule instanceof ConfigModule).to.equal(true);
+            it('Is subclass of AuthModule', function () {
+                expect(authModule instanceof AuthModule).to.equal(true);
+            });
+
+            it('Mongo is set', function () {
+                expect(authModule.mongo instanceof MongoModule).to.equal(true);
             });
         });
     });

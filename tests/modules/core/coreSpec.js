@@ -19,40 +19,46 @@
 // THE SOFTWARE.
 
 (function () {
+    'use strict';
 
-    var child_process = require('child_process'),
-        chai = require('chai'),
-        expect = chai.expect;
+    if (typeof define !== 'function') {
+        var define = require('amdefine')(module);
+    }
 
+    define(['chai', 'dependable', 'requirejs'], function (chai, dependable, requirejs) {
+        requirejs.config(require('../../../require.js'));
 
-    var events = require('events');
+        var expect = chai.expect;
+        var events = require('events');
 
-    describe('Module Core', function () {
-        var CoreModule = null;
-        var coreModule = null;
+        describe('Module Core', function () {
+            var CoreModule = null;
+            var coreModule = null;
 
-        beforeEach(function () {
-            CoreModule = require('../../../modules/core');
-            coreModule = new CoreModule();
+            beforeEach(function () {
+                CoreModule = require('../../../modules/core');
+                coreModule = new CoreModule();
+            });
+
+            it('Loads Core module', function () {
+                expect(CoreModule).to.not.equal(null);
+                expect(CoreModule).to.not.equal(undefined);
+            });
+
+            it('Creates Core Module Instance', function () {
+                expect(coreModule).to.not.equal(null);
+                expect(coreModule).to.not.equal(undefined);
+            });
+
+            it('coreModule subclass of CoreModule', function () {
+                expect(coreModule instanceof CoreModule).to.equal(true);
+            });
+
+            it('coreModule subclass of Events.EventEmitter', function () {
+                expect(coreModule instanceof events.EventEmitter).to.equal(true);
+            });
         });
 
-        it('Loads Core module', function () {
-            expect(CoreModule).to.not.equal(null);
-            expect(CoreModule).to.not.equal(undefined);
-        });
-
-        it('Creates Core Module Instance', function () {
-            expect(coreModule).to.not.equal(null);
-            expect(coreModule).to.not.equal(undefined);
-        });
-
-        it('coreModule subclass of CoreModule', function () {
-            expect(coreModule instanceof CoreModule).to.equal(true);
-        });
-
-        it('coreModule subclass of Events.EventEmitter', function () {
-            expect(coreModule instanceof events.EventEmitter).to.equal(true);
-        });
     });
 }());
 

@@ -19,74 +19,80 @@
 // THE SOFTWARE.
 
 (function () {
+    'use strict';
 
-    var child_process = require('child_process'),
-        chai = require('chai'),
-        expect = chai.expect;
+    if (typeof define !== 'function') {
+        var define = require('amdefine')(module);
+    }
 
+    define(['chai', 'dependable', 'path', 'requirejs'], function (chai, dependable, path, requirejs) {
+        requirejs.config(require('../../../require.js'));
 
-    describe('Module Utils', function () {
-        var UtilsModule = null;
+        var expect = chai.expect;
 
-        beforeEach(function () {
-            UtilsModule = require('../../../modules/utils');
-        });
+        describe('Module Utils', function () {
+            var UtilsModule = null;
 
-        it('Loads Utils module', function () {
-            expect(UtilsModule).to.not.equal(null);
-            expect(UtilsModule).to.not.equal(undefined);
-        });
+            beforeEach(function () {
+                UtilsModule = require('../../../modules/utils');
+            });
 
-        it('Has \'loadConfig\' method', function () {
-            expect(UtilsModule.loadConfig instanceof Function).to.equal(true);
-        });
+            it('Loads Utils module', function () {
+                expect(UtilsModule).to.not.equal(null);
+                expect(UtilsModule).to.not.equal(undefined);
+            });
 
-        it('Has \'setObjectProperty\' method', function () {
-            expect(UtilsModule.setObjectProperty instanceof Function).to.equal(true);
-        });
+            it('Has \'loadConfig\' method', function () {
+                expect(UtilsModule.loadConfig instanceof Function).to.equal(true);
+            });
 
-        it('setObjectProperty 1st level property', function () {
-            var obj = {
-                name: "tomas"
-            };
+            it('Has \'setObjectProperty\' method', function () {
+                expect(UtilsModule.setObjectProperty instanceof Function).to.equal(true);
+            });
 
-            UtilsModule.setObjectProperty(obj, 'name', 'korczis');
-            expect(obj.name).to.equal('korczis');
-        });
+            it('setObjectProperty 1st level property', function () {
+                var obj = {
+                    name: "tomas"
+                };
 
-        it('setObjectProperty 2nd level property', function () {
-            var obj = {
-                address: {
-                    country: "Czech Republic"
-                }
-            };
+                UtilsModule.setObjectProperty(obj, 'name', 'korczis');
+                expect(obj.name).to.equal('korczis');
+            });
 
-            UtilsModule.setObjectProperty(obj, 'address.country', 'USA');
-            expect(obj.address.country).to.equal('USA');
-        });
+            it('setObjectProperty 2nd level property', function () {
+                var obj = {
+                    address: {
+                        country: "Czech Republic"
+                    }
+                };
 
-        it('Has \'timestamp\' method', function () {
-            expect(UtilsModule.timestamp instanceof Function).to.equal(true);
-        });
+                UtilsModule.setObjectProperty(obj, 'address.country', 'USA');
+                expect(obj.address.country).to.equal('USA');
+            });
 
-        it('Has \'generateUUID\' method', function () {
-            expect(UtilsModule.generateUUID instanceof Function).to.equal(true);
-        });
+            it('Has \'timestamp\' method', function () {
+                expect(UtilsModule.timestamp instanceof Function).to.equal(true);
+            });
 
-        it('Has \'getPathNodes\' method', function () {
-            expect(UtilsModule.getPathNodes instanceof Function).to.equal(true);
-        });
+            it('Has \'generateUUID\' method', function () {
+                expect(UtilsModule.generateUUID instanceof Function).to.equal(true);
+            });
 
-        it('Has \'printFileTree\' method', function () {
-            expect(UtilsModule.printFileTree instanceof Function).to.equal(true);
-        });
+            it('Has \'getPathNodes\' method', function () {
+                expect(UtilsModule.getPathNodes instanceof Function).to.equal(true);
+            });
 
-        it('Has \'preprocessFile\' method', function () {
-            expect(UtilsModule.preprocessFile instanceof Function).to.equal(true);
-        });
+            it('Has \'printFileTree\' method', function () {
+                expect(UtilsModule.printFileTree instanceof Function).to.equal(true);
+            });
 
-        it('Has \'merge\' method', function () {
-            expect(UtilsModule.merge instanceof Function).to.equal(true);
+            it('Has \'preprocessFile\' method', function () {
+                expect(UtilsModule.preprocessFile instanceof Function).to.equal(true);
+            });
+
+            it('Has \'merge\' method', function () {
+                expect(UtilsModule.merge instanceof Function).to.equal(true);
+            });
         });
     });
 }());

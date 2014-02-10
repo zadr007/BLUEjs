@@ -19,41 +19,46 @@
 // THE SOFTWARE.
 
 (function () {
+    'use strict';
 
-    var child_process = require('child_process'),
-        chai = require('chai'),
-        expect = chai.expect;
+    if (typeof define !== 'function') {
+        var define = require('amdefine')(module);
+    }
 
-    var Optimist = require('optimist');
+    define(['chai', 'dependable', 'requirejs'], function (chai, dependable, requirejs) {
+        requirejs.config(require('../../../require.js'));
 
-    describe('Module CLI', function () {
-        var CoreModule = null;
-        var CliModule = null;
-        var cliModule = null;
+        var expect = chai.expect;
 
-        beforeEach(function () {
-            CoreModule = require('../../../modules/core');
+        describe('Module CLI', function () {
+            var CoreModule = null;
+            var CliModule = null;
+            var cliModule = null;
 
-            CliModule = require('../../../modules/cli');
-            cliModule = new CliModule();
-        });
+            beforeEach(function () {
+                CoreModule = require('../../../modules/core');
 
-        it('Loads module', function () {
-            expect(CliModule).to.not.equal(null);
-            expect(CliModule).to.not.equal(undefined);
-        });
+                CliModule = require('../../../modules/cli');
+                cliModule = new CliModule();
+            });
 
-        it('Creates Instance', function () {
-            expect(cliModule).to.not.equal(null);
-            expect(cliModule).to.not.equal(undefined);
-        });
+            it('Loads module', function () {
+                expect(CliModule).to.not.equal(null);
+                expect(CliModule).to.not.equal(undefined);
+            });
 
-        it('Is subclass of CoreModule', function () {
-            expect(cliModule instanceof CoreModule).to.equal(true);
-        });
+            it('Creates Instance', function () {
+                expect(cliModule).to.not.equal(null);
+                expect(cliModule).to.not.equal(undefined);
+            });
 
-        it('Is subclass of CliModule', function () {
-            expect(cliModule instanceof CliModule).to.equal(true);
+            it('Is subclass of CoreModule', function () {
+                expect(cliModule instanceof CoreModule).to.equal(true);
+            });
+
+            it('Is subclass of CliModule', function () {
+                expect(cliModule instanceof CliModule).to.equal(true);
+            });
         });
     });
 }());

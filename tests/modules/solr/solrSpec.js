@@ -19,23 +19,30 @@
 // THE SOFTWARE.
 
 (function () {
+    'use strict';
 
-    var child_process = require('child_process'),
-        chai = require('chai'),
-        expect = chai.expect,
-        path = require('path');
+    if (typeof define !== 'function') {
+        var define = require('amdefine')(module);
+    }
 
-    describe('Module Solr', function () {
-        var SolrModule = null;
+    define(['chai', 'dependable', 'path', 'requirejs'], function (chai, dependable, path, requirejs) {
+        requirejs.config(require('../../../require.js'));
 
-        beforeEach(function () {
-            SolrModule = require(path.join(__dirname, "../../../modules/solr"));
+        var expect = chai.expect;
+
+        describe('Module Solr', function () {
+            var SolrModule = null;
+
+            beforeEach(function () {
+                SolrModule = require(path.join(__dirname, "../../../modules/solr"));
+            });
+
+            it('Module Exists', function () {
+                expect(SolrModule).to.not.equal(null);
+                expect(SolrModule).to.not.equal(undefined);
+            });
         });
 
-        it('Module Exists', function () {
-            expect(SolrModule).to.not.equal(null);
-            expect(SolrModule).to.not.equal(undefined);
-        });
     });
 }());
 

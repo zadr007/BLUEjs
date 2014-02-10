@@ -19,40 +19,39 @@
 // THE SOFTWARE.
 
 (function () {
+    'use strict';
 
-    var child_process = require('child_process'),
-        events = require('events'),
-        chai = require('chai'),
-        expect = chai.expect,
-        path = require('path');
+    if (typeof define !== 'function') {
+        var define = require('amdefine')(module);
+    }
 
-    chai.use(require('sinon-chai'));
-    require('mocha-sinon');
+    define(['chai', 'dependable', 'path', 'requirejs'], function (chai, dependable, path, requirejs) {
+        requirejs.config(require('../../../require.js'));
 
-    var path = require('path'),
-        utils = require('../../../modules/utils');
+        var expect = chai.expect;
 
-    describe('Module Scrapper', function () {
-        var scrapper = null;
+        describe('Module Scrapper', function () {
+            var scrapper = null;
 
-        beforeEach(function () {
-            scrapper = require(path.join(__dirname, "../../../modules/scrapper"))
-        });
+            beforeEach(function () {
+                scrapper = require(path.join(__dirname, "../../../modules/scrapper"))
+            });
 
-        it('Module Exists', function (done) {
-            expect(scrapper).to.not.equal(null);
-            expect(scrapper).to.not.equal(undefined);
-            done();
-        });
-
-        it('Scrapes Google', function (done) {
-            var res = scrapper.deferredRequest('http://google.com').then(function (data) {
-                expect(data).to.not.equal(null);
-                expect(data).to.not.equal(undefined);
+            it('Module Exists', function (done) {
+                expect(scrapper).to.not.equal(null);
+                expect(scrapper).to.not.equal(undefined);
                 done();
-            }, function () {
-                expect(false).to.equal(true);
-                done();
+            });
+
+            it('Scrapes Google', function (done) {
+                var res = scrapper.deferredRequest('http://google.com').then(function (data) {
+                    expect(data).to.not.equal(null);
+                    expect(data).to.not.equal(undefined);
+                    done();
+                }, function () {
+                    expect(false).to.equal(true);
+                    done();
+                });
             });
         });
     });
