@@ -25,18 +25,20 @@
         var define = require('amdefine')(module);
     }
 
-    define(['chai', 'dependable', 'path', 'requirejs'], function (chai, dependable, path, requirejs) {
+    var deps = [
+        'chai',
+        'dependable',
+        'path',
+        'requirejs',
+        "../../../modules/solr"
+    ];
+
+    define(deps, function (chai, dependable, path, requirejs, SolrModule) {
         requirejs.config(require('../../../require.js'));
 
         var expect = chai.expect;
 
         describe('Module Solr', function () {
-            var SolrModule = null;
-
-            beforeEach(function () {
-                SolrModule = require(path.join(__dirname, "../../../modules/solr"));
-            });
-
             it('Module Exists', function () {
                 expect(SolrModule).to.not.equal(null);
                 expect(SolrModule).to.not.equal(undefined);

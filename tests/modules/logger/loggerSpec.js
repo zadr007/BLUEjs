@@ -25,19 +25,20 @@
         var define = require('amdefine')(module);
     }
 
-    define(['chai', 'dependable', 'requirejs'], function (chai, dependable, requirejs) {
+    var deps = [
+        'chai',
+        'dependable',
+        'requirejs',
+        '../../../modules/logger'
+    ];
+
+    define(deps, function (chai, dependable, requirejs, LoggerModule) {
         requirejs.config(require('../../../require.js'));
 
         var expect = chai.expect;
 
         describe('Module Logger', function () {
-            var LoggerModule = null;
-
-            beforeEach(function () {
-                LoggerModule = require('../../../modules/logger');
-            });
-
-            it('Loads Logger module', function () {
+           it('Loads Logger module', function () {
                 expect(LoggerModule).to.not.equal(null);
                 expect(LoggerModule).to.not.equal(undefined);
             });

@@ -25,18 +25,20 @@
         var define = require('amdefine')(module);
     }
 
-    define(['chai', 'dependable', 'path', 'requirejs'], function (chai, dependable, path, requirejs) {
+    var deps = [
+        'chai',
+        'dependable',
+        'path',
+        'requirejs',
+        '../../../modules/utils'
+    ];
+
+    define(deps, function (chai, dependable, path, requirejs, UtilsModule) {
         requirejs.config(require('../../../require.js'));
 
         var expect = chai.expect;
 
         describe('Module Utils', function () {
-            var UtilsModule = null;
-
-            beforeEach(function () {
-                UtilsModule = require('../../../modules/utils');
-            });
-
             it('Loads Utils module', function () {
                 expect(UtilsModule).to.not.equal(null);
                 expect(UtilsModule).to.not.equal(undefined);

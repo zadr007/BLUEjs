@@ -25,26 +25,27 @@
         var define = require('amdefine')(module);
     }
 
-    define(['chai', 'dependable', 'path', 'requirejs'], function (chai, dependable, path, requirejs) {
+    var deps = [
+        'chai',
+        'dependable',
+        'path',
+        'requirejs',
+        "../../../modules/scrapper"
+    ];
+    define(deps, function (chai, dependable, path, requirejs, ScrapperModule) {
         requirejs.config(require('../../../require.js'));
 
         var expect = chai.expect;
 
         describe('Module Scrapper', function () {
-            var scrapper = null;
-
-            beforeEach(function () {
-                scrapper = require(path.join(__dirname, "../../../modules/scrapper"))
-            });
-
             it('Module Exists', function (done) {
-                expect(scrapper).to.not.equal(null);
-                expect(scrapper).to.not.equal(undefined);
+                expect(ScrapperModule).to.not.equal(null);
+                expect(ScrapperModule).to.not.equal(undefined);
                 done();
             });
 
             it('Scrapes Google', function (done) {
-                var res = scrapper.deferredRequest('http://google.com').then(function (data) {
+                var res = ScrapperModule.deferredRequest('http://google.com').then(function (data) {
                     expect(data).to.not.equal(null);
                     expect(data).to.not.equal(undefined);
                     done();

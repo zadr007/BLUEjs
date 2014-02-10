@@ -25,19 +25,23 @@
         var define = require('amdefine')(module);
     }
 
-    define(['chai', 'dependable', 'requirejs'], function (chai, dependable, requirejs) {
+    var deps = [
+        'chai',
+        'dependable',
+        'requirejs',
+        '../../../../modules/utils'
+    ];
+
+    define(deps, function (chai, dependable, requirejs, UtilsModule) {
         requirejs.config(require('../../../../require.js'));
 
         var expect = chai.expect;
 
         describe('Module Utils - Merge', function () {
-            var UtilsModule = null,
-                personJoe = null,
+            var personJoe = null,
                 personJohny = null;
 
             beforeEach(function () {
-                UtilsModule = require('../../../../modules/utils');
-
                 personJoe = {
                     firstName: "Joe",
                     lastName: "Doe",

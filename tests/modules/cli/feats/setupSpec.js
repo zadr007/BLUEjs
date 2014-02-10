@@ -25,22 +25,23 @@
         var define = require('amdefine')(module);
     }
 
-    define(['chai', 'dependable', 'requirejs'], function (chai, dependable, requirejs) {
+    var deps = [
+        'chai',
+        'dependable',
+        'Optimist',
+        'requirejs',
+        '../../../../modules/cli'
+    ];
+
+    define(deps, function (chai, dependable, Optimist, requirejs, CliModule) {
         requirejs.config(require('../../../../require.js'));
 
         var expect = chai.expect;
 
-        var Optimist = require('optimist');
-
         describe('Module CLI - setup', function () {
-            var CoreModule = null;
-            var CliModule = null;
             var cliModule = null;
 
             beforeEach(function () {
-                CoreModule = require('../../../../modules/core');
-
-                CliModule = require('../../../../modules/cli');
                 cliModule = new CliModule();
             });
 

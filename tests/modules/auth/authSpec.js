@@ -25,21 +25,24 @@
         var define = require('amdefine')(module);
     }
 
-    define(['chai', 'dependable', 'requirejs'], function(chai, dependable, requirejs) {
+    var deps = [
+        'chai',
+        'dependable',
+        'requirejs',
+        '../../../modules/auth',
+        '../../../modules/core',
+        '../../../modules/mongo'
+    ];
+
+    define(deps, function(chai, dependable, requirejs, AuthModule, CoreModule, MongoModule) {
         requirejs.config(require('../../../require.js'));
 
         var expect = chai.expect;
 
         describe('Module Auth', function () {
-            var CoreModule = null;
-            var MongoModule = null;
-            var AuthModule = null;
             var authModule = null;
 
             beforeEach(function () {
-                CoreModule = require('../../../modules/core');
-                AuthModule = require('../../../modules/auth');
-                MongoModule = require('../../../modules/mongo');
 
                 var resolver = dependable.container();
                 resolver.register("config", {});
