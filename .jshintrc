@@ -5,8 +5,10 @@
     "browser": true,
 
     "globals": {
+        "beforeEach": true,
         "console": true,
-        "describe": true
+        "define": true,
+        "describe": true,
         "it": true,
         "module": true,
         "process": true,
