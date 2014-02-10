@@ -25,18 +25,20 @@
         var define = require('amdefine')(module);
     }
 
-    define(['chai', 'dependable', 'path', 'requirejs'], function (chai, dependable, path, requirejs) {
+    var deps = [
+        'chai',
+        'dependable',
+        'path',
+        'requirejs',
+        "../../../modules/sockets"
+    ];
+
+    define(deps, function (chai, dependable, path, requirejs, SocketsModule) {
         requirejs.config(require('../../../require.js'));
 
         var expect = chai.expect;
 
         describe('Module Sockets', function () {
-            var SocketsModule = null;
-
-            beforeEach(function () {
-                SocketsModule = require(path.join(__dirname, "../../../modules/sockets"));
-            });
-
             it('Module Exists', function () {
                 expect(SocketsModule).to.not.equal(null);
                 expect(SocketsModule).to.not.equal(undefined);

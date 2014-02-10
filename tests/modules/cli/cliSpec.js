@@ -25,20 +25,23 @@
         var define = require('amdefine')(module);
     }
 
-    define(['chai', 'dependable', 'requirejs'], function (chai, dependable, requirejs) {
+    var deps = [
+        'chai',
+        'dependable',
+        'requirejs',
+        '../../../modules/cli',
+        '../../../modules/core'
+    ];
+
+    define(deps, function (chai, dependable, requirejs, CliModule, CoreModule) {
         requirejs.config(require('../../../require.js'));
 
         var expect = chai.expect;
 
         describe('Module CLI', function () {
-            var CoreModule = null;
-            var CliModule = null;
             var cliModule = null;
 
             beforeEach(function () {
-                CoreModule = require('../../../modules/core');
-
-                CliModule = require('../../../modules/cli');
                 cliModule = new CliModule();
             });
 

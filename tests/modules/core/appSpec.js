@@ -25,19 +25,23 @@
         var define = require('amdefine')(module);
     }
 
-    define(['chai', 'dependable', 'requirejs'], function (chai, dependable, requirejs) {
+    var deps = [
+        'chai',
+        'dependable',
+        'requirejs',
+        '../../../modules/core',
+        '../../../modules/core/app'
+    ];
+
+    define(deps, function (chai, dependable, requirejs, CoreModule, AppModule) {
         requirejs.config(require('../../../require.js'));
 
         var expect = chai.expect;
 
-        var CoreModule = require('../../../modules/core');
-
         describe('Module Core - App', function () {
-            var AppModule = null;
             var appModule = null;
 
             beforeEach(function () {
-                AppModule = require('../../../modules/core/app');
                 appModule = new AppModule();
             });
 
