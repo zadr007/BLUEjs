@@ -29,7 +29,7 @@
         '../core',
         'util'
     ];
-    
+
     define(deps, function(core, util) {
         var exports = module.exports = function SolrModule() {
 
