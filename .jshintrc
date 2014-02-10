@@ -1,0 +1,16 @@
+{
+    "curly": true,
+    "eqeqeq": true,
+    "eqnull": true,
+    "browser": true,
+
+    "globals": {
+        "console": true,
+        "describe": true
+        "it": true,
+        "module": true,
+        "process": true,
+        "require": true,
+        "window": true
+    }
+}
