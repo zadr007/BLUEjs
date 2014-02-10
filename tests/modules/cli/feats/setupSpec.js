@@ -28,7 +28,7 @@
     var deps = [
         'chai',
         'dependable',
-        'Optimist',
+        'optimist',
         'requirejs',
         '../../../../modules/cli'
     ];
