@@ -25,7 +25,13 @@
         var define = require('amdefine')(module);
     }
 
-    define(['../model', 'events', 'util'], function(Model, events, util) {
+    var deps = [
+        '../model',
+        'events',
+        'util'
+    ];
+
+    define(deps, function(Model, events, util) {
         var exports = module.exports = function Migration(mongo) {
             Migration.super_.call(this, mongo);
 

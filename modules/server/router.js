@@ -25,7 +25,14 @@
         var define = require('amdefine')(module);
     }
 
-    define(['../utils', 'deferred', 'fs', 'path'], function(utils, deferred, fs, path) {
+    var deps = [
+        '../utils',
+        'deferred',
+        'fs',
+        'path'
+    ];
+
+    define(deps, function(utils, deferred, fs, path) {
         /**
          * Intializes router
          * @param microscratch Microscratch app which this router belongs to

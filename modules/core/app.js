@@ -25,7 +25,14 @@
         var define = require('amdefine')(module);
     }
 
-    define(['./index', '../utils', 'path', 'util'], function(CoreModule, utils, path, util) {
+    var deps = [
+        './index',
+        '../utils',
+        'path',
+        'util'
+    ];
+
+    define(deps, function(CoreModule, utils, path, util) {
         var exports = module.exports = function CoreApp(config, cli) {
             this.config = config;
             this.cli = cli;

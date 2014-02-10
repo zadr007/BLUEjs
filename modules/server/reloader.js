@@ -25,7 +25,13 @@
         var define = require('amdefine')(module);
     }
 
-    define(['../utils', 'fs', 'path'], function(utils, fs, path) {
+    var deps = [
+        '../utils',
+        'fs',
+        'path'
+    ];
+
+    define(deps, function(utils, fs, path) {
         function Reloader() {
             var Server = require('./index.js');
 

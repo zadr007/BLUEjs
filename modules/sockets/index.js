@@ -25,7 +25,14 @@
         var define = require('amdefine')(module);
     }
 
-    define(['../core', 'deferred', 'util'], function(core, deferred, util) {
+    var deps = [
+        '../core',
+        'deferred',
+        'socket.io',
+        'util'
+    ];
+
+    define(deps, function(core, deferred, socketio, util) {
         /**
          * sockets.io wrapper
          * @type {Sockets}
@@ -59,7 +66,7 @@
                 log: this.config.verbose
             };
 
-            this.io = require('socket.io').listen(this.app.server, socketOptions);
+            this.io = socketio.listen(this.app.server, socketOptions);
 
             var self = this;
 

@@ -25,7 +25,12 @@
         var define = require('amdefine')(module);
     }
 
-    define(['events', 'util'], function(events, util) {
+    var deps = [
+        'events',
+        'util'
+    ];
+
+    define(deps, function(events, util) {
         /**
          * Core Module
          * @type {CoreModule}

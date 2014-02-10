@@ -25,7 +25,14 @@
         var define = require('amdefine')(module);
     }
 
-    define(['events', 'mongoose', 'mongoose-times', 'util'], function(events, mongoose, timestamps, util) {
+    var deps = [
+        'events',
+        'mongoose',
+        'mongoose-times',
+        'util'
+    ];
+
+    define(deps, function(events, mongoose, timestamps, util) {
         var exports = module.exports = function Model(mongo) {
             this.mongo = mongo;
         };
