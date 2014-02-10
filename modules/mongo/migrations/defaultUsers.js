@@ -21,13 +21,7 @@
 (function () {
     'use strict';
 
-    if (typeof define !== 'function') {
-        var define = require('amdefine')(module);
-    }
-
-    if (typeof define !== 'function') {
-        var define = require('amdefine')(module);
-    }
+    var define = require('amdefine')(module);
 
     var deps = [
         '../migration',
