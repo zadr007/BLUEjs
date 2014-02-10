@@ -25,7 +25,12 @@
         var define = require('amdefine')(module);
     }
 
-    define(['../core', 'util'], function(core, util) {
+    var deps = [
+        '../core',
+        'util'
+    ];
+    
+    define(deps, function(core, util) {
         var exports = module.exports = function SolrModule() {
 
         };

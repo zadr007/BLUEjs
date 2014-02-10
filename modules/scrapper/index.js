@@ -25,7 +25,12 @@
         var define = require('amdefine')(module);
     }
 
-    define(['deferred', 'request'], function(deferred, request) {
+    var deps = [
+        'deferred',
+        'request'
+    ];
+
+    define(deps, function(deferred, request) {
         exports.deferredRequest = function (url) {
             var d = deferred();
 

@@ -29,7 +29,13 @@
         var define = require('amdefine')(module);
     }
 
-    define(['../migration', 'events', 'util'], function(Migration, events, util) {
+    var deps = [
+        '../migration',
+        'events',
+        'util'
+    ];
+
+    define(deps, function(Migration, events, util) {
         var exports = module.exports = function DefaultUsersMigration(mongo) {
             DefaultUsersMigration.super_.call(this, mongo);
         };

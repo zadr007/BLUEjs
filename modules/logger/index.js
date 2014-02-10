@@ -25,7 +25,11 @@
         var define = require('amdefine')(module);
     }
 
-    define(["../utils"], function(utils) {
+    var deps = [
+        "../utils"
+    ];
+
+    define(deps, function(utils) {
         var log = function (msg) {
             console.log("[" + utils.timestamp() + "] " + msg);
         };

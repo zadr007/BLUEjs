@@ -25,7 +25,14 @@
         var define = require('amdefine')(module);
     }
 
-    define(["../core", '../utils', 'path', 'util'], function (core, utils, path, util) {
+    var deps = [
+        "../core",
+        '../utils',
+        'path',
+        'util'
+    ];
+
+    define(deps, function (core, utils, path, util) {
         /**
          * Configuration
          * @type {ConfigModule}
