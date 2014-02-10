@@ -24,8 +24,11 @@
     var define = require('amdefine')(module);
 
     var deps = [
+        'connect-mongo',
         'deferred',
+        'express3-handlebars',
         'express',
+        'gzippo',
         'http',
         'path',
         'util',
@@ -36,10 +39,8 @@
         '../utils'
     ];
 
-    define(deps, function(deferred, express, http, path, util, core, logger, Mongo, Sockets, utils) {
-        var exphbs = require('express3-handlebars'),
-            gzippo = require('gzippo'),
-            MongoStore = require('connect-mongo')(express);
+    define(deps, function(Cm, deferred, exphbs, express, gzippo, http, path, util, core, logger, Mongo, Sockets, utils) {
+        var MongoStore = Cm(express);
 
         var exports = module.exports = function ServerModule(config) {
             this.config = config || {};
