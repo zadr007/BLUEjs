@@ -42,7 +42,7 @@
 
             beforeEach(function () {
 
-                var resolver = (new CoreModule()).loadAllModules();
+                var resolver = new CoreModule().loadAllModules();
                 resolver.register("mongo", new MongoModule());
 
                 authModule = new AuthModule(resolver);

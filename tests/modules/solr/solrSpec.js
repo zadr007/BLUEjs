@@ -37,9 +37,28 @@
         var expect = chai.expect;
 
         describe('Module Solr', function () {
+            var solrModule = null;
+
+            beforeEach(function () {
+                solrModule = new SolrModule();
+            });
+
             it('Module Exists', function () {
-                expect(SolrModule).to.not.equal(null);
-                expect(SolrModule).to.not.equal(undefined);
+                expect(solrModule).to.not.equal(null);
+                expect(solrModule).to.not.equal(undefined);
+            });
+
+            it('Creates Instance', function () {
+                expect(solrModule).to.not.equal(null);
+                expect(solrModule).to.not.equal(undefined);
+            });
+
+            it('Is subclass of CoreModule', function () {
+                expect(solrModule instanceof SolrModule).to.equal(true);
+            });
+
+            it('Is subclass of CliModule', function () {
+                expect(solrModule instanceof SolrModule).to.equal(true);
             });
         });
 

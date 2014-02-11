@@ -32,9 +32,13 @@
     ];
 
     define(deps, function(path, util, CoreModule, ServerModule, utils) {
-        var exports = module.exports = function CoreApp(config, cli) {
-            this.config = config;
-            this.cli = cli;
+        var exports = module.exports = function CoreApp(resolver) {
+            // Call super constructor
+            CoreApp.super_.call(this, resolver);
+
+            this.cli = this.resolver.get('cli');
+
+            this.config = this.resolver.get('config');
         };
 
         util.inherits(exports, CoreModule);
@@ -42,7 +46,6 @@
         exports.prototype.config = null;
 
         exports.prototype.cli = null;
-
 
         exports.prototype.parseCliOptions = function() {
             var argv = this.cli.args().argv;
@@ -66,7 +69,7 @@
                 this.parseCliOptions();
             }
 
-            var app = new ServerModule(this.config);
+            var app = new ServerModule(this.resolver);
             app.initialize().done(function (res) {
                 app.main();
             });

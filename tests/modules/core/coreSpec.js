@@ -60,6 +60,11 @@
             it('coreModule subclass of Events.EventEmitter', function () {
                 expect(coreModule instanceof events.EventEmitter).to.equal(true);
             });
+
+            it('Has Resolver', function () {
+                expect(coreModule.resolver).to.not.equal(null);
+                expect(coreModule.resolver).to.not.equal(undefined);
+            });
         });
 
     });

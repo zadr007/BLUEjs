@@ -35,7 +35,8 @@
          * Configuration
          * @type {ConfigModule}
          */
-        var exports = module.exports = function ConfigModule() {
+        var exports = module.exports = function ConfigModule(resolver) {
+            ConfigModule.super_.call(this, resolver);
         };
 
         util.inherits(exports, core);

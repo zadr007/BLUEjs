@@ -42,8 +42,10 @@
     define(deps, function(Cm, deferred, exphbs, express, gzippo, http, path, util, core, logger, Mongo, Sockets, utils) {
         var MongoStore = Cm(express);
 
-        var exports = module.exports = function ServerModule(config) {
-            this.config = config || {};
+        var exports = module.exports = function ServerModule(resolver) {
+            ServerModule.super_.call(this, resolver);
+            
+            this.config = this.resolver.get('config');
 
             this.mongo = new Mongo(this.config);
 

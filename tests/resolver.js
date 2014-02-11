@@ -21,40 +21,32 @@
 (function () {
     'use strict';
 
+    //*
     var define = require('amdefine')(module);
 
     var deps = [
-        "util",
-        "optimist",
-        "../core"
+        '../modules/cli',
+        '../modules/config',
+        'dependable',
+        'path'
     ];
 
-    define(deps, function (util, Optimist, core) {
-        /**
-         * Command Line Interface
-         * @type {CliModule}
-         */
-        var exports = module.exports = function CliModule(resolver) {
-            // Call super constructor
-            CliModule.super_.call(this, resolver);
+    define(deps, function (Cli, Config, dependable, path) {
 
-            this.argsInstance = Optimist;
-        };
+        module.exports = (function () {
+            var resolver = dependable.container();
 
-        util.inherits(exports, core);
+            var config = new Config(resolver);
+            config.load(path.join(__dirname, '../config.js'), "test");
 
-        /**
-         * CLI arguments - passed from user's code
-         * @type {null}
-         */
-        exports.prototype.argsInstance = null;
+            resolver.register('config', config);
 
-        /**
-         * Setups CLI - assigns options
-         * @param options
-         */
-        exports.prototype.args = function() {
-            return this.argsInstance;
-        };
+            var cli = new Cli(resolver);
+            resolver.register('cli', cli);
+
+            return resolver;
+        }());
     });
+    //*/
+
 }());

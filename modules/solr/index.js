@@ -29,8 +29,9 @@
     ];
 
     define(deps, function(util, core) {
-        var exports = module.exports = function SolrModule() {
-
+        var exports = module.exports = function SolrModule(resolver) {
+            // Call super constructor
+            SolrModule.super_.call(this, arguments);
         };
 
         util.inherits(exports, core);

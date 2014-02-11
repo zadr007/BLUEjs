@@ -38,17 +38,19 @@
         './modules/mongo',
         './modules/utils',
         'deferred',
+        'dependable',
         'util',
         'path'
     ];
 
-    define(deps, function (Cli, Core, CoreApp, Config, Etl, logger, Mongo, utils, deferred, util, path) {
+    define(deps, function (Cli, Core, CoreApp, Config, Etl, logger, Mongo, utils, deferred, dependable, util, path) {
         ///*
-        var core = new Core({});
-        core.loadAllModules();
+        var resolver = dependable.container();
 
         // Load Command Line Interface Module
-        var cli = new Cli(core.modules);
+        var cli = new Cli(resolver);
+
+        resolver.register('cli', cli);
 
         // Setup CLI options
         cli.args()
@@ -74,14 +76,16 @@
         }
 
         // Load app module
-        function App(config, cli) {
-            App.super_.call(this, config, cli);
+        function App(resolver) {
+            App.super_.call(this, resolver);
         };
 
         util.inherits(App, CoreApp);
 
         var config = new Config();
         config.load(path.join(__dirname, 'config.js'), argv['e'] || "local");
+
+        resolver.register('config', config);
 
         if (argv['v'] || argv['verbose']) {
             config.verbose = true;
@@ -92,7 +96,7 @@
         }
 
         // Create app instance
-        var app = new App(config, cli);
+        var app = new App(resolver);
         app.run();
         //*/
     });
