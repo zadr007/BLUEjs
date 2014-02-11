@@ -31,20 +31,20 @@
         'requirejs'
     ];
 
-    define(deps, function (ScrapperModule, chai, dependable, path, requirejs) {
+    define(deps, function (Scrapper, chai, dependable, path, requirejs) {
         requirejs.config(require('../../../require.js'));
 
         var expect = chai.expect;
 
         describe('Module Scrapper', function () {
             it('Module Exists', function (done) {
-                expect(ScrapperModule).to.not.equal(null);
-                expect(ScrapperModule).to.not.equal(undefined);
+                expect(Scrapper).to.not.equal(null);
+                expect(Scrapper).to.not.equal(undefined);
                 done();
             });
 
             it('Scrapes Google', function (done) {
-                var res = ScrapperModule.deferredRequest('http://google.com').then(function (data) {
+                var res = Scrapper.deferredRequest('http://google.com').then(function (data) {
                     expect(data).to.not.equal(null);
                     expect(data).to.not.equal(undefined);
                     done();

@@ -31,7 +31,7 @@
         'requirejs'
     ];
 
-    define(deps, function (CoreModule, chai, dependable, events, requirejs) {
+    define(deps, function (Core, chai, dependable, events, requirejs) {
         requirejs.config(require('../../../require.js'));
 
         var expect = chai.expect;
@@ -40,12 +40,12 @@
             var coreModule = null;
 
             beforeEach(function () {
-                coreModule = new CoreModule();
+                coreModule = new Core();
             });
 
             it('Loads Core module', function () {
-                expect(CoreModule).to.not.equal(null);
-                expect(CoreModule).to.not.equal(undefined);
+                expect(Core).to.not.equal(null);
+                expect(Core).to.not.equal(undefined);
             });
 
             it('Creates Core Module Instance', function () {
@@ -53,8 +53,8 @@
                 expect(coreModule).to.not.equal(undefined);
             });
 
-            it('coreModule subclass of CoreModule', function () {
-                expect(coreModule instanceof CoreModule).to.equal(true);
+            it('coreModule subclass of Core', function () {
+                expect(coreModule instanceof Core).to.equal(true);
             });
 
             it('coreModule subclass of Events.EventEmitter', function () {

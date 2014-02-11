@@ -36,6 +36,8 @@
             Model.declare.call(this, "Migration", {
                 name: String
             });
+
+            return this;
         };
 
         util.inherits(exports, Model);

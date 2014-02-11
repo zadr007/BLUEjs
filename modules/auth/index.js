@@ -28,7 +28,7 @@
         "util"
     ];
 
-    define(deps, function (core, util) {
+    define(deps, function (Core, util) {
         /**
          * Authentication and Authorization Interface
          * @type {AuthModule}
@@ -40,7 +40,7 @@
             this.mongo = resolver.get('mongo');
         };
 
-        util.inherits(exports, core);
+        util.inherits(exports, Core);
 
         exports.prototype.mongo = null;
 

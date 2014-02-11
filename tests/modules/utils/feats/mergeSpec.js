@@ -30,7 +30,7 @@
         'requirejs'
     ];
 
-    define(deps, function (UtilsModule, chai, dependable, requirejs) {
+    define(deps, function (Utils, chai, dependable, requirejs) {
         requirejs.config(require('../../../../require.js'));
 
         var expect = chai.expect;
@@ -60,14 +60,14 @@
             });
 
             it('Basic Merge works', function () {
-                var res = UtilsModule.merge(personJoe, personJohny);
+                var res = Utils.merge(personJoe, personJohny);
 
                 expect(res.firstName).to.equal("Johny");
                 expect(res.lastName).to.equal("Black");
             });
 
             it('Shallow Merge works', function () {
-                var res = UtilsModule.merge(personJoe, personJohny);
+                var res = Utils.merge(personJoe, personJohny);
 
                 personJohny.firstName = "Carl";
 
@@ -76,7 +76,7 @@
             });
 
             it('Deep Merge works', function () {
-                var res = UtilsModule.merge(personJoe, personJohny, true);
+                var res = Utils.merge(personJoe, personJohny, true);
 
                 personJohny.firstName = "Carl";
 

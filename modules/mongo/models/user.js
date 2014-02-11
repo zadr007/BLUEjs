@@ -46,6 +46,8 @@
                 github: {},
                 google: {}
             });
+
+            return this;
         };
 
         util.inherits(exports, Model);

@@ -33,7 +33,7 @@
         'requirejs',
     ];
 
-    define(deps, function(resolver, AuthModule, CoreModule, MongoModule, chai, dependable, requirejs) {
+    define(deps, function(resolver, Auth, Core, Mongo, chai, dependable, requirejs) {
         requirejs.config(require('../../../require.js'));
 
         var expect = chai.expect;
@@ -42,14 +42,14 @@
             var authModule = null;
 
             beforeEach(function () {
-                resolver.register("mongo", new MongoModule(resolver));
+                resolver.register("mongo", new Mongo(resolver));
 
-                authModule = new AuthModule(resolver);
+                authModule = new Auth(resolver);
             });
 
             it('Loads module', function () {
-                expect(AuthModule).to.not.equal(null);
-                expect(AuthModule).to.not.equal(undefined);
+                expect(Auth).to.not.equal(null);
+                expect(Auth).to.not.equal(undefined);
             });
 
             it('Creates Instance', function () {
@@ -57,16 +57,16 @@
                 expect(authModule).to.not.equal(undefined);
             });
 
-            it('Is subclass of CoreModule', function () {
-                expect(authModule instanceof CoreModule).to.equal(true);
+            it('Is subclass of Core', function () {
+                expect(authModule instanceof Core).to.equal(true);
             });
 
-            it('Is subclass of AuthModule', function () {
-                expect(authModule instanceof AuthModule).to.equal(true);
+            it('Is subclass of Auth', function () {
+                expect(authModule instanceof Auth).to.equal(true);
             });
 
             it('Mongo is set', function () {
-                expect(authModule.mongo instanceof MongoModule).to.equal(true);
+                expect(authModule.mongo instanceof Mongo).to.equal(true);
             });
         });
     });

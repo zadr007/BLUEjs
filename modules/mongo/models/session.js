@@ -36,6 +36,8 @@
             Model.declare.call(this, 'Session', {
                 session: String
             });
+
+            return this;
         };
 
         util.inherits(exports, Model);

@@ -31,23 +31,23 @@
         'requirejs'
     ];
 
-    define(deps, function (UtilsModule, chai, dependable, path, requirejs) {
+    define(deps, function (Utils, chai, dependable, path, requirejs) {
         requirejs.config(require('../../../require.js'));
 
         var expect = chai.expect;
 
         describe('Module Utils', function () {
             it('Loads Utils module', function () {
-                expect(UtilsModule).to.not.equal(null);
-                expect(UtilsModule).to.not.equal(undefined);
+                expect(Utils).to.not.equal(null);
+                expect(Utils).to.not.equal(undefined);
             });
 
             it('Has \'loadConfig\' method', function () {
-                expect(UtilsModule.loadConfig instanceof Function).to.equal(true);
+                expect(Utils.loadConfig instanceof Function).to.equal(true);
             });
 
             it('Has \'setObjectProperty\' method', function () {
-                expect(UtilsModule.setObjectProperty instanceof Function).to.equal(true);
+                expect(Utils.setObjectProperty instanceof Function).to.equal(true);
             });
 
             it('setObjectProperty 1st level property', function () {
@@ -55,7 +55,7 @@
                     name: "tomas"
                 };
 
-                UtilsModule.setObjectProperty(obj, 'name', 'korczis');
+                Utils.setObjectProperty(obj, 'name', 'korczis');
                 expect(obj.name).to.equal('korczis');
             });
 
@@ -66,32 +66,32 @@
                     }
                 };
 
-                UtilsModule.setObjectProperty(obj, 'address.country', 'USA');
+                Utils.setObjectProperty(obj, 'address.country', 'USA');
                 expect(obj.address.country).to.equal('USA');
             });
 
             it('Has \'timestamp\' method', function () {
-                expect(UtilsModule.timestamp instanceof Function).to.equal(true);
+                expect(Utils.timestamp instanceof Function).to.equal(true);
             });
 
             it('Has \'generateUUID\' method', function () {
-                expect(UtilsModule.generateUUID instanceof Function).to.equal(true);
+                expect(Utils.generateUUID instanceof Function).to.equal(true);
             });
 
             it('Has \'getPathNodes\' method', function () {
-                expect(UtilsModule.getPathNodes instanceof Function).to.equal(true);
+                expect(Utils.getPathNodes instanceof Function).to.equal(true);
             });
 
             it('Has \'printFileTree\' method', function () {
-                expect(UtilsModule.printFileTree instanceof Function).to.equal(true);
+                expect(Utils.printFileTree instanceof Function).to.equal(true);
             });
 
             it('Has \'preprocessFile\' method', function () {
-                expect(UtilsModule.preprocessFile instanceof Function).to.equal(true);
+                expect(Utils.preprocessFile instanceof Function).to.equal(true);
             });
 
             it('Has \'merge\' method', function () {
-                expect(UtilsModule.merge instanceof Function).to.equal(true);
+                expect(Utils.merge instanceof Function).to.equal(true);
             });
         });
     });

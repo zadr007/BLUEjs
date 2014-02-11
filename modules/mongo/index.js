@@ -33,7 +33,7 @@
         'util'
     ];
 
-    define(deps, function(core, deferred, fs, mongodb, mongoose, path, util) {
+    define(deps, function(Core, deferred, fs, mongodb, mongoose, path, util) {
 
         var logger = require('../logger');
 
@@ -51,7 +51,7 @@
             this.migrations = {};
         };
 
-        util.inherits(exports, core);
+        util.inherits(exports, Core);
 
         /**
          * Config to be used
@@ -172,6 +172,9 @@
                         logger.log("Loading model file '" + relPath + "'");
 
                         var modelName = parts[0];
+                        if(res[modelName]) {
+                            return;
+                        }
 
                         var Model = require(fullPath);
                         var model = new Model(self);

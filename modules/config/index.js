@@ -30,7 +30,7 @@
         'util'
     ];
 
-    define(deps, function (core, utils, path, util) {
+    define(deps, function (Core, Utils, path, util) {
         /**
          * Configuration
          * @type {ConfigModule}
@@ -39,7 +39,7 @@
             ConfigModule.super_.call(this, resolver);
         };
 
-        util.inherits(exports, core);
+        util.inherits(exports, Core);
 
         /**
          * CLI arguments - passed from user's code
@@ -56,7 +56,7 @@
                 env = "local";
             }
 
-            var cfg = utils.loadConfig(configPath, env);
+            var cfg = Utils.loadConfig(configPath, env);
             for(var prop in cfg) {
                 if(cfg.hasOwnProperty(prop)) {
                     this[prop] = cfg[prop];

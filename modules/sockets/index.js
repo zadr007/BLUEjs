@@ -30,7 +30,7 @@
         'util'
     ];
 
-    define(deps, function(core, deferred, socketio, util) {
+    define(deps, function(Core, deferred, socketio, util) {
         /**
          * sockets.io wrapper
          * @type {Sockets}
@@ -41,7 +41,7 @@
             this.config = this.resolver.get('config');
         };
 
-        util.inherits(exports, core);
+        util.inherits(exports, Core);
 
         /**
          * Application to be used

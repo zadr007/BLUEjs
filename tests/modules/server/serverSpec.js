@@ -24,22 +24,34 @@
     var define = require('amdefine')(module);
 
     var deps = [
+        "../../../tests/resolver",
         "../../../modules/server",
         'chai',
         'dependable',
         'path',
+        'request',
         'requirejs'
     ];
 
-    define(deps, function (ServerModule, chai, dependable, path, requirejs) {
+    define(deps, function (resolver, Server, chai, dependable, path, request, requirejs) {
         requirejs.config(require('../../../require.js'));
 
         var expect = chai.expect;
+        var config = resolver.get('config');
 
         describe('Module Server', function () {
+
             it('Module Exists', function () {
-                expect(ServerModule).to.not.equal(null);
-                expect(ServerModule).to.not.equal(undefined);
+                expect(Server).to.not.equal(null);
+                expect(Server).to.not.equal(undefined);
+
+                /*
+                var server = new Server(resolver);
+                server.initialize().then(function() {
+                   server.run();
+                    done();
+                });
+                //*/
             });
         });
     });

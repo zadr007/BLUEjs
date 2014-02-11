@@ -31,7 +31,7 @@
         'requirejs'
     ];
 
-    define(deps, function (SolrModule, chai, dependable, path, requirejs) {
+    define(deps, function (Solr, chai, dependable, path, requirejs) {
         requirejs.config(require('../../../require.js'));
 
         var expect = chai.expect;
@@ -40,7 +40,7 @@
             var solrModule = null;
 
             beforeEach(function () {
-                solrModule = new SolrModule();
+                solrModule = new Solr();
             });
 
             it('Module Exists', function () {
@@ -54,11 +54,11 @@
             });
 
             it('Is subclass of CoreModule', function () {
-                expect(solrModule instanceof SolrModule).to.equal(true);
+                expect(solrModule instanceof Solr).to.equal(true);
             });
 
             it('Is subclass of CliModule', function () {
-                expect(solrModule instanceof SolrModule).to.equal(true);
+                expect(solrModule instanceof Solr).to.equal(true);
             });
         });
 

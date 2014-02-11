@@ -32,7 +32,7 @@
         'util'
     ];
 
-    define(deps, function(CoreModule, logger, ServerModule, utils, path, util) {
+    define(deps, function(Core, Logger, Server, Utils, path, util) {
         var exports = module.exports = function CoreApp(resolver) {
             // Call super constructor
             CoreApp.super_.call(this, resolver);
@@ -42,7 +42,7 @@
             this.config = this.resolver.get('config');
         };
 
-        util.inherits(exports, CoreModule);
+        util.inherits(exports, Core);
 
         exports.prototype.config = null;
 
@@ -60,7 +60,7 @@
                 for (var i = 0; i < opts.length; i++) {
                     var opt = opts[i];
                     var tokens = opt.split("=");
-                    utils.setObjectProperty(this.config, tokens[0], tokens[1]);
+                    Utils.setObjectProperty(this.config, tokens[0], tokens[1]);
                 }
             }
         };
@@ -70,7 +70,7 @@
                 this.parseCliOptions();
             }
 
-            var app = new ServerModule(this.resolver);
+            var app = new Server(this.resolver);
             app.initialize().done(function (res) {
                 app.main();
             });

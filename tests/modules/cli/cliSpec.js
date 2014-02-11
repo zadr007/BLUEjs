@@ -32,7 +32,7 @@
         'requirejs',
     ];
 
-    define(deps, function (resolver, CliModule, CoreModule, chai, dependable, requirejs) {
+    define(deps, function (resolver, Cli, Core, chai, dependable, requirejs) {
         requirejs.config(require('../../../require.js'));
 
         var expect = chai.expect;
@@ -41,12 +41,12 @@
             var cliModule = null;
 
             beforeEach(function () {
-                cliModule = new CliModule(resolver);
+                cliModule = new Cli(resolver);
             });
 
             it('Loads module', function () {
-                expect(CliModule).to.not.equal(null);
-                expect(CliModule).to.not.equal(undefined);
+                expect(Cli).to.not.equal(null);
+                expect(Cli).to.not.equal(undefined);
             });
 
             it('Creates Instance', function () {
@@ -54,12 +54,12 @@
                 expect(cliModule).to.not.equal(undefined);
             });
 
-            it('Is subclass of CoreModule', function () {
-                expect(cliModule instanceof CoreModule).to.equal(true);
+            it('Is subclass of Core', function () {
+                expect(cliModule instanceof Core).to.equal(true);
             });
 
-            it('Is subclass of CliModule', function () {
-                expect(cliModule instanceof CliModule).to.equal(true);
+            it('Is subclass of Cli', function () {
+                expect(cliModule instanceof Cli).to.equal(true);
             });
         });
     });

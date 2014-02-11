@@ -33,7 +33,7 @@
         'requirejs'
     ];
 
-    define(deps, function (resolver, Mongo, utils, chai, dependable, path, requirejs) {
+    define(deps, function (resolver, Mongo, Utils, chai, dependable, path, requirejs) {
         requirejs.config(require('../../../require.js'));
 
         var expect = chai.expect;

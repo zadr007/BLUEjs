@@ -30,31 +30,31 @@
         'requirejs'
     ];
 
-    define(deps, function (LoggerModule, chai, dependable, requirejs) {
+    define(deps, function (Logger, chai, dependable, requirejs) {
         requirejs.config(require('../../../require.js'));
 
         var expect = chai.expect;
 
         describe('Module Logger', function () {
            it('Loads Logger module', function () {
-                expect(LoggerModule).to.not.equal(null);
-                expect(LoggerModule).to.not.equal(undefined);
+                expect(Logger).to.not.equal(null);
+                expect(Logger).to.not.equal(undefined);
             });
 
             it('Has \'error\' method', function () {
-                expect(LoggerModule.error instanceof Function).to.equal(true);
+                expect(Logger.error instanceof Function).to.equal(true);
             });
 
             it('Has \'info\' method', function () {
-                expect(LoggerModule.info instanceof Function).to.equal(true);
+                expect(Logger.info instanceof Function).to.equal(true);
             });
 
             it('Has \'log\' method', function () {
-                expect(LoggerModule.log instanceof Function).to.equal(true);
+                expect(Logger.log instanceof Function).to.equal(true);
             });
 
             it('Has \'warn\' method', function () {
-                expect(LoggerModule.warn instanceof Function).to.equal(true);
+                expect(Logger.warn instanceof Function).to.equal(true);
             });
         });
 

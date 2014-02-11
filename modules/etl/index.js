@@ -29,7 +29,7 @@
         "csv"
     ];
 
-    define(deps, function (util, Csv, core) {
+    define(deps, function (Core, util, Csv) {
         /**
          * ETL Interface
          * @type {EtlModule}
@@ -39,7 +39,7 @@
             EtlModule.super_.call(this, resolver);
         };
 
-        util.inherits(exports, core);
+        util.inherits(exports, Core);
 
         exports.prototype.load = function(csvPath, opts) {
             var csv = new Csv();

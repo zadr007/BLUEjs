@@ -27,9 +27,9 @@
         "../utils"
     ];
 
-    define(deps, function(utils) {
+    define(deps, function(Utils) {
         var log = function (msg) {
-            console.log("[" + utils.timestamp() + "] " + msg);
+            console.log("[" + Utils.timestamp() + "] " + msg);
         };
 
         var exports = module.exports = {

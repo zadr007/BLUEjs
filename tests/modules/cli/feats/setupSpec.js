@@ -32,7 +32,7 @@
         'requirejs'
     ];
 
-    define(deps, function (resolver, CliModule, chai, dependable, Optimist, requirejs) {
+    define(deps, function (resolver, Cli, chai, dependable, Optimist, requirejs) {
         requirejs.config(require('../../../../require.js'));
 
         var expect = chai.expect;
@@ -41,7 +41,7 @@
             var cliModule = null;
 
             beforeEach(function () {
-                cliModule = new CliModule(resolver);
+                cliModule = new Cli(resolver);
             });
 
             it('Optimist object exists', function () {

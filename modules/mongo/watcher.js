@@ -31,7 +31,7 @@
         'node.extend'
     ];
 
-    define(deps, function(logger, deferred, mongodb, mongoose, merge) {
+    define(deps, function(Logger, deferred, mongodb, mongoose, merge) {
 
     });
 

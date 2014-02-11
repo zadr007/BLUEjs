@@ -39,7 +39,7 @@
         'util'
     ];
 
-    define(deps, function(core, logger, Mongo, Sockets, utils, Cm, deferred, exphbs, express, gzippo, http, path, util) {
+    define(deps, function(Core, Logger, Mongo, Sockets, Utils, Cm, deferred, exphbs, express, gzippo, http, path, util) {
         var MongoStore = Cm(express);
 
         var exports = module.exports = function ServerModule(resolver) {
@@ -50,7 +50,7 @@
             this.mongo = new Mongo(this.resolver);
         };
 
-        util.inherits(exports, core);
+        util.inherits(exports, Core);
 
         /**
          * Express application instance
@@ -122,10 +122,10 @@
          */
         exports.prototype.logger = function (req, res, next) {
             var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-            var ts = utils.timestamp();
+            var ts = Utils.timestamp();
 
             // TODO: use some templating, DRY!
-            logger.log("[" + ts + "] " + ip + " " + req.method + " " + req.url);
+            Logger.log("[" + ts + "] " + ip + " " + req.method + " " + req.url);
             next(); // Passing the request to the next handler in the stack.
         };
 
@@ -151,7 +151,7 @@
             this.initGzip();
 
             // Preprocess config template
-            utils.preprocessFile(this.config.client.configTemplate,
+            Utils.preprocessFile(this.config.client.configTemplate,
                 this.config.client.configDestination,
                 {
                     '"$app$"': JSON.stringify(this.config.app)
@@ -166,7 +166,7 @@
          */
         exports.prototype.main = function () {
             this.server.listen(this.config.server.port);
-            logger.log('Listening on port ' + this.config.server.port);
+            Logger.log('Listening on port ' + this.config.server.port);
         };
 
         exports.prototype.initSessions = function() {

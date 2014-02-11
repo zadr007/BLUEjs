@@ -29,7 +29,7 @@
         "optimist"
     ];
 
-    define(deps, function (core, util, Optimist) {
+    define(deps, function (Core, util, Optimist) {
         /**
          * Command Line Interface
          * @type {CliModule}
@@ -41,7 +41,7 @@
             this.argsInstance = Optimist;
         };
 
-        util.inherits(exports, core);
+        util.inherits(exports, Core);
 
         /**
          * CLI arguments - passed from user's code

@@ -31,15 +31,15 @@
         'requirejs'
     ];
 
-    define(deps, function (SocketsModule, chai, dependable, path, requirejs) {
+    define(deps, function (Sockets, chai, dependable, path, requirejs) {
         requirejs.config(require('../../../require.js'));
 
         var expect = chai.expect;
 
         describe('Module Sockets', function () {
             it('Module Exists', function () {
-                expect(SocketsModule).to.not.equal(null);
-                expect(SocketsModule).to.not.equal(undefined);
+                expect(Sockets).to.not.equal(null);
+                expect(Sockets).to.not.equal(undefined);
             });
         });
     });

@@ -33,7 +33,7 @@
         'requirejs',
     ];
 
-    define(deps, function (resolver, Cli, CoreModule, AppModule, chai, dependable, requirejs) {
+    define(deps, function (resolver, Cli, Core, App, chai, dependable, requirejs) {
         requirejs.config(require('../../../require.js'));
 
         var expect = chai.expect;
@@ -44,12 +44,12 @@
             beforeEach(function () {
                 var cli = new Cli(resolver);
                 resolver.register('cli', cli);
-                appModule = new AppModule(resolver);
+                appModule = new App(resolver);
             });
 
             it('Loads module', function () {
-                expect(AppModule).to.not.equal(null);
-                expect(AppModule).to.not.equal(undefined);
+                expect(App).to.not.equal(null);
+                expect(App).to.not.equal(undefined);
             });
 
             it('Creates Instance', function () {
@@ -57,12 +57,12 @@
                 expect(appModule).to.not.equal(undefined);
             });
 
-            it('Is subclass of CoreModule', function () {
-                expect(appModule instanceof CoreModule).to.equal(true);
+            it('Is subclass of Core', function () {
+                expect(appModule instanceof Core).to.equal(true);
             });
 
-            it('Is subclass of AppModule', function () {
-                expect(appModule instanceof AppModule).to.equal(true);
+            it('Is subclass of App', function () {
+                expect(appModule instanceof App).to.equal(true);
             });
 
             it('Implements \'run\' method', function () {
@@ -72,7 +72,7 @@
             it('Implements \'loadAllModules\' method', function () {
                 expect(appModule.loadAllModules instanceof Function).to.equal(true);
 
-                var core = new CoreModule();
+                var core = new Core();
             });
         });
     });
