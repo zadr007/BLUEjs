@@ -31,19 +31,19 @@
     var deps = [
         './modules/cli',
         './modules/core',
-        './modules/core/app',
         './modules/config',
         './modules/etl',
         './modules/logger',
         './modules/mongo',
         './modules/utils',
+        './modules/webapp',
         'deferred',
         'dependable',
         'util',
         'path'
     ];
 
-    define(deps, function (Cli, Core, CoreApp, Config, Etl, Logger, Mongo, utils, deferred, dependable, util, path) {
+    define(deps, function (Cli, Core, Config, Etl, Logger, Mongo, Utils, Webapp, deferred, dependable, util, path) {
         ///*
         var resolver = dependable.container();
 
@@ -80,7 +80,7 @@
             App.super_.call(this, resolver);
         };
 
-        util.inherits(App, CoreApp);
+        util.inherits(App, Webapp);
 
         var config = new Config();
         config.load(path.join(__dirname, 'config.js'), argv['e'] || "local");

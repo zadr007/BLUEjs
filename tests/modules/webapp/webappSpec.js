@@ -27,50 +27,50 @@
         '../../../tests/resolver.js',
         '../../../modules/cli',
         '../../../modules/core',
-        '../../../modules/core/app',
+        '../../../modules/webapp',
         'chai',
         'dependable',
         'requirejs',
     ];
 
-    define(deps, function (resolver, Cli, Core, App, chai, dependable, requirejs) {
+    define(deps, function (resolver, Cli, Core, Webapp, chai, dependable, requirejs) {
         requirejs.config(require('../../../require.js'));
 
         var expect = chai.expect;
 
         describe('Module Core - App', function () {
-            var appModule = null;
+            var webappModule = null;
 
             beforeEach(function () {
                 var cli = new Cli(resolver);
                 resolver.register('cli', cli);
-                appModule = new App(resolver);
+                webappModule = new Webapp(resolver);
             });
 
             it('Loads module', function () {
-                expect(App).to.not.equal(null);
-                expect(App).to.not.equal(undefined);
+                expect(Webapp).to.not.equal(null);
+                expect(Webapp).to.not.equal(undefined);
             });
 
             it('Creates Instance', function () {
-                expect(appModule).to.not.equal(null);
-                expect(appModule).to.not.equal(undefined);
+                expect(webappModule).to.not.equal(null);
+                expect(webappModule).to.not.equal(undefined);
             });
 
             it('Is subclass of Core', function () {
-                expect(appModule instanceof Core).to.equal(true);
+                expect(webappModule instanceof Core).to.equal(true);
             });
 
-            it('Is subclass of App', function () {
-                expect(appModule instanceof App).to.equal(true);
+            it('Is subclass of Webapp', function () {
+                expect(webappModule instanceof Webapp).to.equal(true);
             });
 
             it('Implements \'run\' method', function () {
-                expect(appModule.run instanceof Function).to.equal(true);
+                expect(webappModule.run instanceof Function).to.equal(true);
             });
 
             it('Implements \'loadAllModules\' method', function () {
-                expect(appModule.loadAllModules instanceof Function).to.equal(true);
+                expect(webappModule.loadAllModules instanceof Function).to.equal(true);
 
                 var core = new Core();
             });
