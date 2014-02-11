@@ -24,9 +24,9 @@
     var define = require('amdefine')(module);
 
     var deps = [
+        "../core",
         "util",
-        "csv",
-        "../core"
+        "csv"
     ];
 
     define(deps, function (util, Csv, core) {

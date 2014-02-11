@@ -24,12 +24,12 @@
     var define = require('amdefine')(module);
 
     var deps = [
+        '../model',
         'events',
-        'util',
-        '../model'
+        'util'
     ];
 
-    define(deps, function(events, util, Model) {
+    define(deps, function(Model, events, util) {
         var exports = module.exports = function User(mongo) {
             User.super_.call(this, mongo);
 

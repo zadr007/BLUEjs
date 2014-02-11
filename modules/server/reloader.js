@@ -24,12 +24,12 @@
     var define = require('amdefine')(module);
 
     var deps = [
+        '../utils',
         'fs',
-        'path',
-        '../utils'
+        'path'
     ];
 
-    define(deps, function(utils, fs, path) {
+    define(deps, function(path, utils, fs) {
         function Reloader() {
             var Server = require('./index.js');
 

@@ -24,14 +24,14 @@
     var define = require('amdefine')(module);
 
     var deps = [
+        '../logger',
         'deferred',
         'mongodb',
         'mongoose',
-        'node.extend',
-        '../logger'
+        'node.extend'
     ];
 
-    define(deps, function(deferred, mongodb, mongoose, merge, logger) {
+    define(deps, function(logger, deferred, mongodb, mongoose, merge) {
 
     });
 

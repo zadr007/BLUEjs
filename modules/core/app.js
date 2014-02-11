@@ -24,15 +24,15 @@
     var define = require('amdefine')(module);
 
     var deps = [
-        'path',
-        'util',
         './index',
         '../logger',
         '../server',
-        '../utils'
+        '../utils',
+        'path',
+        'util'
     ];
 
-    define(deps, function(path, util, CoreModule, logger, ServerModule, utils) {
+    define(deps, function(CoreModule, logger, ServerModule, utils, path, util) {
         var exports = module.exports = function CoreApp(resolver) {
             // Call super constructor
             CoreApp.super_.call(this, resolver);

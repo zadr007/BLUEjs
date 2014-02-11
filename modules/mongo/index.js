@@ -24,16 +24,16 @@
     var define = require('amdefine')(module);
 
     var deps = [
+        '../core',
         'deferred',
         'fs',
         'mongodb',
         'mongoose',
         'path',
-        'util',
-        '../core',
+        'util'
     ];
 
-    define(deps, function(deferred, fs, mongodb, mongoose, path, util, core) {
+    define(deps, function(core, deferred, fs, mongodb, mongoose, path, util) {
 
         var logger = require('../logger');
 
