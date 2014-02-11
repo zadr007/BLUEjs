@@ -24,6 +24,11 @@
     var define = require('amdefine')(module);
 
     var deps = [
+        '../core',
+        '../logger',
+        '../mongo',
+        '../sockets',
+        '../utils',
         'connect-mongo',
         'deferred',
         'express3-handlebars',
@@ -31,25 +36,18 @@
         'gzippo',
         'http',
         'path',
-        'util',
-        '../core',
-        '../logger',
-        '../mongo',
-        '../sockets',
-        '../utils'
+        'util'
     ];
 
-    define(deps, function(Cm, deferred, exphbs, express, gzippo, http, path, util, core, logger, Mongo, Sockets, utils) {
+    define(deps, function(core, logger, Mongo, Sockets, utils, Cm, deferred, exphbs, express, gzippo, http, path, util) {
         var MongoStore = Cm(express);
 
         var exports = module.exports = function ServerModule(resolver) {
             ServerModule.super_.call(this, resolver);
-            
+
             this.config = this.resolver.get('config');
 
-            this.mongo = new Mongo(this.config);
-
-            this.sockets = new Sockets(this.config);
+            this.mongo = new Mongo(this.resolver);
         };
 
         util.inherits(exports, core);
@@ -103,14 +101,15 @@
             this.setup().then(function (res) {
                 return self.mongo.initialize(self);
             }).then(function (res) {
-                    return self.sockets.initialize(self);
-                }).then(function (res) {
-                    return deferred(self);
-                }).done(function(res) {
-                    d.resolve(res);
-                }, function(err) {
-                    throw err;
-                });
+                self.sockets = new Sockets(self.resolver);
+                return self.sockets.initialize(self);
+            }).then(function (res) {
+                return deferred(self);
+            }).done(function(res) {
+                d.resolve(res);
+            }, function(err) {
+                throw err;
+            });
 
             return d.promise();
         };

@@ -24,14 +24,15 @@
     var define = require('amdefine')(module);
 
     var deps = [
+        '../../../tests/resolver',
+        '../../../modules/config',
+        '../../../modules/core',
         'chai',
         'dependable',
-        'requirejs',
-        '../../../modules/config',
-        '../../../modules/core'
+        'requirejs'
     ];
 
-    define(deps, function (chai, dependable, requirejs, ConfigModule, CoreModule) {
+    define(deps, function (resolver, ConfigModule, CoreModule, chai, dependable, requirejs) {
         requirejs.config(require('../../../require.js'));
 
         var expect = chai.expect;
@@ -40,7 +41,7 @@
            var configModule = null;
 
             beforeEach(function () {
-                configModule = new ConfigModule();
+                configModule = new ConfigModule(resolver);
             });
 
             it('Loads module', function () {

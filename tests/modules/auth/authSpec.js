@@ -24,15 +24,16 @@
     var define = require('amdefine')(module);
 
     var deps = [
+        '../../../tests/resolver',
+        '../../../modules/auth',
+        '../../../modules/core',
+        '../../../modules/mongo',
         'chai',
         'dependable',
         'requirejs',
-        '../../../modules/auth',
-        '../../../modules/core',
-        '../../../modules/mongo'
     ];
 
-    define(deps, function(chai, dependable, requirejs, AuthModule, CoreModule, MongoModule) {
+    define(deps, function(resolver, AuthModule, CoreModule, MongoModule, chai, dependable, requirejs) {
         requirejs.config(require('../../../require.js'));
 
         var expect = chai.expect;
@@ -41,9 +42,7 @@
             var authModule = null;
 
             beforeEach(function () {
-
-                var resolver = new CoreModule().loadAllModules();
-                resolver.register("mongo", new MongoModule());
+                resolver.register("mongo", new MongoModule(resolver));
 
                 authModule = new AuthModule(resolver);
             });

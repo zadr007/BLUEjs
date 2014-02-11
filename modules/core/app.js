@@ -27,11 +27,12 @@
         'path',
         'util',
         './index',
+        '../logger',
         '../server',
         '../utils'
     ];
 
-    define(deps, function(path, util, CoreModule, ServerModule, utils) {
+    define(deps, function(path, util, CoreModule, logger, ServerModule, utils) {
         var exports = module.exports = function CoreApp(resolver) {
             // Call super constructor
             CoreApp.super_.call(this, resolver);

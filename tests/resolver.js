@@ -41,9 +41,6 @@
 
             resolver.register('config', config);
 
-            var cli = new Cli(resolver);
-            resolver.register('cli', cli);
-
             return resolver;
         }());
     });

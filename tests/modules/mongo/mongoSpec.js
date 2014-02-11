@@ -24,15 +24,16 @@
     var define = require('amdefine')(module);
 
     var deps = [
+        '../../../tests/resolver',
+        '../../../modules/mongo',
+        '../../../modules/utils',
         'chai',
         'dependable',
         'path',
-        'requirejs',
-        '../../../modules/mongo',
-        '../../../modules/utils'
+        'requirejs'
     ];
 
-    define(deps, function (chai, dependable, path, requirejs, Mongo, utils) {
+    define(deps, function (resolver, Mongo, utils, chai, dependable, path, requirejs) {
         requirejs.config(require('../../../require.js'));
 
         var expect = chai.expect;
@@ -41,8 +42,7 @@
             var mongo = null;
 
             beforeEach(function () {
-                var config = utils.loadConfig(path.join(__dirname, "../../../config.js"), "test");
-                mongo = new Mongo(config);
+                mongo = new Mongo(resolver);
             });
 
             it('Connect to Existing Host', function (done) {

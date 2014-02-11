@@ -35,15 +35,13 @@
          * sockets.io wrapper
          * @type {Sockets}
          */
-        var exports = module.exports = function Sockets(config) {
-            this.config = config;
+        var exports = module.exports = function Sockets(resolver) {
+            Sockets.super_.call(this, resolver);
+
+            this.config = this.resolver.get('config');
         };
 
-        /**
-         * Config to be used
-         * @type {object}
-         */
-        exports.prototype.config = null;
+        util.inherits(exports, core);
 
         /**
          * Application to be used

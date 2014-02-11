@@ -25,6 +25,7 @@
 
     var deps = [
         '../../../tests/resolver.js',
+        '../../../modules/cli',
         '../../../modules/core',
         '../../../modules/core/app',
         'chai',
@@ -32,7 +33,7 @@
         'requirejs',
     ];
 
-    define(deps, function (resolver, CoreModule, AppModule, chai, dependable, requirejs) {
+    define(deps, function (resolver, Cli, CoreModule, AppModule, chai, dependable, requirejs) {
         requirejs.config(require('../../../require.js'));
 
         var expect = chai.expect;
@@ -41,6 +42,8 @@
             var appModule = null;
 
             beforeEach(function () {
+                var cli = new Cli(resolver);
+                resolver.register('cli', cli);
                 appModule = new AppModule(resolver);
             });
 

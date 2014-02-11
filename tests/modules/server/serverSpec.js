@@ -24,14 +24,14 @@
     var define = require('amdefine')(module);
 
     var deps = [
+        "../../../modules/server",
         'chai',
         'dependable',
         'path',
-        'requirejs',
-        "../../../modules/server"
+        'requirejs'
     ];
 
-    define(deps, function (chai, dependable, path, requirejs, ServerModule) {
+    define(deps, function (ServerModule, chai, dependable, path, requirejs) {
         requirejs.config(require('../../../require.js'));
 
         var expect = chai.expect;

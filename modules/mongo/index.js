@@ -41,8 +41,11 @@
          * Mongo wrapper
          * @type {Mongo}
          */
-        var exports = module.exports = function Mongo(config) {
-            this.config = config;
+        var exports = module.exports = function Mongo(resolver) {
+            Mongo.super_.call(this, resolver);
+
+            this.config = this.resolver.get('config');
+
             this.collections = {};
             this.models = {};
             this.migrations = {};
@@ -242,14 +245,14 @@
             this.connect().then(function (res) {
                 return self.initializeModels();
             }).then(function(res) {
-                    return self.initializeMigrations();
-                }).then(function (res) {
-                    return self.initializeWatcher();
-                }).done(function() {
-                    d.resolve(self);
-                }, function(err) {
-                    throw err;
-                });
+                return self.initializeMigrations();
+            }).then(function (res) {
+                return self.initializeWatcher();
+            }).done(function() {
+                d.resolve(self);
+            }, function(err) {
+                throw err;
+            });
 
             return d.promise();
         };

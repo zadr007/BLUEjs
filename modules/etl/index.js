@@ -34,9 +34,9 @@
          * ETL Interface
          * @type {EtlModule}
          */
-        var exports = module.exports = function EtlModule(modules) {
+        var exports = module.exports = function EtlModule(resolver) {
             // Call super constructor
-            EtlModule.super_.call(this, arguments);
+            EtlModule.super_.call(this, resolver);
         };
 
         util.inherits(exports, core);
