@@ -27,12 +27,13 @@
         './index',
         '../logger',
         '../server',
+        '../sockets',
         '../utils',
         'path',
         'util'
     ];
 
-    define(deps, function(Core, Logger, Server, Utils, path, util) {
+    define(deps, function (Core, Logger, Server, Sockets, Utils, path, util) {
         var exports = module.exports = function CoreApp(resolver) {
             // Call super constructor
             CoreApp.super_.call(this, resolver);
@@ -40,6 +41,13 @@
             this.cli = this.resolver.get('cli');
 
             this.config = this.resolver.get('config');
+
+            this.server = new Server(this.resolver);
+            this.resolver.register('server', this.server);
+
+            this.sockets = new Sockets(this.resolver);
+            this.resolver.register('sockets', this.sockets);
+
         };
 
         util.inherits(exports, Core);
@@ -48,7 +56,7 @@
 
         exports.prototype.cli = null;
 
-        exports.prototype.parseCliOptions = function() {
+        exports.prototype.parseCliOptions = function () {
             var argv = this.cli.args().argv;
 
             var opts = argv["o"] || argv["option"];
@@ -65,16 +73,16 @@
             }
         };
 
-        exports.prototype.run = function() {
-            if(this.cli) {
+        exports.prototype.run = function () {
+            if (this.cli) {
                 this.parseCliOptions();
             }
-
-            var app = new Server(this.resolver);
-            app.initialize().done(function (res) {
-                app.main();
+            var self = this;
+            this.server.initialize().then(function (res) {
+                self.sockets.initialize();
+            }).done(function (res) {
+                self.server.main();
             });
-        };
+        }
     });
-
 }());

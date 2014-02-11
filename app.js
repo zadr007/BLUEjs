@@ -43,7 +43,7 @@
         'path'
     ];
 
-    define(deps, function (Cli, Core, CoreApp, Config, Etl, logger, Mongo, utils, deferred, dependable, util, path) {
+    define(deps, function (Cli, Core, CoreApp, Config, Etl, Logger, Mongo, utils, deferred, dependable, util, path) {
         ///*
         var resolver = dependable.container();
 
@@ -87,9 +87,15 @@
 
         resolver.register('config', config);
 
+        var logger = new Logger(resolver);
+        resolver.register('logger', logger);
+
         if (argv['v'] || argv['verbose']) {
             config.verbose = true;
         }
+
+        var mongo = new Mongo(resolver);
+        resolver.register('mongo', mongo);
 
         if(config.verbose) {
             logger.log("Config loaded: " + JSON.stringify(config, null, 4));

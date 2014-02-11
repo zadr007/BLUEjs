@@ -35,8 +35,6 @@
 
     define(deps, function(Core, deferred, fs, mongodb, mongoose, path, util) {
 
-        var logger = require('../logger');
-
         /**
          * Mongo wrapper
          * @type {Mongo}
@@ -45,6 +43,8 @@
             Mongo.super_.call(this, resolver);
 
             this.config = this.resolver.get('config');
+
+            this.logger = this.resolver.get('logger');
 
             this.collections = {};
             this.models = {};
@@ -58,6 +58,12 @@
          * @type {object}
          */
         exports.prototype.config = null;
+
+        /**
+         * Logger
+         * @type {object}
+         */
+        exports.prototype.logger = null;
 
         /**
          * Active MongoDB database
@@ -100,7 +106,7 @@
                 }
 
                 if (self.config.verbose) {
-                    logger.log("Connected to DB '" + self.config.mongo.uri + "'");
+                    self.logger.log("Connected to DB '" + self.config.mongo.uri + "'");
                 }
 
                 self.db = db;
@@ -119,7 +125,7 @@
             var d = deferred();
 
             if (this.config.verbose) {
-                logger.log("Loading collection '" + collectionName + "'");
+                this.logger.log("Loading collection '" + collectionName + "'");
             }
 
 
@@ -147,7 +153,7 @@
          */
         exports.prototype.getCollection = function (collectionName) {
             if (this.config.verbose) {
-                logger.log("Loading collection '" + collectionName + "'");
+                this.logger.log("Loading collection '" + collectionName + "'");
             }
 
             var collection = this.db.collection(collectionName);
@@ -169,7 +175,7 @@
                         var fullPath = modelsDir + '/' + file;
 
                         var relPath = path.relative(__dirname, fullPath);
-                        logger.log("Loading model file '" + relPath + "'");
+                        self.logger.log("Loading model file '" + relPath + "'");
 
                         var modelName = parts[0];
                         if(res[modelName]) {
@@ -219,7 +225,7 @@
                         var fullPath = migrationsDir + '/' + file;
 
                         var relPath = path.relative(__dirname, fullPath);
-                        logger.log("Loading migration file '" + relPath + "'");
+                        self.logger.log("Loading migration file '" + relPath + "'");
 
                         var migrationName = parts[0];
 

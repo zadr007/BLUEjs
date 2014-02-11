@@ -24,36 +24,36 @@
     var define = require('amdefine')(module);
 
     var deps = [
-        "../utils"
+        "../core",
+        "../utils",
+        "util"
     ];
 
-    define(deps, function(Utils) {
-        var log = function (msg) {
+    define(deps, function(Core, Utils, util) {
+        var exports = module.exports = function Logger(resolver) {
+            Logger.super_.call(this, resolver);
+        };
+
+        util.inherits(exports, Core);
+
+        exports.prototype.log = function (msg) {
             console.log("[" + Utils.timestamp() + "] " + msg);
         };
 
-        var exports = module.exports = {
-
+        exports.prototype.info = function (msg) {
+            this.log(msg);
         };
 
-        exports.info = function (msg) {
-            log(msg);
+        exports.prototype.debug = function (msg) {
+            this.log(msg);
         };
 
-        exports.debug = function (msg) {
-            log(msg);
+        exports.prototype.warn = function (msg) {
+            this.log(msg);
         };
 
-        exports.warn = function (msg) {
-            log(msg);
-        };
-
-        exports.error = function (msg) {
-            log(msg);
-        };
-
-        exports.log = function (msg) {
-            log(msg);
+        exports.prototype.error = function (msg) {
+            this.log(msg);
         };
     });
 

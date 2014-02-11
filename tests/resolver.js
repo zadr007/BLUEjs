@@ -27,11 +27,12 @@
     var deps = [
         '../modules/cli',
         '../modules/config',
+        '../modules/logger',
         'dependable',
         'path'
     ];
 
-    define(deps, function (Cli, Config, dependable, path) {
+    define(deps, function (Cli, Config, Logger, dependable, path) {
 
         module.exports = (function () {
             var resolver = dependable.container();
@@ -40,6 +41,9 @@
             config.load(path.join(__dirname, '../config.js'), "test");
 
             resolver.register('config', config);
+
+            var logger = new Logger(resolver);
+            resolver.register('logger', logger);
 
             return resolver;
         }());

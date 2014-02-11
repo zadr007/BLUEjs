@@ -39,30 +39,36 @@
             Sockets.super_.call(this, resolver);
 
             this.config = this.resolver.get('config');
+
+            this.server = this.resolver.get('server');
         };
 
         util.inherits(exports, Core);
 
         /**
-         * Application to be used
+         * Server to be used
          * @type {object}
          */
-        exports.prototype.app = null;
+        exports.prototype.server = null;
+
+        /**
+         * Sockets wrapper
+         * @type {null}
+         */
+        exports.prototype.sockets = null;
 
         /**
          * Initializes Mongo wrapper
          * @returns {*} Promise
          */
-        exports.prototype.initialize = function (app) {
+        exports.prototype.initialize = function () {
             var d = deferred();
-
-            this.app = app;
 
             var socketOptions = {
                 log: this.config.verbose
             };
 
-            this.io = socketio.listen(this.app.server, socketOptions);
+            this.io = socketio.listen(this.server, socketOptions);
 
             var self = this;
 

@@ -24,37 +24,43 @@
     var define = require('amdefine')(module);
 
     var deps = [
+        '../../../tests/resolver',
         '../../../modules/logger',
         'chai',
         'dependable',
         'requirejs'
     ];
 
-    define(deps, function (Logger, chai, dependable, requirejs) {
+    define(deps, function (resolver, Logger, chai, dependable, requirejs) {
         requirejs.config(require('../../../require.js'));
 
         var expect = chai.expect;
+        var logger = null;
 
         describe('Module Logger', function () {
-           it('Loads Logger module', function () {
+            beforeEach(function () {
+                logger = new Logger(resolver);
+            });
+
+            it('Loads Logger module', function () {
                 expect(Logger).to.not.equal(null);
                 expect(Logger).to.not.equal(undefined);
             });
 
             it('Has \'error\' method', function () {
-                expect(Logger.error instanceof Function).to.equal(true);
+                expect(logger.error instanceof Function).to.equal(true);
             });
 
             it('Has \'info\' method', function () {
-                expect(Logger.info instanceof Function).to.equal(true);
+                expect(logger.info instanceof Function).to.equal(true);
             });
 
             it('Has \'log\' method', function () {
-                expect(Logger.log instanceof Function).to.equal(true);
+                expect(logger.log instanceof Function).to.equal(true);
             });
 
             it('Has \'warn\' method', function () {
-                expect(Logger.warn instanceof Function).to.equal(true);
+                expect(logger.warn instanceof Function).to.equal(true);
             });
         });
 

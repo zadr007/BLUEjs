@@ -25,9 +25,6 @@
 
     var deps = [
         '../core',
-        '../logger',
-        '../mongo',
-        '../sockets',
         '../utils',
         'connect-mongo',
         'deferred',
@@ -35,11 +32,10 @@
         'express',
         'gzippo',
         'http',
-        'path',
         'util'
     ];
 
-    define(deps, function(Core, Logger, Mongo, Sockets, Utils, Cm, deferred, exphbs, express, gzippo, http, path, util) {
+    define(deps, function(Core, Utils, Cm, deferred, exphbs, express, gzippo, http, util) {
         var MongoStore = Cm(express);
 
         var exports = module.exports = function ServerModule(resolver) {
@@ -47,7 +43,9 @@
 
             this.config = this.resolver.get('config');
 
-            this.mongo = new Mongo(this.resolver);
+            this.logger = this.resolver.get('logger');
+
+            this.mongo = this.resolver.get('mongo');
         };
 
         util.inherits(exports, Core);
@@ -64,27 +62,22 @@
         exports.prototype.server = null;
 
         /**
-         * Instance of socket.io
-         */
-        exports.prototype.io = null;
-
-        /**
          * Loaded config
          * @type {object}
          */
         exports.prototype.config = null;
 
         /**
+         * Logger
+         * @type {object}
+         */
+        exports.prototype.logger = null;
+
+        /**
          * Mongo wrapper
          * @type {null}
          */
         exports.prototype.mongo = null;
-
-        /**
-         * Sockets wrapper
-         * @type {null}
-         */
-        exports.prototype.sockets = null;
 
         /**
          * Initializes Microscratch application
@@ -101,9 +94,6 @@
             this.setup().then(function (res) {
                 return self.mongo.initialize(self);
             }).then(function (res) {
-                self.sockets = new Sockets(self.resolver);
-                return self.sockets.initialize(self);
-            }).then(function (res) {
                 return deferred(self);
             }).done(function(res) {
                 d.resolve(res);
@@ -112,21 +102,6 @@
             });
 
             return d.promise();
-        };
-
-        /**
-         * Logger middleware
-         * @param req Request to be logged
-         * @param res Response to be logged
-         * @param next Next handler
-         */
-        exports.prototype.logger = function (req, res, next) {
-            var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-            var ts = Utils.timestamp();
-
-            // TODO: use some templating, DRY!
-            Logger.log("[" + ts + "] " + ip + " " + req.method + " " + req.url);
-            next(); // Passing the request to the next handler in the stack.
         };
 
         /**
@@ -141,7 +116,16 @@
 
             this.app.use(express.bodyParser());
             this.app.use(express.methodOverride());
-            this.app.use(this.logger);
+
+            var self = this;
+            this.app.use(function (req, res, next) {
+                var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+                var ts = Utils.timestamp();
+
+                // TODO: use some templating, DRY!
+                self.logger.log("[" + ts + "] " + ip + " " + req.method + " " + req.url);
+                next(); // Passing the request to the next handler in the stack.
+            });
             this.app.use(this.app.router);
 
             // Initialize sessions
@@ -166,7 +150,7 @@
          */
         exports.prototype.main = function () {
             this.server.listen(this.config.server.port);
-            Logger.log('Listening on port ' + this.config.server.port);
+            this.logger.log('Listening on port ' + this.config.server.port);
         };
 
         exports.prototype.initSessions = function() {
