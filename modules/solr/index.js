@@ -24,16 +24,10 @@
     var define = require('amdefine')(module);
 
     var deps = [
-        '../core',
-        'util'
+        "./solr"
     ];
 
-    define(deps, function(core, util) {
-        var exports = module.exports = function SolrModule() {
-
-        };
-
-        util.inherits(exports, core);
+    define(deps, function (Solr) {
+        var exports = module.exports = Solr;
     });
-
 }());

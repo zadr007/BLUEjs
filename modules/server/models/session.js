@@ -24,21 +24,29 @@
     var define = require('amdefine')(module);
 
     var deps = [
-        '../model',
+        '../../mongo/model',
         'events',
         'util'
     ];
 
     define(deps, function(Model, events, util) {
-        var exports = module.exports = function Migration(mongo) {
-            Migration.super_.call(this, mongo);
+        var schema = Model.declareSchema('Session', {
+            session: String
+        });
 
-            Model.declare.call(this, "Migration", {
-                name: String
-            });
+        var model = Model.declareModel('Session', schema);
+
+        var exports = module.exports = function Session() {
+            Session.super_.call(this, schema, model);
+
+            return this;
         };
 
         util.inherits(exports, Model);
+
+        exports.Schema = schema;
+
+        exports.Model = model;
     });
 
 })();

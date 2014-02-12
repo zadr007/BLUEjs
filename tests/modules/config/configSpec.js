@@ -24,14 +24,15 @@
     var define = require('amdefine')(module);
 
     var deps = [
+        '../../../tests/resolver',
+        '../../../modules/config',
+        '../../../modules/core',
         'chai',
         'dependable',
-        'requirejs',
-        '../../../modules/config',
-        '../../../modules/core'
+        'requirejs'
     ];
 
-    define(deps, function (chai, dependable, requirejs, ConfigModule, CoreModule) {
+    define(deps, function (resolver, Config, Core, chai, dependable, requirejs) {
         requirejs.config(require('../../../require.js'));
 
         var expect = chai.expect;
@@ -40,12 +41,12 @@
            var configModule = null;
 
             beforeEach(function () {
-                configModule = new ConfigModule();
+                configModule = new Config(resolver);
             });
 
             it('Loads module', function () {
-                expect(ConfigModule).to.not.equal(null);
-                expect(ConfigModule).to.not.equal(undefined);
+                expect(Config).to.not.equal(null);
+                expect(Config).to.not.equal(undefined);
             });
 
             it('Creates Instance', function () {
@@ -53,12 +54,12 @@
                 expect(configModule).to.not.equal(undefined);
             });
 
-            it('Is subclass of CoreModule', function () {
-                expect(configModule instanceof CoreModule).to.equal(true);
+            it('Is subclass of Core', function () {
+                expect(configModule instanceof Core).to.equal(true);
             });
 
-            it('Is subclass of ConfigModule', function () {
-                expect(configModule instanceof ConfigModule).to.equal(true);
+            it('Is subclass of Config', function () {
+                expect(configModule instanceof Config).to.equal(true);
             });
         });
     });

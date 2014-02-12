@@ -24,44 +24,56 @@
     var define = require('amdefine')(module);
 
     var deps = [
-        '../../../tests/resolver',
-        '../../../modules/cli',
-        '../../../modules/core',
-        'chai',
         'dependable',
-        'requirejs',
+        'events',
+        'fs',
+        'path',
+        'util'
     ];
 
-    define(deps, function (resolver, Cli, Core, chai, dependable, requirejs) {
-        requirejs.config(require('../../../require.js'));
+    define(deps, function (dependable, events, fs, path, util) {
+        /**
+         * Core Module
+         * @type {CoreModule}
+         */
+        var exports = module.exports = function CoreModule(resolver) {
+            if(resolver) {
+                this.resolver = resolver;
+            } else {
+                this.resolver = dependable.container()
+            }
+        };
 
-        var expect = chai.expect;
+        util.inherits(exports, events.EventEmitter);
 
-        describe('Module CLI', function () {
-            var cliModule = null;
+        exports.prototype.resolver = null;
 
-            beforeEach(function () {
-                cliModule = new Cli(resolver);
+        exports.prototype.loadAllModules = function (exclude) {
+            var res = dependable.container();
+
+            if(!exclude) {
+                exclude = [];
+            }
+
+            console.log("Loading all modules");
+            var modulesDir = path.join(__dirname, '..');
+            fs.readdir(modulesDir, function (err, files) {
+                files.forEach(function (file) {
+                    if(exclude.indexOf(file) >= 0) {
+                        return;
+                    }
+
+                    var modulePath = path.join(modulesDir, file);
+
+                    res.register(file, require(modulePath));
+                });
             });
 
-            it('Loads module', function () {
-                expect(Cli).to.not.equal(null);
-                expect(Cli).to.not.equal(undefined);
-            });
+            res.register("resolver", this);
 
-            it('Creates Instance', function () {
-                expect(cliModule).to.not.equal(null);
-                expect(cliModule).to.not.equal(undefined);
-            });
+            return res;
+        };
 
-            it('Is subclass of Core', function () {
-                expect(cliModule instanceof Core).to.equal(true);
-            });
-
-            it('Is subclass of Cli', function () {
-                expect(cliModule instanceof Cli).to.equal(true);
-            });
-        });
     });
-}());
 
+}());

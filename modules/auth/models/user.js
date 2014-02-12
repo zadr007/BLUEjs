@@ -24,44 +24,39 @@
     var define = require('amdefine')(module);
 
     var deps = [
-        '../../../tests/resolver',
-        '../../../modules/cli',
-        '../../../modules/core',
-        'chai',
-        'dependable',
-        'requirejs',
+        '../../mongo/model',
+        'events',
+        'util'
     ];
 
-    define(deps, function (resolver, Cli, Core, chai, dependable, requirejs) {
-        requirejs.config(require('../../../require.js'));
-
-        var expect = chai.expect;
-
-        describe('Module CLI', function () {
-            var cliModule = null;
-
-            beforeEach(function () {
-                cliModule = new Cli(resolver);
-            });
-
-            it('Loads module', function () {
-                expect(Cli).to.not.equal(null);
-                expect(Cli).to.not.equal(undefined);
-            });
-
-            it('Creates Instance', function () {
-                expect(cliModule).to.not.equal(null);
-                expect(cliModule).to.not.equal(undefined);
-            });
-
-            it('Is subclass of Core', function () {
-                expect(cliModule instanceof Core).to.equal(true);
-            });
-
-            it('Is subclass of Cli', function () {
-                expect(cliModule instanceof Cli).to.equal(true);
-            });
+    define(deps, function (Model, events, util) {
+        var schema = Model.declareSchema('User', {
+            name: String,
+            email: String,
+            emails: [String],
+            username: String,
+            provider: String,
+            hashed_password: String,
+            salt: String,
+            facebook: {},
+            twitter: {},
+            github: {},
+            google: {}
         });
-    });
-}());
 
+        var model = Model.declareModel('User', schema);
+
+        var exports = module.exports = function User() {
+            User.super_.call(this, schema, model);
+
+            return this;
+        };
+
+        util.inherits(exports, Model);
+
+        exports.Schema = schema;
+
+        exports.Model = model;
+    });
+
+})();

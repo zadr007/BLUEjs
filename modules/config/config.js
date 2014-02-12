@@ -24,44 +24,46 @@
     var define = require('amdefine')(module);
 
     var deps = [
-        '../../../tests/resolver',
-        '../../../modules/cli',
-        '../../../modules/core',
-        'chai',
-        'dependable',
-        'requirejs',
+        "../core",
+        '../utils',
+        'path',
+        'util'
     ];
 
-    define(deps, function (resolver, Cli, Core, chai, dependable, requirejs) {
-        requirejs.config(require('../../../require.js'));
+    define(deps, function (Core, Utils, path, util) {
+        /**
+         * Configuration
+         * @type {ConfigModule}
+         */
+        var exports = module.exports = function Config(resolver) {
+            Config.super_.call(this, resolver);
+        };
 
-        var expect = chai.expect;
+        util.inherits(exports, Core);
 
-        describe('Module CLI', function () {
-            var cliModule = null;
+        /**
+         * CLI arguments - passed from user's code
+         * @type {null}
+         */
+        exports.prototype.argsInstance = null;
 
-            beforeEach(function () {
-                cliModule = new Cli(resolver);
-            });
+        /**
+         * Setups CLI - assigns options
+         * @param options
+         */
+        exports.prototype.load = function(configPath, env) {
+            if(!env) {
+                env = "local";
+            }
 
-            it('Loads module', function () {
-                expect(Cli).to.not.equal(null);
-                expect(Cli).to.not.equal(undefined);
-            });
+            var cfg = Utils.loadConfig(configPath, env);
+            for(var prop in cfg) {
+                if(cfg.hasOwnProperty(prop)) {
+                    this[prop] = cfg[prop];
+                }
+            }
 
-            it('Creates Instance', function () {
-                expect(cliModule).to.not.equal(null);
-                expect(cliModule).to.not.equal(undefined);
-            });
-
-            it('Is subclass of Core', function () {
-                expect(cliModule instanceof Core).to.equal(true);
-            });
-
-            it('Is subclass of Cli', function () {
-                expect(cliModule instanceof Cli).to.equal(true);
-            });
-        });
+            return this;
+        };
     });
 }());
-

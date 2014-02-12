@@ -24,44 +24,17 @@
     var define = require('amdefine')(module);
 
     var deps = [
-        '../../../tests/resolver',
-        '../../../modules/cli',
-        '../../../modules/core',
-        'chai',
-        'dependable',
-        'requirejs',
+        '../core',
+        'util'
     ];
 
-    define(deps, function (resolver, Cli, Core, chai, dependable, requirejs) {
-        requirejs.config(require('../../../require.js'));
+    define(deps, function(core, util) {
+        var exports = module.exports = function Resolver(resolver) {
+            // Call super constructor
+            Resolver.super_.call(this, arguments);
+        };
 
-        var expect = chai.expect;
-
-        describe('Module CLI', function () {
-            var cliModule = null;
-
-            beforeEach(function () {
-                cliModule = new Cli(resolver);
-            });
-
-            it('Loads module', function () {
-                expect(Cli).to.not.equal(null);
-                expect(Cli).to.not.equal(undefined);
-            });
-
-            it('Creates Instance', function () {
-                expect(cliModule).to.not.equal(null);
-                expect(cliModule).to.not.equal(undefined);
-            });
-
-            it('Is subclass of Core', function () {
-                expect(cliModule instanceof Core).to.equal(true);
-            });
-
-            it('Is subclass of Cli', function () {
-                expect(cliModule instanceof Cli).to.equal(true);
-            });
-        });
+        util.inherits(exports, core);
     });
-}());
 
+}());

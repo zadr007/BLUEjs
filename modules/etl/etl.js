@@ -24,31 +24,27 @@
     var define = require('amdefine')(module);
 
     var deps = [
-        '../model',
-        'events',
-        'util'
+        "../core",
+        "util",
+        "csv"
     ];
 
-    define(deps, function(Model, events, util) {
-        var exports = module.exports = function User(mongo) {
-            User.super_.call(this, mongo);
-
-            Model.declare.call(this, 'User', {
-                name: String,
-                email: String,
-                emails: [String],
-                username: String,
-                provider: String,
-                hashed_password: String,
-                salt: String,
-                facebook: {},
-                twitter: {},
-                github: {},
-                google: {}
-            });
+    define(deps, function (Core, util, Csv) {
+        /**
+         * ETL Interface
+         * @type {EtlModule}
+         */
+        var exports = module.exports = function EtlModule(resolver) {
+            // Call super constructor
+            EtlModule.super_.call(this, resolver);
         };
 
-        util.inherits(exports, Model);
-    });
+        util.inherits(exports, Core);
 
-})();
+        exports.prototype.load = function(csvPath, opts) {
+            var csv = new Csv();
+            return csv.from.path(csvPath, opts);
+        };
+
+    });
+}());

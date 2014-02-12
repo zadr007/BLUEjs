@@ -24,45 +24,65 @@
     var define = require('amdefine')(module);
 
     var deps = [
+        '../../../tests/resolver.js',
+        '../../../modules/cli',
+        '../../../modules/core',
+        '../../../modules/mongo',
+        '../../../modules/webapp',
         'chai',
         'dependable',
-        'requirejs',
-        '../../../modules/core',
-        '../../../modules/core/app'
+        'requirejs'
     ];
 
-    define(deps, function (chai, dependable, requirejs, CoreModule, AppModule) {
+    define(deps, function (resolver, Cli, Core, Mongo, Webapp, chai, dependable, requirejs) {
         requirejs.config(require('../../../require.js'));
 
         var expect = chai.expect;
 
-        describe('Module Core - App', function () {
-            var appModule = null;
+        describe('Module Webapp', function () {
+            var webappModule = null;
 
-            beforeEach(function () {
-                appModule = new AppModule();
+            beforeEach(function (done) {
+                var rslvr = resolver();
+
+                var cli = new Cli(rslvr);
+                rslvr.register('cli', cli);
+
+                var mongo = new Mongo(rslvr);
+                rslvr.register('mongo', mongo);
+                mongo.initialize().then(function() {
+                    webappModule = new Webapp(rslvr);
+                    done();
+                });
+
             });
 
             it('Loads module', function () {
-                expect(AppModule).to.not.equal(null);
-                expect(AppModule).to.not.equal(undefined);
+                expect(Webapp).to.not.equal(null);
+                expect(Webapp).to.not.equal(undefined);
             });
 
             it('Creates Instance', function () {
-                expect(appModule).to.not.equal(null);
-                expect(appModule).to.not.equal(undefined);
+                expect(webappModule).to.not.equal(null);
+                expect(webappModule).to.not.equal(undefined);
             });
 
-            it('Is subclass of CoreModule', function () {
-                expect(appModule instanceof CoreModule).to.equal(true);
+            it('Is subclass of Core', function () {
+                expect(webappModule instanceof Core).to.equal(true);
             });
 
-            it('Is subclass of AppModule', function () {
-                expect(appModule instanceof AppModule).to.equal(true);
+            it('Is subclass of Webapp', function () {
+                expect(webappModule instanceof Webapp).to.equal(true);
             });
 
             it('Implements \'run\' method', function () {
-                expect(appModule.run instanceof Function).to.equal(true);
+                expect(webappModule.run instanceof Function).to.equal(true);
+            });
+
+            it('Implements \'loadAllModules\' method', function () {
+                expect(webappModule.loadAllModules instanceof Function).to.equal(true);
+
+                var core = new Core();
             });
         });
     });

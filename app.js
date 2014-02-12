@@ -29,25 +29,29 @@
     requirejs.config(require('./require.js'));
 
     var deps = [
+        './apps/default',
         './modules/cli',
         './modules/core',
-        './modules/core/app',
         './modules/config',
         './modules/etl',
         './modules/logger',
         './modules/mongo',
         './modules/utils',
+        './modules/webapp',
         'deferred',
+        'dependable',
         'util',
         'path'
     ];
 
-    define(deps, function (Cli, Core, CoreApp, Config, Etl, logger, Mongo, utils, deferred, util, path) {
+    define(deps, function (DefaultApp, Cli, Core, Config, Etl, Logger, Mongo, Utils, Webapp, deferred, dependable, util, path) {
         ///*
-        var core = new Core({});
+        var resolver = dependable.container();
 
         // Load Command Line Interface Module
-        var cli = new Cli(core.modules);
+        var cli = new Cli(resolver);
+
+        resolver.register('cli', cli);
 
         // Setup CLI options
         cli.args()
@@ -72,26 +76,27 @@
             return;
         }
 
-        // Load app module
-        function App(config, cli) {
-            App.super_.call(this, config, cli);
-        };
-
-        util.inherits(App, CoreApp);
-
         var config = new Config();
         config.load(path.join(__dirname, 'config.js'), argv['e'] || "local");
+
+        resolver.register('config', config);
+
+        var logger = new Logger(resolver);
+        resolver.register('logger', logger);
 
         if (argv['v'] || argv['verbose']) {
             config.verbose = true;
         }
+
+        var mongo = new Mongo(resolver);
+        resolver.register('mongo', mongo);
 
         if(config.verbose) {
             logger.log("Config loaded: " + JSON.stringify(config, null, 4));
         }
 
         // Create app instance
-        var app = new App(config, cli);
+        var app = new DefaultApp(resolver);
         app.run();
         //*/
     });

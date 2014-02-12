@@ -24,20 +24,10 @@
     var define = require('amdefine')(module);
 
     var deps = [
-        'events',
-        'util'
+        "./core"
     ];
 
-    define(deps, function(events, util) {
-        /**
-         * Core Module
-         * @type {CoreModule}
-         */
-        var exports = module.exports = function CoreModule() {
-
-        };
-
-        util.inherits(exports, events.EventEmitter);
+    define(deps, function (Core) {
+        var exports = module.exports = Core;
     });
-
 }());

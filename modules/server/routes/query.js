@@ -30,6 +30,10 @@
 
                 coll.find({'value.data.name': new RegExp(q, "i")}).limit(10).toArray(function (err, data) {
                     res.json(data);
+                }).done(function(res) {
+                    d.resolve(res);
+                }, function(err) {
+                    throw err;
                 });
             });
         });

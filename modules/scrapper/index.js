@@ -24,30 +24,10 @@
     var define = require('amdefine')(module);
 
     var deps = [
-        'deferred',
-        'request'
+        "./scraper"
     ];
 
-    define(deps, function(deferred, request) {
-        exports.deferredRequest = function (url) {
-            var d = deferred();
-
-            request(url, function (err, resp, body) {
-                if (err) {
-                    d.reject(new Error("Unable to fetch '" + url + "', reason: " + err));
-                    return;
-                }
-
-                if (resp.statusCode !== 200) {
-                    d.reject(new Error("Unable to fetch '" + url + "', code: " + resp.statusCode));
-                    return;
-                }
-
-                d.resolve(body);
-            });
-
-            return d.promise();
-        };
+    define(deps, function (Scraper) {
+        var exports = module.exports = Scraper;
     });
-
 }());

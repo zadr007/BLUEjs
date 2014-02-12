@@ -24,52 +24,41 @@
     var define = require('amdefine')(module);
 
     var deps = [
-        './index',
-        '../utils',
-        'path',
+        '../core',
+        'deferred',
+        'request',
         'util'
     ];
 
-    define(deps, function(CoreModule, utils, path, util) {
-        var exports = module.exports = function CoreApp(config, cli) {
-            this.config = config;
-            this.cli = cli;
+    define(deps, function(Core, deferred, request, util) {
+        var exports = module.exports = function Scraper(resolver) {
+            Scraper.super_.call(this, resolver);
+
+            this.mongo = resolver.get('mongo');
         };
 
-        util.inherits(exports, CoreModule);
+        util.inherits(exports, Core);
 
-        exports.prototype.config = null;
+        exports.prototype.mongo = null;
 
-        exports.prototype.cli = null;
+        exports.deferredRequest = function (url) {
+            var d = deferred();
 
-
-        exports.prototype.parseCliOptions = function() {
-            var argv = this.cli.args().argv;
-
-            var opts = argv["o"] || argv["option"];
-            if (opts) {
-                if (Object.prototype.toString.call(opts) !== '[object Array]') {
-                    opts = [opts];
+            request(url, function (err, resp, body) {
+                if (err) {
+                    d.reject(new Error("Unable to fetch '" + url + "', reason: " + err));
+                    return;
                 }
 
-                for (var i = 0; i < opts.length; i++) {
-                    var opt = opts[i];
-                    var tokens = opt.split("=");
-                    utils.setObjectProperty(this.config, tokens[0], tokens[1]);
+                if (resp.statusCode !== 200) {
+                    d.reject(new Error("Unable to fetch '" + url + "', code: " + resp.statusCode));
+                    return;
                 }
-            }
-        };
 
-        exports.prototype.run = function() {
-            if(this.cli) {
-                this.parseCliOptions();
-            }
-
-            var Server = require('../server');
-            var app = new Server(this.config);
-            app.initialize().done(function (res) {
-                app.main();
+                d.resolve(body);
             });
+
+            return d.promise();
         };
     });
 

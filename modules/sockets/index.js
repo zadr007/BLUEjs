@@ -24,58 +24,10 @@
     var define = require('amdefine')(module);
 
     var deps = [
-        '../core',
-        'deferred',
-        'socket.io',
-        'util'
+        "./sockets"
     ];
 
-    define(deps, function(core, deferred, socketio, util) {
-        /**
-         * sockets.io wrapper
-         * @type {Sockets}
-         */
-        var exports = module.exports = function Sockets(config) {
-            this.config = config;
-        };
-
-        /**
-         * Config to be used
-         * @type {object}
-         */
-        exports.prototype.config = null;
-
-        /**
-         * Application to be used
-         * @type {object}
-         */
-        exports.prototype.app = null;
-
-        /**
-         * Initializes Mongo wrapper
-         * @returns {*} Promise
-         */
-        exports.prototype.initialize = function (app) {
-            var d = deferred();
-
-            this.app = app;
-
-            var socketOptions = {
-                log: this.config.verbose
-            };
-
-            this.io = socketio.listen(this.app.server, socketOptions);
-
-            var self = this;
-
-            this.io.sockets.on('connection', function (socket) {
-                socket.on('msg', function (data) {
-                    // TODO: Process here
-                });
-            });
-
-            return deferred(this);
-        };
+    define(deps, function (Sockets) {
+        var exports = module.exports = Sockets;
     });
-
 }());

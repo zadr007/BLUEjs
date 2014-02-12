@@ -24,44 +24,41 @@
     var define = require('amdefine')(module);
 
     var deps = [
-        '../../../tests/resolver',
-        '../../../modules/cli',
-        '../../../modules/core',
-        'chai',
-        'dependable',
-        'requirejs',
+        "../core",
+        "path",
+        "util"
     ];
 
-    define(deps, function (resolver, Cli, Core, chai, dependable, requirejs) {
-        requirejs.config(require('../../../require.js'));
+    define(deps, function (Core, path, util) {
+        /**
+         * Authentication and Authorization Interface
+         * @type {AuthModule}
+         */
+        var exports = module.exports = function Auth(resolver) {
+            // Call super constructor
+            Auth.super_.call(this, arguments);
 
-        var expect = chai.expect;
+            this.mongo = resolver.get('mongo');
 
-        describe('Module CLI', function () {
-            var cliModule = null;
+            var modelsDir = path.join(__dirname, "models");
+            this.mongo.initializeModelsDir(modelsDir);
+        };
 
-            beforeEach(function () {
-                cliModule = new Cli(resolver);
-            });
+        util.inherits(exports, Core);
 
-            it('Loads module', function () {
-                expect(Cli).to.not.equal(null);
-                expect(Cli).to.not.equal(undefined);
-            });
+        exports.prototype.mongo = null;
 
-            it('Creates Instance', function () {
-                expect(cliModule).to.not.equal(null);
-                expect(cliModule).to.not.equal(undefined);
-            });
+        exports.prototype.userAdd = function(user) {
 
-            it('Is subclass of Core', function () {
-                expect(cliModule instanceof Core).to.equal(true);
-            });
+        };
 
-            it('Is subclass of Cli', function () {
-                expect(cliModule instanceof Cli).to.equal(true);
-            });
-        });
+        exports.prototype.userRemove = function(user) {
+
+        };
+
+        exports.prototype.userList = function() {
+
+        };
+
     });
 }());
-

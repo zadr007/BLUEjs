@@ -24,42 +24,52 @@
     var define = require('amdefine')(module);
 
     var deps = [
-        '../../../tests/resolver',
-        '../../../modules/cli',
-        '../../../modules/core',
+        "../../../tests/resolver",
+        "../../../modules/mongo",
+        "../../../modules/scrapper",
         'chai',
         'dependable',
-        'requirejs',
+        'path',
+        'requirejs'
     ];
 
-    define(deps, function (resolver, Cli, Core, chai, dependable, requirejs) {
+    define(deps, function (resolver, Mongo, Scraper, chai, dependable, path, requirejs) {
         requirejs.config(require('../../../require.js'));
 
         var expect = chai.expect;
+        var scraper = null;
 
-        describe('Module CLI', function () {
-            var cliModule = null;
+        describe('Module Scrapper', function () {
+            beforeEach(function() {
+                var rslvr = resolver();
 
-            beforeEach(function () {
-                cliModule = new Cli(resolver);
+                var mongo = new Mongo(rslvr);
+                rslvr.register('mongo', mongo);
+
+                scraper = new Scraper(rslvr);
             });
 
-            it('Loads module', function () {
-                expect(Cli).to.not.equal(null);
-                expect(Cli).to.not.equal(undefined);
+            it('Module Exists', function (done) {
+                expect(Scraper).to.not.equal(null);
+                expect(Scraper).to.not.equal(undefined);
+                done();
             });
 
-            it('Creates Instance', function () {
-                expect(cliModule).to.not.equal(null);
-                expect(cliModule).to.not.equal(undefined);
+            it('Has mongo instance', function () {
+                expect(scraper.mongo).to.not.equal(null);
+                expect(scraper.mongo).to.not.equal(undefined);
+                expect(scraper.mongo instanceof Mongo).to.equal(true);
             });
 
-            it('Is subclass of Core', function () {
-                expect(cliModule instanceof Core).to.equal(true);
-            });
-
-            it('Is subclass of Cli', function () {
-                expect(cliModule instanceof Cli).to.equal(true);
+            it('Scrapes Google', function (done) {
+                var res = Scraper.deferredRequest('http://google.com').then(function (data) {
+                    expect(data).to.not.equal(null);
+                    expect(data).to.not.equal(undefined);
+                    done();
+                }, function () {
+                    expect(false).to.equal(true);
+                    done();
+                });
             });
         });
     });

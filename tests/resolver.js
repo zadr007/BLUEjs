@@ -21,47 +21,34 @@
 (function () {
     'use strict';
 
+    //*
     var define = require('amdefine')(module);
 
     var deps = [
-        '../../../tests/resolver',
-        '../../../modules/cli',
-        '../../../modules/core',
-        'chai',
+        '../modules/cli',
+        '../modules/config',
+        '../modules/logger',
+        '../modules/mongo',
         'dependable',
-        'requirejs',
+        'path'
     ];
 
-    define(deps, function (resolver, Cli, Core, chai, dependable, requirejs) {
-        requirejs.config(require('../../../require.js'));
+    define(deps, function (Cli, Config, Logger, Mongo, dependable, path) {
 
-        var expect = chai.expect;
+        module.exports = function () {
+            var resolver = dependable.container();
 
-        describe('Module CLI', function () {
-            var cliModule = null;
+            var config = new Config(resolver);
+            config.load(path.join(__dirname, '../config.js'), "test");
 
-            beforeEach(function () {
-                cliModule = new Cli(resolver);
-            });
+            resolver.register('config', config);
 
-            it('Loads module', function () {
-                expect(Cli).to.not.equal(null);
-                expect(Cli).to.not.equal(undefined);
-            });
+            var logger = new Logger(resolver);
+            resolver.register('logger', logger);
 
-            it('Creates Instance', function () {
-                expect(cliModule).to.not.equal(null);
-                expect(cliModule).to.not.equal(undefined);
-            });
-
-            it('Is subclass of Core', function () {
-                expect(cliModule instanceof Core).to.equal(true);
-            });
-
-            it('Is subclass of Cli', function () {
-                expect(cliModule instanceof Cli).to.equal(true);
-            });
-        });
+            return resolver;
+        };
     });
-}());
+    //*/
 
+}());

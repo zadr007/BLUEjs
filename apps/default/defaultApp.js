@@ -21,39 +21,31 @@
 (function () {
     'use strict';
 
-    var define = require('amdefine')(module);
+    if (typeof define !== 'function') {
+        var define = require('amdefine')(module);
+    }
+
+    var requirejs = require('requirejs');
+    requirejs.config(require('../../require.js'));
 
     var deps = [
-        'chai',
+        '../../modules/webapp',
+        'deferred',
         'dependable',
-        'path',
-        'requirejs',
-        "../../../modules/scrapper"
+        'util'
     ];
 
-    define(deps, function (chai, dependable, path, requirejs, ScrapperModule) {
-        requirejs.config(require('../../../require.js'));
+    define(deps, function (Webapp, deferred, dependable, util) {
+        ///*
+        var resolver = dependable.container();
 
-        var expect = chai.expect;
+        // Load app module
+        var exports = module.exports = function DefaultApp(resolver) {
+            DefaultApp.super_.call(this, resolver);
+        };
 
-        describe('Module Scrapper', function () {
-            it('Module Exists', function (done) {
-                expect(ScrapperModule).to.not.equal(null);
-                expect(ScrapperModule).to.not.equal(undefined);
-                done();
-            });
+        util.inherits(exports, Webapp);
 
-            it('Scrapes Google', function (done) {
-                var res = ScrapperModule.deferredRequest('http://google.com').then(function (data) {
-                    expect(data).to.not.equal(null);
-                    expect(data).to.not.equal(undefined);
-                    done();
-                }, function () {
-                    expect(false).to.equal(true);
-                    done();
-                });
-            });
-        });
+        //*/
     });
 }());
-

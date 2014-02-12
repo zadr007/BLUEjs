@@ -19,49 +19,42 @@
 // THE SOFTWARE.
 
 (function () {
-    'use strict';
+    "use strict";
 
     var define = require('amdefine')(module);
 
     var deps = [
-        '../../../tests/resolver',
-        '../../../modules/cli',
-        '../../../modules/core',
-        'chai',
-        'dependable',
-        'requirejs',
+        "../core",
+        "../utils",
+        "util"
     ];
 
-    define(deps, function (resolver, Cli, Core, chai, dependable, requirejs) {
-        requirejs.config(require('../../../require.js'));
+    define(deps, function(Core, Utils, util) {
+        var exports = module.exports = function Logger(resolver) {
+            Logger.super_.call(this, resolver);
+        };
 
-        var expect = chai.expect;
+        util.inherits(exports, Core);
 
-        describe('Module CLI', function () {
-            var cliModule = null;
+        exports.prototype.log = function (msg) {
+            console.log("[" + Utils.timestamp() + "] " + msg);
+        };
 
-            beforeEach(function () {
-                cliModule = new Cli(resolver);
-            });
+        exports.prototype.info = function (msg) {
+            this.log(msg);
+        };
 
-            it('Loads module', function () {
-                expect(Cli).to.not.equal(null);
-                expect(Cli).to.not.equal(undefined);
-            });
+        exports.prototype.debug = function (msg) {
+            this.log(msg);
+        };
 
-            it('Creates Instance', function () {
-                expect(cliModule).to.not.equal(null);
-                expect(cliModule).to.not.equal(undefined);
-            });
+        exports.prototype.warn = function (msg) {
+            this.log(msg);
+        };
 
-            it('Is subclass of Core', function () {
-                expect(cliModule instanceof Core).to.equal(true);
-            });
-
-            it('Is subclass of Cli', function () {
-                expect(cliModule instanceof Cli).to.equal(true);
-            });
-        });
+        exports.prototype.error = function (msg) {
+            this.log(msg);
+        };
     });
-}());
 
+}());
