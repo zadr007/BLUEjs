@@ -161,11 +161,10 @@
             return deferred(collection);
         };
 
-        exports.prototype.initializeModels = function () {
+        exports.prototype.initializeModelsDir = function (modelsDir) {
             var d = deferred();
 
             var self = this;
-            var modelsDir = path.join(__dirname, "models");
             fs.readdir(modelsDir, function (err, files) {
                 var res = {};
 
@@ -194,6 +193,11 @@
             });
 
             return d.promise();
+        };
+
+        exports.prototype.initializeModels = function () {
+            var modelsDir = path.join(__dirname, "models");
+            return this.initializeModelsDir(modelsDir);
         };
 
         exports.prototype.initializeWatcher = function() {

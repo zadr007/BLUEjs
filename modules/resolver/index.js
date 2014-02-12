@@ -24,23 +24,17 @@
     var define = require('amdefine')(module);
 
     var deps = [
-        '../model',
-        'events',
+        '../core',
         'util'
     ];
 
-    define(deps, function(Model, events, util) {
-        var exports = module.exports = function Session(mongo) {
-            Session.super_.call(this, mongo);
-
-            Model.declare.call(this, 'Session', {
-                session: String
-            });
-
-            return this;
+    define(deps, function(core, util) {
+        var exports = module.exports = function Resolver(resolver) {
+            // Call super constructor
+            Resolver.super_.call(this, arguments);
         };
 
-        util.inherits(exports, Model);
+        util.inherits(exports, core);
     });
 
-})();
+}());

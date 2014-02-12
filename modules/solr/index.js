@@ -25,10 +25,11 @@
 
     var deps = [
         '../core',
+        'solr-client',
         'util'
     ];
 
-    define(deps, function(core, util) {
+    define(deps, function(core, solr, util) {
         var exports = module.exports = function SolrModule(resolver) {
             // Call super constructor
             SolrModule.super_.call(this, arguments);

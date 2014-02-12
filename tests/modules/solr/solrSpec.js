@@ -57,7 +57,7 @@
                 expect(solrModule instanceof Solr).to.equal(true);
             });
 
-            it('Is subclass of CliModule', function () {
+            it('Is subclass of Cli', function () {
                 expect(solrModule instanceof Solr).to.equal(true);
             });
         });

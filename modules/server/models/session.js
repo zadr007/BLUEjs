@@ -24,36 +24,23 @@
     var define = require('amdefine')(module);
 
     var deps = [
-        "../../../modules/scrapper",
-        'chai',
-        'dependable',
-        'path',
-        'requirejs'
+        '../../mongo/model',
+        'events',
+        'util'
     ];
 
-    define(deps, function (Scrapper, chai, dependable, path, requirejs) {
-        requirejs.config(require('../../../require.js'));
+    define(deps, function(Model, events, util) {
+        var exports = module.exports = function Session(mongo) {
+            Session.super_.call(this, mongo);
 
-        var expect = chai.expect;
-
-        describe('Module Scrapper', function () {
-            it('Module Exists', function (done) {
-                expect(Scrapper).to.not.equal(null);
-                expect(Scrapper).to.not.equal(undefined);
-                done();
+            Model.declare.call(this, 'Session', {
+                session: String
             });
 
-            it('Scrapes Google', function (done) {
-                var res = Scrapper.deferredRequest('http://google.com').then(function (data) {
-                    expect(data).to.not.equal(null);
-                    expect(data).to.not.equal(undefined);
-                    done();
-                }, function () {
-                    expect(false).to.equal(true);
-                    done();
-                });
-            });
-        });
+            return this;
+        };
+
+        util.inherits(exports, Model);
     });
-}());
 
+})();

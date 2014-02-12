@@ -24,50 +24,47 @@
     var define = require('amdefine')(module);
 
     var deps = [
-        '../../../tests/resolver',
-        '../../../modules/auth',
-        '../../../modules/core',
-        '../../../modules/mongo',
+        "../../../tests/resolver",
+        "../../../modules/mongo",
+        "../../../modules/scrapper",
         'chai',
         'dependable',
-        'requirejs',
+        'path',
+        'requirejs'
     ];
 
-    define(deps, function(resolver, Auth, Core, Mongo, chai, dependable, requirejs) {
+    define(deps, function (resolver, Mongo, Scraper, chai, dependable, path, requirejs) {
         requirejs.config(require('../../../require.js'));
 
         var expect = chai.expect;
+        var scraper = null;
 
-        describe('Module Auth', function () {
-            var authModule = null;
-            var mongo = null;
-
-            beforeEach(function () {
-                mongo = resolver.get('mongo');
-
-                authModule = new Auth(resolver);
+        describe('Module Scrapper', function () {
+            beforeEach(function() {
+                scraper = new Scraper(resolver);
             });
 
-            it('Loads module', function () {
-                expect(Auth).to.not.equal(null);
-                expect(Auth).to.not.equal(undefined);
+            it('Module Exists', function (done) {
+                expect(Scraper).to.not.equal(null);
+                expect(Scraper).to.not.equal(undefined);
+                done();
             });
 
-            it('Creates Instance', function () {
-                expect(authModule).to.not.equal(null);
-                expect(authModule).to.not.equal(undefined);
+            it('Has mongo instance', function () {
+                expect(scraper.mongo).to.not.equal(null);
+                expect(scraper.mongo).to.not.equal(undefined);
+                expect(scraper.mongo instanceof Mongo).to.equal(true);
             });
 
-            it('Is subclass of Core', function () {
-                expect(authModule instanceof Core).to.equal(true);
-            });
-
-            it('Is subclass of Auth', function () {
-                expect(authModule instanceof Auth).to.equal(true);
-            });
-
-            it('Mongo is set', function () {
-                expect(authModule.mongo instanceof Mongo).to.equal(true);
+            it('Scrapes Google', function (done) {
+                var res = Scraper.deferredRequest('http://google.com').then(function (data) {
+                    expect(data).to.not.equal(null);
+                    expect(data).to.not.equal(undefined);
+                    done();
+                }, function () {
+                    expect(false).to.equal(true);
+                    done();
+                });
             });
         });
     });

@@ -24,11 +24,23 @@
     var define = require('amdefine')(module);
 
     var deps = [
+        '../core',
         'deferred',
-        'request'
+        'request',
+        'util'
     ];
 
-    define(deps, function(deferred, request) {
+    define(deps, function(Core, deferred, request, util) {
+        var exports = module.exports = function Scraper(resolver) {
+            Scraper.super_.call(this, resolver);
+
+            this.mongo = resolver.get('mongo');
+        };
+
+        util.inherits(exports, Core);
+
+        exports.prototype.mongo = null;
+
         exports.deferredRequest = function (url) {
             var d = deferred();
 

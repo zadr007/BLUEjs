@@ -28,11 +28,12 @@
         '../modules/cli',
         '../modules/config',
         '../modules/logger',
+        '../modules/mongo',
         'dependable',
         'path'
     ];
 
-    define(deps, function (Cli, Config, Logger, dependable, path) {
+    define(deps, function (Cli, Config, Logger, Mongo, dependable, path) {
 
         module.exports = (function () {
             var resolver = dependable.container();
@@ -44,6 +45,9 @@
 
             var logger = new Logger(resolver);
             resolver.register('logger', logger);
+
+            var mongo = new Mongo(resolver);
+            resolver.register('mongo', mongo);
 
             return resolver;
         }());

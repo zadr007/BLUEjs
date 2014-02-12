@@ -32,10 +32,11 @@
         'express',
         'gzippo',
         'http',
+        'path',
         'util'
     ];
 
-    define(deps, function(Core, Utils, Cm, deferred, exphbs, express, gzippo, http, util) {
+    define(deps, function(Core, Utils, Cm, deferred, exphbs, express, gzippo, http, path, util) {
         var MongoStore = Cm(express);
 
         var exports = module.exports = function ServerModule(resolver) {
@@ -46,6 +47,9 @@
             this.logger = this.resolver.get('logger');
 
             this.mongo = this.resolver.get('mongo');
+
+            var modelsDir = path.join(__dirname, "models");
+            this.mongo.initializeModelsDir(modelsDir);
         };
 
         util.inherits(exports, Core);
