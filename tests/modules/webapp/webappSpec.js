@@ -39,7 +39,7 @@
 
         var expect = chai.expect;
 
-        describe('Module Webapp', function () {
+        describe('Webapp Module', function () {
             var webappModule = null;
 
             beforeEach(function (done) {

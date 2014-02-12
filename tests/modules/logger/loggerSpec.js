@@ -37,7 +37,7 @@
         var expect = chai.expect;
         var logger = null;
 
-        describe('Module Logger', function () {
+        describe('Logger Module', function () {
             beforeEach(function () {
                 logger = new Logger(resolver);
             });

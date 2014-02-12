@@ -37,7 +37,7 @@
 
         var expect = chai.expect;
 
-        describe('Module CLI', function () {
+        describe('CLI Module', function () {
             var cliModule = null;
 
             beforeEach(function () {

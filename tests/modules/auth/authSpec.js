@@ -30,18 +30,28 @@
         '../../../modules/core',
         '../../../modules/logger',
         '../../../modules/mongo',
+        '../../../modules/mongo/model',
         'chai',
         'dependable',
         'requirejs'
     ];
 
-    define(deps, function(resolver, Auth, User, Core, Logger, Mongo, chai, dependable, requirejs) {
+    define(deps, function(resolver, Auth, User, Core, Logger, Mongo, Model, chai, dependable, requirejs) {
         requirejs.config(require('../../../require.js'));
 
         var expect = chai.expect;
 
-        describe('Module Auth', function () {
+        describe('Auth Module', function () {
+            /**
+             * Auth module instance
+             * @type {Auth}
+             */
             var authModule = null;
+
+            /**
+             * Mongo module instance
+             * @type {Mongo}
+             */
             var mongo = null;
 
             beforeEach(function (done) {
@@ -76,6 +86,34 @@
 
             it('Mongo is set', function () {
                 expect(authModule.mongo instanceof Mongo).to.equal(true);
+            });
+
+            it('Has Permission model defined', function () {
+                expect(Model.models['Permission']).to.not.equal(null);
+                expect(Model.models['Permission']).to.not.equal(undefined);
+            });
+
+            it('Has Role model defined', function () {
+                expect(Model.models['Role']).to.not.equal(null);
+                expect(Model.models['Role']).to.not.equal(undefined);
+            });
+
+            it('Has User model defined', function () {
+                expect(Model.models['User']).to.not.equal(null);
+                expect(Model.models['User']).to.not.equal(undefined);
+            });
+
+            it('Has User model defined', function () {
+                expect(Model.models['User']).to.not.equal(null);
+                expect(Model.models['User']).to.not.equal(undefined);
+            });
+
+            it('Creates User', function () {
+                var user = {
+                    username: "Joe Doe"
+                };
+
+                authModule.userAdd(user);
             });
         });
     });
