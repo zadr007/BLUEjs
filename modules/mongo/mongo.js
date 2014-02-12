@@ -54,14 +54,14 @@
         util.inherits(exports, Core);
 
         /**
-         * Config to be used
-         * @type {object}
+         * Configuration
+         * @type {Config}
          */
         exports.prototype.config = null;
 
         /**
          * Logger
-         * @type {object}
+         * @type {Logger}
          */
         exports.prototype.logger = null;
 
@@ -206,8 +206,11 @@
             return d.promise();
         };
 
-        exports.prototype.initializeModels = function () {
-            var modelsDir = path.join(__dirname, "models");
+        exports.prototype.initializeModels = function (dirname) {
+            if(!dirname) {
+                dirname = __dirname;
+            }
+            var modelsDir = path.join(dirname, "models");
             return this.initializeModelsDir(modelsDir);
         };
 
@@ -226,11 +229,10 @@
             }
         };
 
-        exports.prototype.initializeMigrations = function () {
+        exports.prototype.initializeMigrationsDir = function (migrationsDir) {
             var d = deferred();
 
             var self = this;
-            var migrationsDir = path.join(__dirname, "migrations");
             fs.readdir(migrationsDir, function (err, files) {
                 var res = {};
 
@@ -256,6 +258,14 @@
             });
 
             return d.promise();
+        };
+
+        exports.prototype.initializeMigrations = function (dirname) {
+            if(!dirname) {
+                dirname = __dirname;
+            }
+            var migrationsDir = path.join(dirname, "migrations");
+            return this.initializeMigrationsDir(migrationsDir);
         };
 
         /**
