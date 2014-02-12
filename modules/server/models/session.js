@@ -30,17 +30,23 @@
     ];
 
     define(deps, function(Model, events, util) {
+        var schema = Model.declareSchema('Session', {
+            session: String
+        });
+
+        var model = Model.declareModel('Session', schema);
+
         var exports = module.exports = function Session() {
-            Session.super_.call(this);
+            Session.super_.call(this, schema, model);
 
             return this;
         };
 
         util.inherits(exports, Model);
 
-        var schema = Model.declare('Session', {
-            session: String
-        });
+        exports.Schema = schema;
+
+        exports.Model = model;
     });
 
 })();

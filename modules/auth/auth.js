@@ -41,7 +41,7 @@
             this.mongo = resolver.get('mongo');
 
             var modelsDir = path.join(__dirname, "models");
-            // this.mongo.initializeModelsDir(modelsDir);
+            this.mongo.initializeModelsDir(modelsDir);
         };
 
         util.inherits(exports, Core);

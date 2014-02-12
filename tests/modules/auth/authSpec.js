@@ -26,6 +26,7 @@
     var deps = [
         '../../../tests/resolver',
         '../../../modules/auth',
+        '../../../modules/auth/models/user',
         '../../../modules/core',
         '../../../modules/logger',
         '../../../modules/mongo',
@@ -34,7 +35,7 @@
         'requirejs'
     ];
 
-    define(deps, function(resolver, Auth, Core, Logger, Mongo, chai, dependable, requirejs) {
+    define(deps, function(resolver, Auth, User, Core, Logger, Mongo, chai, dependable, requirejs) {
         requirejs.config(require('../../../require.js'));
 
         var expect = chai.expect;
@@ -43,13 +44,16 @@
             var authModule = null;
             var mongo = null;
 
-            beforeEach(function () {
+            beforeEach(function (done) {
                 var rslvr = resolver();
 
                 var mongo = new Mongo(rslvr);
                 rslvr.register('mongo', mongo);
 
-                authModule = new Auth(rslvr);
+                mongo.initialize().then(function() {
+                    authModule = new Auth(rslvr);
+                    done();
+                });
             });
 
             it('Loads module', function () {

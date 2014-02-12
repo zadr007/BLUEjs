@@ -31,10 +31,16 @@
     ];
 
     define(deps, function(events, mongoose, timestamps, util) {
-        var exports = module.exports = function Model() {
+        var exports = module.exports = function Model(schema, model) {
+            this.schema = schema;
+            this.model = model;
         };
 
         util.inherits(exports, events.EventEmitter);
+
+        exports.prototype.schema = null;
+
+        exports.prototype.model = null;
 
         exports.wirePlugin = function(schema, plugin) {
             var p = require(plugin.path);
@@ -42,20 +48,22 @@
 
         };
 
-        exports.declare = function(name, schema) {
+        exports.declareSchema = function(name, schema) {
             /**
              * Client Schema
              */
-            var objectSchema = new  mongoose.Schema(schema);
+            var objectSchema = new  mongoose.Schema(schema, { collection: name });
 
             objectSchema.plugin(timestamps, {
                 created: "createdAt",
                 lastUpdated: "updatedAt"
             });
 
-            mongoose.model(name, objectSchema);
-
             return objectSchema;
+        };
+
+        exports.declareModel = function(name, schema) {
+            return mongoose.model(name, schema);
         };
     });
 

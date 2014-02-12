@@ -24,21 +24,13 @@
     var define = require('amdefine')(module);
 
     var deps = [
-        '../model',
+        '../../mongo/model',
         'events',
         'util'
     ];
 
     define(deps, function (Model, events, util) {
-        var exports = module.exports = function User() {
-            User.super_.call(this);
-
-            return this;
-        };
-
-        util.inherits(exports, Model);
-
-        var schema = Model.declare('User', {
+        var schema = Model.declareSchema('User', {
             name: String,
             email: String,
             emails: [String],
@@ -52,6 +44,19 @@
             google: {}
         });
 
+        var model = Model.declareModel('User', schema);
+
+        var exports = module.exports = function User() {
+            User.super_.call(this, schema, model);
+
+            return this;
+        };
+
+        util.inherits(exports, Model);
+
+        exports.Schema = schema;
+
+        exports.Model = model;
     });
 
 })();

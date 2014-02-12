@@ -174,6 +174,12 @@
             fs.readdir(modelsDir, function (err, files) {
                 var res = {};
 
+                if(!files) {
+                    self.models = res;
+                    d.resolve(self);
+                    return;
+                }
+
                 files.forEach(function (file) {
                     var parts = file.split(".");
                     if(parts.length == 2 && parts[1].toLowerCase() == "js") {
@@ -194,7 +200,6 @@
                 });
 
                 self.models = res;
-
                 d.resolve(self);
             });
 

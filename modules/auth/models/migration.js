@@ -24,24 +24,29 @@
     var define = require('amdefine')(module);
 
     var deps = [
-        '../model',
+        '../../mongo/model',
         'events',
         'util'
     ];
 
     define(deps, function(Model, events, util) {
+        var schema = Model.declareSchema("Migration", {
+            name: String
+        });
+
+        var model = Model.declareModel("Migration", schema);
+
         var exports = module.exports = function Migration() {
-            Migration.super_.call(this);
+            Migration.super_.call(this, schema, model);
 
             return this;
         };
 
         util.inherits(exports, Model);
 
-        var schema = Model.declare("Migration", {
-            name: String
-        });
+        exports.Schema = schema;
 
+        exports.Model = model;
     });
 
 })();
