@@ -24,11 +24,27 @@
     var define = require('amdefine')(module);
 
     var deps = [
-        "./scraper"
+        "../core",
+        "util",
+        "csv"
     ];
 
-    define(deps, function (Scraper) {
-        var exports = module.exports = Scraper;
+    define(deps, function (Core, util, Csv) {
+        /**
+         * ETL Interface
+         * @type {EtlModule}
+         */
+        var exports = module.exports = function EtlModule(resolver) {
+            // Call super constructor
+            EtlModule.super_.call(this, resolver);
+        };
+
+        util.inherits(exports, Core);
+
+        exports.prototype.load = function(csvPath, opts) {
+            var csv = new Csv();
+            return csv.from.path(csvPath, opts);
+        };
 
     });
 }());

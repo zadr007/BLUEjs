@@ -24,46 +24,11 @@
     var define = require('amdefine')(module);
 
     var deps = [
-        "../core",
-        '../utils',
-        'path',
-        'util'
+        "./config"
     ];
 
-    define(deps, function (Core, Utils, path, util) {
-        /**
-         * Configuration
-         * @type {ConfigModule}
-         */
-        var exports = module.exports = function Config(resolver) {
-            Config.super_.call(this, resolver);
-        };
+    define(deps, function (Config) {
+        var exports = module.exports = Config;
 
-        util.inherits(exports, Core);
-
-        /**
-         * CLI arguments - passed from user's code
-         * @type {null}
-         */
-        exports.prototype.argsInstance = null;
-
-        /**
-         * Setups CLI - assigns options
-         * @param options
-         */
-        exports.prototype.load = function(configPath, env) {
-            if(!env) {
-                env = "local";
-            }
-
-            var cfg = Utils.loadConfig(configPath, env);
-            for(var prop in cfg) {
-                if(cfg.hasOwnProperty(prop)) {
-                    this[prop] = cfg[prop];
-                }
-            }
-
-            return this;
-        };
     });
 }());

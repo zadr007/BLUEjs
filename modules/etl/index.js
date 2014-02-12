@@ -24,27 +24,11 @@
     var define = require('amdefine')(module);
 
     var deps = [
-        "../core",
-        "util",
-        "csv"
+        "./etl"
     ];
 
-    define(deps, function (Core, util, Csv) {
-        /**
-         * ETL Interface
-         * @type {EtlModule}
-         */
-        var exports = module.exports = function EtlModule(resolver) {
-            // Call super constructor
-            EtlModule.super_.call(this, resolver);
-        };
-
-        util.inherits(exports, Core);
-
-        exports.prototype.load = function(csvPath, opts) {
-            var csv = new Csv();
-            return csv.from.path(csvPath, opts);
-        };
+    define(deps, function (Etl) {
+        var exports = module.exports = Etl;
 
     });
 }());

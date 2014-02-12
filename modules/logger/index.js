@@ -19,42 +19,16 @@
 // THE SOFTWARE.
 
 (function () {
-    "use strict";
+    'use strict';
 
     var define = require('amdefine')(module);
 
     var deps = [
-        "../core",
-        "../utils",
-        "util"
+        "./logger"
     ];
 
-    define(deps, function(Core, Utils, util) {
-        var exports = module.exports = function Logger(resolver) {
-            Logger.super_.call(this, resolver);
-        };
+    define(deps, function (Logger) {
+        var exports = module.exports = Logger;
 
-        util.inherits(exports, Core);
-
-        exports.prototype.log = function (msg) {
-            console.log("[" + Utils.timestamp() + "] " + msg);
-        };
-
-        exports.prototype.info = function (msg) {
-            this.log(msg);
-        };
-
-        exports.prototype.debug = function (msg) {
-            this.log(msg);
-        };
-
-        exports.prototype.warn = function (msg) {
-            this.log(msg);
-        };
-
-        exports.prototype.error = function (msg) {
-            this.log(msg);
-        };
     });
-
 }());

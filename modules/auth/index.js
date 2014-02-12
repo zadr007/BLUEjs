@@ -24,41 +24,11 @@
     var define = require('amdefine')(module);
 
     var deps = [
-        "../core",
-        "path",
-        "util"
+        "./auth"
     ];
 
-    define(deps, function (Core, path, util) {
-        /**
-         * Authentication and Authorization Interface
-         * @type {AuthModule}
-         */
-        var exports = module.exports = function Auth(resolver) {
-            // Call super constructor
-            Auth.super_.call(this, arguments);
-
-            this.mongo = resolver.get('mongo');
-
-            var modelsDir = path.join(__dirname, "models");
-            // this.mongo.initializeModelsDir(modelsDir);
-        };
-
-        util.inherits(exports, Core);
-
-        exports.prototype.mongo = null;
-
-        exports.prototype.userAdd = function(user) {
-
-        };
-
-        exports.prototype.userRemove = function(user) {
-
-        };
-
-        exports.prototype.userList = function() {
-
-        };
+    define(deps, function (Auth) {
+        var exports = module.exports = Auth;
 
     });
 }());

@@ -24,56 +24,11 @@
     var define = require('amdefine')(module);
 
     var deps = [
-        'dependable',
-        'events',
-        'fs',
-        'path',
-        'util'
+        "./core"
     ];
 
-    define(deps, function (dependable, events, fs, path, util) {
-        /**
-         * Core Module
-         * @type {CoreModule}
-         */
-        var exports = module.exports = function CoreModule(resolver) {
-            if(resolver) {
-                this.resolver = resolver;
-            } else {
-                this.resolver = dependable.container()
-            }
-        };
-
-        util.inherits(exports, events.EventEmitter);
-
-        exports.prototype.resolver = null;
-
-        exports.prototype.loadAllModules = function (exclude) {
-            var res = dependable.container();
-
-            if(!exclude) {
-                exclude = [];
-            }
-
-            console.log("Loading all modules");
-            var modulesDir = path.join(__dirname, '..');
-            fs.readdir(modulesDir, function (err, files) {
-                files.forEach(function (file) {
-                    if(exclude.indexOf(file) >= 0) {
-                        return;
-                    }
-
-                    var modulePath = path.join(modulesDir, file);
-
-                    res.register(file, require(modulePath));
-                });
-            });
-
-            res.register("resolver", this);
-
-            return res;
-        };
+    define(deps, function (Core) {
+        var exports = module.exports = Core;
 
     });
-
 }());

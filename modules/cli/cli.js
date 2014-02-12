@@ -24,11 +24,37 @@
     var define = require('amdefine')(module);
 
     var deps = [
-        "./scraper"
+        "../core",
+        "util",
+        "optimist"
     ];
 
-    define(deps, function (Scraper) {
-        var exports = module.exports = Scraper;
+    define(deps, function (Core, util, Optimist) {
+        /**
+         * Command Line Interface
+         * @type {CliModule}
+         */
+        var exports = module.exports = function Cli(resolver) {
+            // Call super constructor
+            Cli.super_.call(this, resolver);
 
+            this.argsInstance = Optimist;
+        };
+
+        util.inherits(exports, Core);
+
+        /**
+         * CLI arguments - passed from user's code
+         * @type {null}
+         */
+        exports.prototype.argsInstance = null;
+
+        /**
+         * Setups CLI - assigns options
+         * @param options
+         */
+        exports.prototype.args = function() {
+            return this.argsInstance;
+        };
     });
 }());

@@ -24,64 +24,11 @@
     var define = require('amdefine')(module);
 
     var deps = [
-        '../core',
-        '../server',
-        '../sockets',
-        '../utils',
-        'path',
-        'util'
+        "./webapp"
     ];
 
-    define(deps, function (Core, Server, Sockets, Utils, path, util) {
-        var exports = module.exports = function CoreApp(resolver) {
-            // Call super constructor
-            CoreApp.super_.call(this, resolver);
+    define(deps, function (Webapp) {
+        var exports = module.exports = Webapp;
 
-            this.cli = this.resolver.get('cli');
-
-            this.config = this.resolver.get('config');
-
-            this.server = new Server(this.resolver);
-            this.resolver.register('server', this.server);
-
-            this.sockets = new Sockets(this.resolver);
-            this.resolver.register('sockets', this.sockets);
-
-        };
-
-        util.inherits(exports, Core);
-
-        exports.prototype.config = null;
-
-        exports.prototype.cli = null;
-
-        exports.prototype.parseCliOptions = function () {
-            var argv = this.cli.args().argv;
-
-            var opts = argv["o"] || argv["option"];
-            if (opts) {
-                if (Object.prototype.toString.call(opts) !== '[object Array]') {
-                    opts = [opts];
-                }
-
-                for (var i = 0; i < opts.length; i++) {
-                    var opt = opts[i];
-                    var tokens = opt.split("=");
-                    Utils.setObjectProperty(this.config, tokens[0], tokens[1]);
-                }
-            }
-        };
-
-        exports.prototype.run = function () {
-            if (this.cli) {
-                this.parseCliOptions();
-            }
-            var self = this;
-            this.server.initialize().then(function (res) {
-                self.sockets.initialize();
-            }).done(function (res) {
-                self.server.main();
-            });
-        }
     });
 }());

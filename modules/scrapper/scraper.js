@@ -24,11 +24,42 @@
     var define = require('amdefine')(module);
 
     var deps = [
-        "./scraper"
+        '../core',
+        'deferred',
+        'request',
+        'util'
     ];
 
-    define(deps, function (Scraper) {
-        var exports = module.exports = Scraper;
+    define(deps, function(Core, deferred, request, util) {
+        var exports = module.exports = function Scraper(resolver) {
+            Scraper.super_.call(this, resolver);
 
+            this.mongo = resolver.get('mongo');
+        };
+
+        util.inherits(exports, Core);
+
+        exports.prototype.mongo = null;
+
+        exports.deferredRequest = function (url) {
+            var d = deferred();
+
+            request(url, function (err, resp, body) {
+                if (err) {
+                    d.reject(new Error("Unable to fetch '" + url + "', reason: " + err));
+                    return;
+                }
+
+                if (resp.statusCode !== 200) {
+                    d.reject(new Error("Unable to fetch '" + url + "', code: " + resp.statusCode));
+                    return;
+                }
+
+                d.resolve(body);
+            });
+
+            return d.promise();
+        };
     });
+
 }());

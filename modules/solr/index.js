@@ -24,18 +24,11 @@
     var define = require('amdefine')(module);
 
     var deps = [
-        '../core',
-        'solr-client',
-        'util'
+        "./solr"
     ];
 
-    define(deps, function(core, solr, util) {
-        var exports = module.exports = function SolrModule(resolver) {
-            // Call super constructor
-            SolrModule.super_.call(this, arguments);
-        };
+    define(deps, function (Solr) {
+        var exports = module.exports = Solr;
 
-        util.inherits(exports, core);
     });
-
 }());
