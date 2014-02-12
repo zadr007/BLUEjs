@@ -40,14 +40,15 @@
     "amdefine": "~0.1.0",
     "csv": "~0.3.7",
     "dependable": "~0.2.5",
-    "solr-client": "~0.2.9"
+    "solr-client": "~0.2.9",
+    "winston": "~0.7.2"
   },
   "devDependencies": {
     "mocha": "~1.17.0",
-    "sinon": "~1.7.3",
+    "sinon": "~1.8.1",
     "mocha-sinon": "~1.1.0",
-    "chai": "~1.8.1",
-    "sinon-chai": "~2.4.0",
+    "chai": "~1.9.0",
+    "sinon-chai": "~2.5.0",
     "grunt": "~0.4.2",
     "grunt-contrib-handlebars": "~0.6.0",
     "grunt-ember-templates": "~0.4.18",

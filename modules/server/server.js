@@ -26,19 +26,14 @@
     var deps = [
         '../core',
         '../utils',
-        'connect-mongo',
         'deferred',
-        'express3-handlebars',
         'express',
-        'gzippo',
         'http',
         'path',
         'util'
     ];
 
-    define(deps, function(Core, Utils, Cm, deferred, exphbs, express, gzippo, http, path, util) {
-        var MongoStore = Cm(express);
-
+    define(deps, function(Core, Utils, deferred, express, http, path, util) {
         var exports = module.exports = function ServerModule(resolver) {
             ServerModule.super_.call(this, resolver);
 
@@ -120,25 +115,17 @@
          * Microscratch application entry-point
          */
         exports.prototype.setup = function () {
-            this.app.set('view engine', 'hbs');
-            this.app.set('views', this.config.server.dirs.views);
-            this.app.set('layout', 'layout');
-            // this.app.enable('view cache');
-            this.app.engine('hbs', exphbs());
+            // Initialize views
+            this.initViews();
 
             this.app.use(express.bodyParser());
             this.app.use(express.methodOverride());
 
-            var self = this;
-            this.app.use(function (req, res, next) {
-                var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-                var ts = Utils.timestamp();
+            // Initialize router
+            this.initRouter();
 
-                // TODO: use some templating, DRY!
-                self.logger.log("[" + ts + "] " + ip + " " + req.method + " " + req.url);
-                next(); // Passing the request to the next handler in the stack.
-            });
-            this.app.use(this.app.router);
+            // Initialize logger
+            this.initLogger();
 
             // Initialize sessions
             this.initSessions();
@@ -165,35 +152,29 @@
             this.logger.log('Listening on port ' + this.config.server.port);
         };
 
+        exports.prototype.initViews = function() {
+            var Feature = require('./features/views');
+            var feature = new Feature(this);
+        };
+
+        exports.prototype.initRouter = function() {
+            var Feature = require('./features/router');
+            var feature = new Feature(this);
+        };
+
+        exports.prototype.initLogger = function() {
+            var Feature = require('./features/logger');
+            var feature = new Feature(this);
+        };
+
         exports.prototype.initSessions = function() {
-            this.app.cookieParser = express.cookieParser(this.config.server.session.secret);
-            this.app.use(this.app.cookieParser);
-
-            this.app.sessionStore = new MongoStore({ // jshint ignore:line
-                url: this.config.mongo.uri,
-                collection: 'Session',
-                auto_reconnect: true
-            });
-
-            this.app.use(express.session({
-                secret: this.config.server.session.secret,
-                store: this.app.sessionStore
-            }));
+            var Feature = require('./features/sessions');
+            var feature = new Feature(this);
         };
 
         exports.prototype.initGzip = function() {
-            // Gzipped serving of static content if needed
-            if (this.config.server.gzip) {
-                this.app.use(gzippo.staticGzip(this.config.server.dirs.public));
-                this.app.use(gzippo.compress());
-            } else {
-                this.app.use(express.static(this.config.server.dirs.public));
-            }
-
-            this.app.use(function (err, req, res, next) {
-                console.error(err.stack);
-                res.send(500, 'Something broke!');
-            });
+            var Feature = require('./features/gzip');
+            var feature = new Feature(this);
         };
     });
 }());
