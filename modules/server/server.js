@@ -48,6 +48,8 @@
 
             this.mongo = this.resolver.get('mongo');
 
+            // this.auth = this.resolver.get('auth');
+
             var modelsDir = path.join(__dirname, "models");
             this.mongo.initializeModelsDir(modelsDir);
         };
@@ -64,6 +66,12 @@
          * @type {null}
          */
         exports.prototype.server = null;
+
+        /**
+         * Auth module instance
+         * @type {Auth}
+         */
+        exports.prototype.auth = null;
 
         /**
          * Config module instance

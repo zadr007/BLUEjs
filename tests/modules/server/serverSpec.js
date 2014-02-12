@@ -25,6 +25,7 @@
 
     var deps = [
         "../../../tests/resolver",
+        "../../../modules/auth",
         "../../../modules/mongo",
         "../../../modules/mongo/model",
         "../../../modules/server",
@@ -35,7 +36,7 @@
         'requirejs'
     ];
 
-    define(deps, function (resolver, Mongo, Model, Server, chai, dependable, path, request, requirejs) {
+    define(deps, function (resolver, Auth, Mongo, Model, Server, chai, dependable, path, request, requirejs) {
         requirejs.config(require('../../../require.js'));
 
         var expect = chai.expect;
@@ -52,6 +53,11 @@
                 rslvr.register('mongo', mongo);
 
                 mongo.initialize().then(function() {
+                    // Create test specific Auth module instance
+                    var auth = new Auth(rslvr);
+                    rslvr.register('auth', auth);
+
+                    // Create test specific Server module instance
                     server = new Server(rslvr);
                     rslvr.register('server', server);
 

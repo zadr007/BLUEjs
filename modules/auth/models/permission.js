@@ -47,6 +47,18 @@
         exports.Schema = schema;
 
         exports.Model = model;
+
+        /*
+        function Do(name, schemaDeclaration, exportsOut) {
+            var schema = Model.declareSchema(name, schemaDeclaration);
+            var model = Model.declareModel(name, schema);
+
+            util.inherits(exportsOut, Model);
+
+            exportsOut.Schema = schema;
+            exportsOut.Model = model;
+        };
+        //*/
     });
 
 })();
