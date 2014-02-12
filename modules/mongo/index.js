@@ -97,10 +97,11 @@
             var d = deferred();
 
             var MongoClient = require('mongodb').MongoClient;
+            var mongoClient = new MongoClient();
 
             var self = this;
 
-            MongoClient.connect(this.config.mongo.uri, function (err, db) {
+            mongoClient.connect(this.config.mongo.uri, function (err, db) {
                 if (err) {
                     throw new Error("Cannot connect to DB '" + self.config.mongo.uri + "'");
                 }

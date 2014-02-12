@@ -24,37 +24,20 @@
     var define = require('amdefine')(module);
 
     var deps = [
-        '../../../tests/resolver',
-        '../../../modules/mongo',
-        '../../../modules/utils',
         'chai',
         'dependable',
         'path',
         'requirejs'
     ];
 
-    define(deps, function (resolver, Mongo, Utils, chai, dependable, path, requirejs) {
+    define(deps, function (chai, dependable, path, requirejs) {
         requirejs.config(require('../../../require.js'));
 
         var expect = chai.expect;
 
-        describe('Module Mongo', function () {
-            var mongo = null;
-
-            beforeEach(function () {
-                mongo = new Mongo(resolver());
-            });
-
-            it('Connect to Existing Host', function (done) {
-                mongo.initialize().then(function (res) {
-                    expect(res).to.not.equal(null);
-                    done();
-                }, function () {
-                    expect(false).to.equal(true);
-                    done();
-                });
-            });
+        describe('Default App', function () {
         });
+
     });
 }());
 

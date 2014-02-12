@@ -37,21 +37,17 @@
         requirejs.config(require('../../../require.js'));
 
         var expect = chai.expect;
-        var config = resolver.get('config');
+        var config = null;
 
         describe('Module Server', function () {
+            beforeEach(function() {
+                var rslvr = resolver();
+                config = rslvr.get('config');
+            })
 
             it('Module Exists', function () {
                 expect(Server).to.not.equal(null);
                 expect(Server).to.not.equal(undefined);
-
-                /*
-                var server = new Server(resolver);
-                server.initialize().then(function() {
-                   server.run();
-                    done();
-                });
-                //*/
             });
         });
     });

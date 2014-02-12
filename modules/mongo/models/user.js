@@ -29,28 +29,29 @@
         'util'
     ];
 
-    define(deps, function(Model, events, util) {
-        var exports = module.exports = function User(mongo) {
-            User.super_.call(this, mongo);
-
-            Model.declare.call(this, 'User', {
-                name: String,
-                email: String,
-                emails: [String],
-                username: String,
-                provider: String,
-                hashed_password: String,
-                salt: String,
-                facebook: {},
-                twitter: {},
-                github: {},
-                google: {}
-            });
+    define(deps, function (Model, events, util) {
+        var exports = module.exports = function User() {
+            User.super_.call(this);
 
             return this;
         };
 
         util.inherits(exports, Model);
+
+        var schema = Model.declare('User', {
+            name: String,
+            email: String,
+            emails: [String],
+            username: String,
+            provider: String,
+            hashed_password: String,
+            salt: String,
+            facebook: {},
+            twitter: {},
+            github: {},
+            google: {}
+        });
+
     });
 
 })();

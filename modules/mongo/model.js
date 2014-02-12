@@ -31,17 +31,12 @@
     ];
 
     define(deps, function(events, mongoose, timestamps, util) {
-        var exports = module.exports = function Model(mongo) {
-            this.mongo = mongo;
+        var exports = module.exports = function Model() {
         };
 
         util.inherits(exports, events.EventEmitter);
 
-        exports.prototype.mongo = null;
-
-        exports.prototype.schema = null;
-
-        exports.prototype.wirePlugin = function(schema, plugin) {
+        exports.wirePlugin = function(schema, plugin) {
             var p = require(plugin.path);
             schema.plugin(p, plugin.options);
 
@@ -60,9 +55,7 @@
 
             mongoose.model(name, objectSchema);
 
-            this.schema = objectSchema;
-
-            return this.schema;
+            return objectSchema;
         };
     });
 

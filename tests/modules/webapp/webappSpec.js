@@ -27,13 +27,14 @@
         '../../../tests/resolver.js',
         '../../../modules/cli',
         '../../../modules/core',
+        '../../../modules/mongo',
         '../../../modules/webapp',
         'chai',
         'dependable',
-        'requirejs',
+        'requirejs'
     ];
 
-    define(deps, function (resolver, Cli, Core, Webapp, chai, dependable, requirejs) {
+    define(deps, function (resolver, Cli, Core, Mongo, Webapp, chai, dependable, requirejs) {
         requirejs.config(require('../../../require.js'));
 
         var expect = chai.expect;
@@ -41,10 +42,19 @@
         describe('Module Core - App', function () {
             var webappModule = null;
 
-            beforeEach(function () {
-                var cli = new Cli(resolver);
-                resolver.register('cli', cli);
-                webappModule = new Webapp(resolver);
+            beforeEach(function (done) {
+                var rslvr = resolver();
+
+                var cli = new Cli(rslvr);
+                rslvr.register('cli', cli);
+
+                var mongo = new Mongo(rslvr);
+                rslvr.register('mongo', mongo);
+
+                mongo.initialize().then(function() {
+                    webappModule = new Webapp(rslvr);
+                    done();
+                });
             });
 
             it('Loads module', function () {

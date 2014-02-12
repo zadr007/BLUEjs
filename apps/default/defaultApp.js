@@ -21,40 +21,31 @@
 (function () {
     'use strict';
 
-    var define = require('amdefine')(module);
+    if (typeof define !== 'function') {
+        var define = require('amdefine')(module);
+    }
+
+    var requirejs = require('requirejs');
+    requirejs.config(require('../../require.js'));
 
     var deps = [
-        '../../../tests/resolver',
-        '../../../modules/mongo',
-        '../../../modules/utils',
-        'chai',
+        '../../modules/webapp',
+        'deferred',
         'dependable',
-        'path',
-        'requirejs'
+        'util'
     ];
 
-    define(deps, function (resolver, Mongo, Utils, chai, dependable, path, requirejs) {
-        requirejs.config(require('../../../require.js'));
+    define(deps, function (Webapp, deferred, dependable, util) {
+        ///*
+        var resolver = dependable.container();
 
-        var expect = chai.expect;
+        // Load app module
+        var exports = module.exports = function DefaultApp(resolver) {
+            DefaultApp.super_.call(this, resolver);
+        };
 
-        describe('Module Mongo', function () {
-            var mongo = null;
+        util.inherits(exports, Webapp);
 
-            beforeEach(function () {
-                mongo = new Mongo(resolver());
-            });
-
-            it('Connect to Existing Host', function (done) {
-                mongo.initialize().then(function (res) {
-                    expect(res).to.not.equal(null);
-                    done();
-                }, function () {
-                    expect(false).to.equal(true);
-                    done();
-                });
-            });
-        });
+        //*/
     });
 }());
-

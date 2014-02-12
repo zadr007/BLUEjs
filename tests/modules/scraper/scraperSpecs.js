@@ -41,7 +41,12 @@
 
         describe('Module Scrapper', function () {
             beforeEach(function() {
-                scraper = new Scraper(resolver);
+                var rslvr = resolver();
+
+                var mongo = new Mongo(rslvr);
+                rslvr.register('mongo', mongo);
+
+                scraper = new Scraper(rslvr);
             });
 
             it('Module Exists', function (done) {

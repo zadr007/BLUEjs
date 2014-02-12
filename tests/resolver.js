@@ -35,7 +35,7 @@
 
     define(deps, function (Cli, Config, Logger, Mongo, dependable, path) {
 
-        module.exports = (function () {
+        module.exports = function () {
             var resolver = dependable.container();
 
             var config = new Config(resolver);
@@ -46,11 +46,8 @@
             var logger = new Logger(resolver);
             resolver.register('logger', logger);
 
-            var mongo = new Mongo(resolver);
-            resolver.register('mongo', mongo);
-
             return resolver;
-        }());
+        };
     });
     //*/
 

@@ -27,13 +27,14 @@
         '../../../tests/resolver',
         '../../../modules/auth',
         '../../../modules/core',
+        '../../../modules/logger',
         '../../../modules/mongo',
         'chai',
         'dependable',
-        'requirejs',
+        'requirejs'
     ];
 
-    define(deps, function(resolver, Auth, Core, Mongo, chai, dependable, requirejs) {
+    define(deps, function(resolver, Auth, Core, Logger, Mongo, chai, dependable, requirejs) {
         requirejs.config(require('../../../require.js'));
 
         var expect = chai.expect;
@@ -43,9 +44,12 @@
             var mongo = null;
 
             beforeEach(function () {
-                mongo = resolver.get('mongo');
+                var rslvr = resolver();
 
-                authModule = new Auth(resolver);
+                var mongo = new Mongo(rslvr);
+                rslvr.register('mongo', mongo);
+
+                authModule = new Auth(rslvr);
             });
 
             it('Loads module', function () {

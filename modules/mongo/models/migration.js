@@ -30,17 +30,18 @@
     ];
 
     define(deps, function(Model, events, util) {
-        var exports = module.exports = function Migration(mongo) {
-            Migration.super_.call(this, mongo);
-
-            Model.declare.call(this, "Migration", {
-                name: String
-            });
+        var exports = module.exports = function Migration() {
+            Migration.super_.call(this);
 
             return this;
         };
 
         util.inherits(exports, Model);
+
+        var schema = Model.declare("Migration", {
+            name: String
+        });
+
     });
 
 })();

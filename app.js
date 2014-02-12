@@ -29,6 +29,7 @@
     requirejs.config(require('./require.js'));
 
     var deps = [
+        './apps/default',
         './modules/cli',
         './modules/core',
         './modules/config',
@@ -43,7 +44,7 @@
         'path'
     ];
 
-    define(deps, function (Cli, Core, Config, Etl, Logger, Mongo, Utils, Webapp, deferred, dependable, util, path) {
+    define(deps, function (DefaultApp, Cli, Core, Config, Etl, Logger, Mongo, Utils, Webapp, deferred, dependable, util, path) {
         ///*
         var resolver = dependable.container();
 
@@ -75,13 +76,6 @@
             return;
         }
 
-        // Load app module
-        function App(resolver) {
-            App.super_.call(this, resolver);
-        };
-
-        util.inherits(App, Webapp);
-
         var config = new Config();
         config.load(path.join(__dirname, 'config.js'), argv['e'] || "local");
 
@@ -102,7 +96,7 @@
         }
 
         // Create app instance
-        var app = new App(resolver);
+        var app = new DefaultApp(resolver);
         app.run();
         //*/
     });
