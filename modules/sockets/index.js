@@ -29,6 +29,5 @@
 
     define(deps, function (Sockets) {
         var exports = module.exports = Sockets;
-
     });
 }());

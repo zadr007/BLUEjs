@@ -29,6 +29,5 @@
 
     define(deps, function (Auth) {
         var exports = module.exports = Auth;
-
     });
 }());

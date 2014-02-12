@@ -42,7 +42,7 @@
         describe('Module Webapp', function () {
             var webappModule = null;
 
-            beforeEach(function () {
+            beforeEach(function (done) {
                 var rslvr = resolver();
 
                 var cli = new Cli(rslvr);
@@ -50,8 +50,11 @@
 
                 var mongo = new Mongo(rslvr);
                 rslvr.register('mongo', mongo);
+                mongo.initialize().then(function() {
+                    webappModule = new Webapp(rslvr);
+                    done();
+                });
 
-                webappModule = new Webapp(rslvr);
             });
 
             it('Loads module', function () {

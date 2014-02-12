@@ -29,6 +29,5 @@
 
     define(deps, function (Config) {
         var exports = module.exports = Config;
-
     });
 }());

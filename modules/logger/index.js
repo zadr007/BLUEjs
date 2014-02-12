@@ -29,6 +29,5 @@
 
     define(deps, function (Logger) {
         var exports = module.exports = Logger;
-
     });
 }());

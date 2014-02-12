@@ -29,6 +29,5 @@
 
     define(deps, function (Solr) {
         var exports = module.exports = Solr;
-
     });
 }());

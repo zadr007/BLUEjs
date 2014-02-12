@@ -29,6 +29,5 @@
 
     define(deps, function (Cli) {
         var exports = module.exports = Cli;
-
     });
 }());

@@ -29,6 +29,5 @@
 
     define(deps, function (Scraper) {
         var exports = module.exports = Scraper;
-
     });
 }());
