@@ -110,6 +110,12 @@
                     self.logger.log("Connected to DB '" + self.config.mongo.uri + "'");
                 }
 
+                mongoose.disconnect(function() {
+                    mongoose.connect(self.config.mongo.uri, {
+                        keepAlive: 1
+                    });
+                });
+
                 self.db = db;
                 d.resolve(self.db);
             });
@@ -128,7 +134,6 @@
             if (this.config.verbose) {
                 this.logger.log("Loading collection '" + collectionName + "'");
             }
-
 
             var collection = this.db.collection(collectionName);
 
