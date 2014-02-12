@@ -24,7 +24,7 @@
     var define = require('amdefine')(module);
 
     var deps = [
-        '../../mongo/model',
+        '../model',
         'events',
         'util'
     ];

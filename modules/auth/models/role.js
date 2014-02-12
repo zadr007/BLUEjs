@@ -18,63 +18,35 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-(function() {
+(function () {
     'use strict';
 
     var define = require('amdefine')(module);
 
     var deps = [
+        '../../mongo/model',
         'events',
-        'mongoose',
-        'mongoose-times',
         'util'
     ];
 
-    define(deps, function(events, mongoose, timestamps, util) {
-        var exports = module.exports = function Model(schema, model) {
-            this.schema = schema;
-            this.model = model;
+    define(deps, function (Model, events, util) {
+        var schema = Model.declareSchema('Role', {
+            name: String
+        });
+
+        var model = Model.declareModel('Role', schema);
+
+        var exports = module.exports = function Role() {
+            Role.super_.call(this, schema, model);
+
+            return this;
         };
 
-        util.inherits(exports, events.EventEmitter);
+        util.inherits(exports, Model);
 
-        exports.schemas = {};
+        exports.Schema = schema;
 
-        exports.models = {};
-
-        exports.prototype.schema = null;
-
-        exports.prototype.model = null;
-
-        exports.wirePlugin = function(schema, plugin) {
-            var p = require(plugin.path);
-            schema.plugin(p, plugin.options);
-
-        };
-
-        exports.declareSchema = function(name, schema) {
-            /**
-             * Client Schema
-             */
-            var res = new  mongoose.Schema(schema, { collection: name });
-
-            res.plugin(timestamps, {
-                created: "createdAt",
-                lastUpdated: "updatedAt"
-            });
-
-            exports.schemas[name] = res;
-
-            return res;
-        };
-
-        exports.declareModel = function(name, schema) {
-            var res = mongoose.model(name, schema);
-
-            exports.models[name] = res;
-
-            return res;
-        };
+        exports.Model = model;
     });
 
 })();

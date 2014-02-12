@@ -25,6 +25,8 @@
 
     var deps = [
         "../../../tests/resolver",
+        "../../../modules/mongo",
+        "../../../modules/mongo/model",
         "../../../modules/server",
         'chai',
         'dependable',
@@ -33,21 +35,38 @@
         'requirejs'
     ];
 
-    define(deps, function (resolver, Server, chai, dependable, path, request, requirejs) {
+    define(deps, function (resolver, Mongo, Model, Server, chai, dependable, path, request, requirejs) {
         requirejs.config(require('../../../require.js'));
 
         var expect = chai.expect;
         var config = null;
+        var mongo = null;
+        var server = null;
 
-        describe('Module Server', function () {
-            beforeEach(function() {
+        describe('Server Module', function () {
+            beforeEach(function(done) {
                 var rslvr = resolver();
                 config = rslvr.get('config');
+
+                var mongo = new Mongo(rslvr);
+                rslvr.register('mongo', mongo);
+
+                mongo.initialize().then(function() {
+                    server = new Server(rslvr);
+                    rslvr.register('server', server);
+
+                    done();
+                })
             })
 
             it('Module Exists', function () {
                 expect(Server).to.not.equal(null);
                 expect(Server).to.not.equal(undefined);
+            });
+
+            it('Has Session model defined', function () {
+                expect(Model.models['Session']).to.not.equal(null);
+                expect(Model.models['Session']).to.not.equal(undefined);
             });
         });
     });

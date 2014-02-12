@@ -36,7 +36,7 @@
 
         var expect = chai.expect;
 
-        describe('Module Solr', function () {
+        describe('Solr Module', function () {
             var solrModule = null;
 
             beforeEach(function () {

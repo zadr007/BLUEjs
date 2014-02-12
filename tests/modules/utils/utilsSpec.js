@@ -36,7 +36,7 @@
 
         var expect = chai.expect;
 
-        describe('Module Utils', function () {
+        describe('Utils Module', function () {
             it('Loads Utils module', function () {
                 expect(Utils).to.not.equal(null);
                 expect(Utils).to.not.equal(undefined);

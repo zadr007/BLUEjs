@@ -36,7 +36,7 @@
 
         var expect = chai.expect;
 
-        describe('Module Sockets', function () {
+        describe('Sockets Module', function () {
             it('Module Exists', function () {
                 expect(Sockets).to.not.equal(null);
                 expect(Sockets).to.not.equal(undefined);

@@ -35,7 +35,7 @@
 
         var expect = chai.expect;
 
-        describe('Module Utils - Merge', function () {
+        describe('Utils Module - Merge', function () {
             var personJoe = null,
                 personJohny = null;
 

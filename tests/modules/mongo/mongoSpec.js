@@ -38,7 +38,7 @@
 
         var expect = chai.expect;
 
-        describe('Module Mongo', function () {
+        describe('Mongo Module', function () {
             var mongo = null;
 
             beforeEach(function () {

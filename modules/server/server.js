@@ -66,20 +66,20 @@
         exports.prototype.server = null;
 
         /**
-         * Loaded config
-         * @type {object}
+         * Config module instance
+         * @type {Config}
          */
         exports.prototype.config = null;
 
         /**
-         * Logger
-         * @type {object}
+         * Logger module instance
+         * @type {Logger}
          */
         exports.prototype.logger = null;
 
         /**
-         * Mongo wrapper
-         * @type {null}
+         * Mongo module instance
+         * @type {Mongo}
          */
         exports.prototype.mongo = null;
 

@@ -39,7 +39,7 @@
         var expect = chai.expect;
         var scraper = null;
 
-        describe('Module Scrapper', function () {
+        describe('Scraper Module', function () {
             beforeEach(function() {
                 var rslvr = resolver();
 
