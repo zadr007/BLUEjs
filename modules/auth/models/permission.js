@@ -29,15 +29,15 @@
         'util'
     ];
 
-    define(deps, function(Model, events, util) {
-        var schema = Model.declareSchema("Migration", {
+    define(deps, function (Model, events, util) {
+        var schema = Model.declareSchema('Permission', {
             name: String
         });
 
-        var model = Model.declareModel("Migration", schema);
+        var model = Model.declareModel('Permission', schema);
 
-        var exports = module.exports = function Migration() {
-            Migration.super_.call(this, schema, model);
+        var exports = module.exports = function Permission() {
+            Permission.super_.call(this, schema, model);
 
             return this;
         };

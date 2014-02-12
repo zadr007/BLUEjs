@@ -24,12 +24,13 @@
     var define = require('amdefine')(module);
 
     var deps = [
+        "./models/user",
         "../core",
         "path",
         "util"
     ];
 
-    define(deps, function (Core, path, util) {
+    define(deps, function (User, Core, path, util) {
         /**
          * Authentication and Authorization Interface
          * @type {AuthModule}
@@ -46,18 +47,41 @@
 
         util.inherits(exports, Core);
 
+        /**
+         * Mongo module instance
+         * @type {Mongo}
+         */
         exports.prototype.mongo = null;
 
+        /**
+         * Add user
+         * @param user
+         * @returns {Mongoose.Model}
+         */
         exports.prototype.userAdd = function(user) {
-
+            var res = new User.Model(user);
+            res.save();
+            return res;
         };
 
+        /**
+         * Remove existing user (first) by query
+         * @param user
+         * @returns {Query}
+         */
         exports.prototype.userRemove = function(user) {
-
+            var res = User.Model.findOne(user);
+            res.remove();
+            return res;
         };
 
-        exports.prototype.userList = function() {
-
+        /**
+         * List user
+         * @param filter
+         * @returns {*|Query|Mixed|Promise|Object}
+         */
+        exports.prototype.userList = function(filter) {
+            return User.find(filter);
         };
 
     });
