@@ -34,9 +34,9 @@
          * Command Line Interface
          * @type {CliModule}
          */
-        var exports = module.exports = function CliModule(resolver) {
+        var exports = module.exports = function Cli(resolver) {
             // Call super constructor
-            CliModule.super_.call(this, resolver);
+            Cli.super_.call(this, resolver);
 
             this.argsInstance = Optimist;
         };
