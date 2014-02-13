@@ -28,6 +28,9 @@
     define(deps, function() {
         function FeatureRouter(server) {
             server.app.use(server.app.router);
+
+            var router = require('../router.js');
+            return router.initialize(server, server.app);
         };
 
         module.exports = FeatureRouter;

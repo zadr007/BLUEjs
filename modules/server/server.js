@@ -116,23 +116,24 @@
          */
         exports.prototype.setup = function () {
             // Initialize views
-            this.initViews();
+            this.initFeature('./features/views');
 
             this.app.use(express.bodyParser());
             this.app.use(express.methodOverride());
 
             // Initialize router
-            this.initRouter();
+            var res = this.initFeature('./features/router');
 
             // Initialize logger
-            this.initLogger();
+            this.initFeature('./features/logger');
 
             // Initialize sessions
-            this.initSessions();
+            this.initFeature('./features/sessions');
 
             // Initialize gzip
-            this.initGzip();
+            this.initFeature('./features/gzip');
 
+            // TODO: Preprocess generated client config somewhere else
             // Preprocess config template
             Utils.preprocessFile(this.config.client.configTemplate,
                 this.config.client.configDestination,
@@ -140,8 +141,7 @@
                     '"$app$"': JSON.stringify(this.config.app)
                 });
 
-            var router = require('./router.js');
-            return router.initialize(this, this.app);
+            return res;
         };
 
         /**
@@ -152,29 +152,10 @@
             this.logger.log('Listening on port ' + this.config.server.port);
         };
 
-        exports.prototype.initViews = function() {
-            var Feature = require('./features/views');
+        exports.prototype.initFeature = function(path) {
+            var Feature = require(path);
             var feature = new Feature(this);
-        };
-
-        exports.prototype.initRouter = function() {
-            var Feature = require('./features/router');
-            var feature = new Feature(this);
-        };
-
-        exports.prototype.initLogger = function() {
-            var Feature = require('./features/logger');
-            var feature = new Feature(this);
-        };
-
-        exports.prototype.initSessions = function() {
-            var Feature = require('./features/sessions');
-            var feature = new Feature(this);
-        };
-
-        exports.prototype.initGzip = function() {
-            var Feature = require('./features/gzip');
-            var feature = new Feature(this);
+            return feature;
         };
     });
 }());
