@@ -26,7 +26,7 @@
     var deps = [
         "../../../tests/resolver",
         "../../../modules/mongo",
-        "../../../modules/scrapper",
+        "../../../modules/scraper",
         'chai',
         'dependable',
         'path',
