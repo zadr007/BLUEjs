@@ -8,7 +8,7 @@ Light Weight Web Application Framework using node.js, mongo, sockets, ember.js, 
 
 ## Applications
 
-* [apolllocrawler.com](http://apollocrawler.com/) - Our presentation
+* [apolllocrawler.com](http://apollocrawler.com/) - [http://apollocrawler.com/](ApolloCrawler.com / Our) presentation
 * [craftsmen.apolllocrawler.com](http://craftsmen.apollocrawler.com/) - Listing of Czech Craftmens
 
 ## Project Status
