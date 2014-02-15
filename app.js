@@ -101,6 +101,8 @@
         var appPath = argv['a'];
         if(appPath) {
             App = require(path.join(__dirname, appPath));
+
+            // TODO: Load and merge application specific config too
         }
 
         // Create app instance

@@ -24,7 +24,7 @@
     var define = require('amdefine')(module);
 
     var deps = [
-        "./urlShortenerApp"
+        "./shortenerApp"
     ];
 
     define(deps, function (DefaultApp) {
