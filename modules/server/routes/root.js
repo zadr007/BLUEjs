@@ -33,6 +33,7 @@
                 app: microscratch.config.app
             };
 
+            /*
             var tmpl = path.join(microscratch.config.server.dirs.views, "index.hbs");
             fs.exists(tmpl, function (exists) {
                 if (exists) {
@@ -41,6 +42,9 @@
                     res.render("microscratch", data);
                 }
             });
+            //*/
+
+            res.render("index", data);
         });
     };
 
