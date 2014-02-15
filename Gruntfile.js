@@ -27,6 +27,7 @@ module.exports = function (grunt) {
     var config = utils.loadConfig(path.join(__dirname, "./config.js")),
         templatesDir = "./public/app/";
 
+    grunt.loadNpmTasks('grunt-bower-task');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-less');
@@ -46,6 +47,12 @@ module.exports = function (grunt) {
                 '<%=grunt.template.today("dddd, mmmm dS, yyyy, h:MM:ss TT")%> */'
         },
 
+        bower: {
+            install: {
+                //just run 'grunt bower:install' and you'll see files from your Bower packages in lib directory
+            }
+        },
+
         clean: [
             './public/assets/*.js'
         ],
@@ -62,6 +69,7 @@ module.exports = function (grunt) {
                         return res;
                     }
                 },
+
                 files: {
                     "./public/assets/templates.js": [
                         templatesDir + "**/*.hbs"
@@ -176,8 +184,14 @@ module.exports = function (grunt) {
         }
     });
 
+    // Boostrap necessary stuff
+    grunt.registerTask('boostrap', [
+        'bower:install'
+    ]);
+
     // Build all assets required for running the app
     grunt.registerTask('build', [
+        'boostrap',
        'less',
         'emberTemplates'
     ]);
