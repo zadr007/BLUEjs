@@ -39,7 +39,7 @@
     "requirejs": "~2.1.10",
     "amdefine": "~0.1.0",
     "csv": "~0.3.7",
-    "dependable": "~0.2.5",
+    "dependable": "git://github.com/korczis/dependable.git",
     "solr-client": "~0.2.9",
     "winston": "~0.7.2"
   },
