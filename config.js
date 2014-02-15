@@ -31,6 +31,9 @@
             app: {
                 name: "MicroScratch",
 
+                // You can override default route here
+                // indexRoute: "admin",
+
                 // Google analytics section
                 googleAnalytics: {
                     enabled: true,
