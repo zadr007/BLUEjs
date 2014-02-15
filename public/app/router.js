@@ -21,11 +21,16 @@
 (function (global) {
     require
     (
-        ["ember", "app"], function (Ember, App) {
+        ["config", "ember", "app"], function (config, Ember, App) {
 
             App.Router.map(function() {
                 this.route("admin", { path: "/admin" });
                 this.route("config", { path: "/config" });
+
+                var indexRoute = config.app.indexRoute;
+                if(indexRoute) {
+                    this.route(indexRoute, { path: "/"});
+                }
 
                 // TODO: Add your routes below this line for easier merging
             });

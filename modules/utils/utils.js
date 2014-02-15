@@ -193,6 +193,14 @@
             return (orig, override);
         };
 
+        /**
+         * Gets user home directory in platform agnostic way
+         * @returns {*} Returns path to user directory
+         */
+        exports.getUserHome = function() {
+            return process.env[(process.platform == 'win32') ? 'USERPROFILE' : 'HOME'];
+        }
+
     });
 
 }());
