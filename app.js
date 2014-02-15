@@ -56,6 +56,8 @@
         // Setup CLI options
         cli.args()
             .usage('Simple Microscratch Application.\nUsage: $0')
+            .describe('a, app', 'Application run')
+            .default('a, app', "apps/default")
             .describe('h, help', 'Show Help')
             .describe('c, config', 'Config file')
             .default('c, config', path.join(__dirname, './config'))
@@ -95,8 +97,14 @@
             logger.log("Config loaded: " + JSON.stringify(config, null, 4));
         }
 
+        var App = DefaultApp;
+        var appPath = argv['a'];
+        if(appPath) {
+            App = require(path.join(__dirname, appPath));
+        }
+
         // Create app instance
-        var app = new DefaultApp(resolver);
+        var app = new App(resolver);
         app.run();
         //*/
     });
