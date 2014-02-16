@@ -18,8 +18,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-//*
-define({
+var config = {
+    baseUrl: "../",
     app: "$app$",
     shim: {
         "bootstrap": {
@@ -65,5 +65,10 @@ define({
         "chai-jquery": "/components/chai-jquery/chai-jquery",
         "socketio": "/components/socket.io-client/dist/socket.io"
     }
-});
+};
+
+require.config(config);
+
+//*
+define(config);
 //*/
