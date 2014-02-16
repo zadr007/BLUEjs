@@ -37,7 +37,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-express');
     grunt.loadNpmTasks('grunt-forever');
     grunt.loadNpmTasks('grunt-jsdoc');
-    grunt.loadNpmTasks('grunt-mocha');
+    grunt.loadNpmTasks('grunt-mocha-test');
     grunt.loadNpmTasks('grunt-neuter');
     grunt.loadNpmTasks('grunt-npm-install');
 
@@ -104,8 +104,12 @@ module.exports = function (grunt) {
             }
         },
 
-        mocha: {
+        // Configure a mochaTest task
+        mochaTest: {
             test: {
+                options: {
+                    reporter: 'spec'
+                },
                 src: ['tests/**/*Spec.js']
             }
         },
@@ -201,8 +205,9 @@ module.exports = function (grunt) {
     // Build all assets required for running the app
     grunt.registerTask('build', [
         'boostrap',
-       'less',
-        'emberTemplates'
+        'less',
+        'emberTemplates',
+        'mochaTest'
     ]);
 
     // Generate documentation
