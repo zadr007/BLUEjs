@@ -29,7 +29,7 @@
     ];
 
     define(deps, function(Cm, express) {
-        var MongoStore = Cm(express);
+        var MongoStore = new Cm(express);
 
         function FeatureSessions(server) {
             server.app.cookieParser = express.cookieParser(server.config.server.session.secret);
@@ -45,7 +45,7 @@
                 secret: server.config.server.session.secret,
                 store: server.app.sessionStore
             }));
-        };
+        }
 
         module.exports = FeatureSessions;
     });

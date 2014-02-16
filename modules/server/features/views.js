@@ -34,7 +34,7 @@
             server.app.set('layout', 'layout');
             // this.app.enable('view cache');
             server.app.engine('hbs', exphbs());
-        };
+        }
 
         module.exports = FeatureViews;
     });

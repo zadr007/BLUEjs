@@ -40,7 +40,7 @@
             if(resolver) {
                 this.resolver = resolver;
             } else {
-                this.resolver = dependable.container()
+                this.resolver = dependable.container();
             }
         };
 
