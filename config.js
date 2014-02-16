@@ -63,8 +63,11 @@
 
                 session: {
                     secret: "This is cookie secret, change this!"
+                },
+
+                authentication: {
+                  enabled: true
                 }
-    
             },
 
             solr: {

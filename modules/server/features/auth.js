@@ -23,32 +23,16 @@
 
     var define = require('amdefine')(module);
 
-    var deps = [
-        'connect-mongo',
-        'express'
-    ];
+    var deps = [];
 
-    define(deps, function(connectMongo, express) {
-        var MongoStore = connectMongo(express);
+    define(deps, function() {
+        /**
+         * Authentication Feature
+         * @type {FeatureAuth}
+         */
+        var exports = module.exports = function FeatureAuth(server) {
 
-        function FeatureSessions(server) {
-            server.app.cookieParser = express.cookieParser(server.config.server.session.secret);
-            server.app.use(server.app.cookieParser);
-
-            server.app.sessionStore = new MongoStore({ // jshint ignore:line
-                url: server.config.mongo.uri,
-                collection: 'Session',
-                auto_reconnect: true,
-                stringify: false
-            });
-
-            server.app.use(express.session({
-                secret: server.config.server.session.secret,
-                store: server.app.sessionStore
-            }));
-        }
-
-        module.exports = FeatureSessions;
+        };
     });
 
 }());

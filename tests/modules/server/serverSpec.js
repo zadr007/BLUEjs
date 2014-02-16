@@ -62,8 +62,8 @@
                     rslvr.register('server', server);
 
                     done();
-                })
-            })
+                });
+            });
 
             it('Module Exists', function () {
                 expect(Server).to.not.equal(null);
@@ -71,8 +71,8 @@
             });
 
             it('Has Session model defined', function () {
-                expect(Model.models['Session']).to.not.equal(null);
-                expect(Model.models['Session']).to.not.equal(undefined);
+                expect(Model.models.Session).to.not.equal(null);
+                expect(Model.models.Session).to.not.equal(undefined);
             });
         });
     });
