@@ -23,6 +23,10 @@
 
     var define = require('amdefine')(module);
 
+    /**
+     * Array of modules this one depends on.
+     * @type {Array}
+     */
     var deps = [];
 
     define(deps, function() {
@@ -31,8 +35,10 @@
          * @type {FeatureAuth}
          */
         var exports = module.exports = function FeatureAuth(server) {
-
+            this.config = server.config;
         };
+
+        exports.prototype.config = null;
     });
 
 }());
