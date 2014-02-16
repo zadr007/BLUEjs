@@ -58,7 +58,7 @@ define({
         "ember-data": "/components/ember-data/ember-data",
         "google-analytics": "//www.google-analytics.com/analytics",
         "handlebars": "/components/handlebars/handlebars",
-        "jquery": "/components/jquery/dist/jquery",
+        "jquery": "/components/jquery/jquery",
         "mocha": "/components/mocha/mocha",
         "moment": "/components/moment/moment",
         "chai": "/components/chai/chai",
