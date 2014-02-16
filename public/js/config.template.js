@@ -18,8 +18,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-//*
-define({
+var config = {
+    baseUrl: "../",
     app: "$app$",
     shim: {
         "bootstrap": {
@@ -58,12 +58,26 @@ define({
         "ember-data": "/components/ember-data/ember-data",
         "google-analytics": "//www.google-analytics.com/analytics",
         "handlebars": "/components/handlebars/handlebars",
-        "jquery": "/components/jquery/dist/jquery",
+        "jquery": "/components/jquery/jquery",
         "mocha": "/components/mocha/mocha",
         "moment": "/components/moment/moment",
         "chai": "/components/chai/chai",
         "chai-jquery": "/components/chai-jquery/chai-jquery",
         "socketio": "/components/socket.io-client/dist/socket.io"
-    }
-});
+    },
+    modules: [
+        {
+            name: "bundle",
+            create: true,
+            include: [
+                '../app/lib'
+            ]
+        }
+    ]
+};
+
+require.config(config);
+
+//*
+define(config);
 //*/

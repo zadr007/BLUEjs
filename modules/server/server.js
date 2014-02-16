@@ -133,6 +133,12 @@
             // Initialize gzip
             this.initFeature('./features/gzip');
 
+            // Initialize auth feature if enabled
+            var auth = this.config.server.authentication;
+            if(auth && auth.enabled) {
+                this.initFeature('./features/auth');
+            }
+
             // TODO: Preprocess generated client config somewhere else
             // Preprocess config template
             Utils.preprocessFile(this.config.client.configTemplate,

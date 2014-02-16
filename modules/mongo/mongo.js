@@ -182,7 +182,7 @@
 
                 files.forEach(function (file) {
                     var parts = file.split(".");
-                    if(parts.length == 2 && parts[1].toLowerCase() == "js") {
+                    if(parts.length === 2 && parts[1].toLowerCase() === "js") {
                         var fullPath = modelsDir + '/' + file;
 
                         var relPath = path.relative(__dirname, fullPath);
@@ -238,7 +238,7 @@
 
                 files.forEach(function (file) {
                     var parts = file.split(".");
-                    if(parts.length == 2 && parts[1].toLowerCase() == "js") {
+                    if(parts.length === 2 && parts[1].toLowerCase() === "js") {
                         var fullPath = migrationsDir + '/' + file;
 
                         var relPath = path.relative(__dirname, fullPath);

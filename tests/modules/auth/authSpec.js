@@ -89,23 +89,18 @@
             });
 
             it('Has Permission model defined', function () {
-                expect(Model.models['Permission']).to.not.equal(null);
-                expect(Model.models['Permission']).to.not.equal(undefined);
+                expect(Model.models.Permission).to.not.equal(null);
+                expect(Model.models.Permission).to.not.equal(undefined);
             });
 
             it('Has Role model defined', function () {
-                expect(Model.models['Role']).to.not.equal(null);
-                expect(Model.models['Role']).to.not.equal(undefined);
+                expect(Model.models.Role).to.not.equal(null);
+                expect(Model.models.Role).to.not.equal(undefined);
             });
 
             it('Has User model defined', function () {
-                expect(Model.models['User']).to.not.equal(null);
-                expect(Model.models['User']).to.not.equal(undefined);
-            });
-
-            it('Has User model defined', function () {
-                expect(Model.models['User']).to.not.equal(null);
-                expect(Model.models['User']).to.not.equal(undefined);
+                expect(Model.models.User).to.not.equal(null);
+                expect(Model.models.User).to.not.equal(undefined);
             });
 
             it('Creates User', function () {

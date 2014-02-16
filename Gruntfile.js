@@ -31,14 +31,12 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-less');
-    grunt.loadNpmTasks('grunt-contrib-requirejs');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-ember-templates');
     grunt.loadNpmTasks('grunt-express');
     grunt.loadNpmTasks('grunt-forever');
     grunt.loadNpmTasks('grunt-jsdoc');
     grunt.loadNpmTasks('grunt-mocha-test');
-    grunt.loadNpmTasks('grunt-neuter');
     grunt.loadNpmTasks('grunt-npm-install');
 
     grunt.initConfig({
@@ -111,18 +109,6 @@ module.exports = function (grunt) {
                     reporter: 'spec'
                 },
                 src: ['tests/**/*Spec.js']
-            }
-        },
-
-        // FIXME: Grunt task requirejs is not working!
-        requirejs: {
-            compile: {
-                options: {
-                    baseUrl: "public/",
-                    mainConfigFile: "js/main.js",
-                    out: "assets/bundle.js",
-                    name: "js/main.js"
-                }
             }
         },
 

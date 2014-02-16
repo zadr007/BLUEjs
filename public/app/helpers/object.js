@@ -21,22 +21,24 @@
 (function (global) {
     "use strict";
 
-    require
-    (
-        ["ember"], function (Ember) {
-            Ember.Handlebars.registerBoundHelper('object', function(object, property) {
-                if(property && property.name) {
-                    var val = Ember.get(object, property.name);
+    var deps = [
+        "ember"
+    ];
 
-                    if(!property.formatter) {
-                        return val;
-                    }
+    require(deps, function (Ember) {
+        Ember.Handlebars.registerBoundHelper('object', function (object, property) {
+            if (property && property.name) {
+                var val = Ember.get(object, property.name);
 
-                    return property.formatter(val);
+                if (!property.formatter) {
+                    return val;
                 }
 
-                return null;
-            });
+                return property.formatter(val);
+            }
+
+            return null;
         });
+    });
 
 })(this);

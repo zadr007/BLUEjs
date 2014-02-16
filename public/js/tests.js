@@ -19,9 +19,7 @@
 // THE SOFTWARE.
 
 (function (root) {
-    require(["config"], function (configuration) {
-        require.config(configuration);
-
+    require(["./config"], function (configuration) {
         require(["mocha", "chai", "chai-jquery", "lib", "tests"], function (mocha, chai, chaiJquery, App) {
             //This function is called when scripts/helper/util.js is loaded.
             //If util.js calls define(), then this function is not fired until

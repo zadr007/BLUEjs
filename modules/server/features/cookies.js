@@ -27,7 +27,7 @@
 
     define(deps, function() {
         function FeatureCookies() {
-        };
+        }
 
         module.exports = FeatureCookies;
     });

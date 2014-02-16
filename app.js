@@ -21,9 +21,7 @@
 (function () {
     'use strict';
 
-    if (typeof define !== 'function') {
-        var define = require('amdefine')(module);
-    }
+    var define = require('amdefine')(module);
 
     var requirejs = require('requirejs');
     requirejs.config(require('./require.js'));
@@ -69,24 +67,24 @@
         var args = cli.args();
         var argv = args.argv;
 
-        if (argv["v"] || argv["verbose"]) {
+        if (argv.v || argv.verbose) {
             console.log("Parsed options: " + JSON.stringify(argv, null, 4));
         }
 
-        if (argv["h"] || argv["help"]) {
+        if (argv.h || argv.help) {
             console.log(args.help());
             return;
         }
 
         var config = new Config();
-        config.load(path.join(__dirname, 'config.js'), argv['e'] || "local");
+        config.load(path.join(__dirname, 'config.js'), argv.e || argv.evn || "local");
 
         resolver.register('config', config);
 
         var logger = new Logger(resolver);
         resolver.register('logger', logger);
 
-        if (argv['v'] || argv['verbose']) {
+        if (argv.v || argv.verbose) {
             config.verbose = true;
         }
 
@@ -98,7 +96,7 @@
         }
 
         var App = DefaultApp;
-        var appPath = argv['a'];
+        var appPath = argv.a || argv.app || "apps/default";
         if(appPath) {
             App = require(path.join(__dirname, appPath));
 

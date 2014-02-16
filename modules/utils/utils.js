@@ -80,9 +80,7 @@
             if (prop.length > 1) {
                 var e = prop.shift();
                 module.exports.setObjectProperty(obj[e] =
-                    Object.prototype.toString.call(obj[e]) === "[object Object]"
-                        ? obj[e]
-                        : {},
+                    Object.prototype.toString.call(obj[e]) === "[object Object]" ? obj[e] : {},
                     prop,
                     value);
             } else {
@@ -198,8 +196,8 @@
          * @returns {*} Returns path to user directory
          */
         exports.getUserHome = function() {
-            return process.env[(process.platform == 'win32') ? 'USERPROFILE' : 'HOME'];
-        }
+            return process.env[(process.platform === 'win32') ? 'USERPROFILE' : 'HOME'];
+        };
 
     });
 

@@ -29,7 +29,7 @@
         'path'
     ];
 
-    define(deps, function(Utils, path, fs) {
+    define(deps, function(Utils, fs, path) {
         function Reloader() {
             var Server = require('./index.js');
 
@@ -38,7 +38,7 @@
             this.app = new Server(this.config);
 
             this.queue = this.app.initialize();
-        };
+        }
 
         Reloader.prototype.config = null;
 

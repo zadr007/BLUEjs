@@ -21,16 +21,19 @@
 (function (global) {
     "use strict";
 
-    require
-    (
-        ["ember", "moment"], function (Ember, moment) {
-            Ember.Handlebars.registerBoundHelper('datetime', function (date) {
-                if (!date) {
-                    return '';
-                }
+    var deps = [
+        "ember",
+        "moment"
+    ];
 
-                return moment(date).fromNow();
-            });
+    require(deps, function (Ember, moment) {
+        Ember.Handlebars.registerBoundHelper('datetime', function (date) {
+            if (!date) {
+                return '';
+            }
+
+            return moment(date).fromNow();
         });
+    });
 
 })(this);
