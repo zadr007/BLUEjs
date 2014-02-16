@@ -38,6 +38,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-forever');
     grunt.loadNpmTasks('grunt-jsdoc');
     grunt.loadNpmTasks('grunt-neuter');
+    grunt.loadNpmTasks('grunt-npm-install');
 
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
@@ -186,6 +187,7 @@ module.exports = function (grunt) {
 
     // Boostrap necessary stuff
     grunt.registerTask('boostrap', [
+        'npm-install',
         'bower:install'
     ]);
 
