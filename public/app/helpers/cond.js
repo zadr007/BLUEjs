@@ -21,61 +21,63 @@
 (function () {
     "use strict";
 
-    require
-    (
-        ["ember"], function (Ember) {
-            // See http://stackoverflow.com/questions/8853396/logical-operator-in-a-handlebars-js-if-conditional
+    var deps = [
+        "ember"
+    ];
 
-            function cond(context, v1, operator, v2, options) {
-                var self = context;
-                switch (operator) {
-                    case "==":
-                        return (v1 === v2) ? options.fn(self) : options.inverse(self);
+    require(deps, function (Ember) {
+        // See http://stackoverflow.com/questions/8853396/logical-operator-in-a-handlebars-js-if-conditional
 
-                    case "!=":
-                        return (v1 !== v2) ? options.fn(self) : options.inverse(self);
+        function cond(context, v1, operator, v2, options) {
+            var self = context;
+            switch (operator) {
+                case "==":
+                    return (v1 === v2) ? options.fn(self) : options.inverse(self);
 
-                    case "===":
-                        return (v1 === v2) ? options.fn(self) : options.inverse(self);
+                case "!=":
+                    return (v1 !== v2) ? options.fn(self) : options.inverse(self);
 
-                    case "!==":
-                        return (v1 !== v2) ? options.fn(self) : options.inverse(self);
+                case "===":
+                    return (v1 === v2) ? options.fn(self) : options.inverse(self);
 
-                    case "&&":
-                        return (v1 && v2) ? options.fn(self) : options.inverse(self);
+                case "!==":
+                    return (v1 !== v2) ? options.fn(self) : options.inverse(self);
 
-                    case "||":
-                        return (v1 || v2) ? options.fn(self) : options.inverse(self);
+                case "&&":
+                    return (v1 && v2) ? options.fn(self) : options.inverse(self);
 
-                    case "<":
-                        return (v1 < v2) ? options.fn(self) : options.inverse(self);
+                case "||":
+                    return (v1 || v2) ? options.fn(self) : options.inverse(self);
 
-                    case "<=":
-                        return (v1 <= v2) ? options.fn(self) : options.inverse(self);
+                case "<":
+                    return (v1 < v2) ? options.fn(self) : options.inverse(self);
 
-                    case ">":
-                        return (v1 > v2) ? options.fn(self) : options.inverse(self);
+                case "<=":
+                    return (v1 <= v2) ? options.fn(self) : options.inverse(self);
 
-                    case ">=":
-                        return (v1 >= v2) ? options.fn(self) : options.inverse(self);
-                }
+                case ">":
+                    return (v1 > v2) ? options.fn(self) : options.inverse(self);
 
-                /*jshint -W061 */
-                var res = eval("" + v1 + operator + v2) ? options.fn(self) : options.inverse(self);
-                /*jshint +W061 */
-
-                return res;
+                case ">=":
+                    return (v1 >= v2) ? options.fn(self) : options.inverse(self);
             }
 
+            /*jshint -W061 */
+            var res = eval("" + v1 + operator + v2) ? options.fn(self) : options.inverse(self);
+            /*jshint +W061 */
 
-            Ember.Handlebars.registerHelper("ifCondBound", function (boundV1, operator, v2, options) {
-                var v1 = Ember.get(options.contexts[0], boundV1);
-                return cond(this, v1, operator, v2, options);
-            });
+            return res;
+        }
 
-            Ember.Handlebars.registerHelper("ifCond", function (v1, operator, v2, options) {
-                return cond(this, v1, operator, v2, options);
-            });
+
+        Ember.Handlebars.registerHelper("ifCondBound", function (boundV1, operator, v2, options) {
+            var v1 = Ember.get(options.contexts[0], boundV1);
+            return cond(this, v1, operator, v2, options);
         });
+
+        Ember.Handlebars.registerHelper("ifCond", function (v1, operator, v2, options) {
+            return cond(this, v1, operator, v2, options);
+        });
+    });
 
 })();

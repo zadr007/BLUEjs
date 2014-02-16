@@ -64,7 +64,16 @@ var config = {
         "chai": "/components/chai/chai",
         "chai-jquery": "/components/chai-jquery/chai-jquery",
         "socketio": "/components/socket.io-client/dist/socket.io"
-    }
+    },
+    modules: [
+        {
+            name: "bundle",
+            create: true,
+            include: [
+                '../app/lib'
+            ]
+        }
+    ]
 };
 
 require.config(config);

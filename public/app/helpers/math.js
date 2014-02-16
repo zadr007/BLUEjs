@@ -21,30 +21,32 @@
 (function (global) {
     "use strict";
 
-    require
-    (
-        ["ember"], function (Ember) {
-            Ember.Handlebars.registerBoundHelper("math", function (lvalue, operator, rvalue, options) {
-                if (arguments.length < 4) {
-                    // Operator omitted, assuming "+"
-                    options = rvalue;
-                    rvalue = operator;
-                    operator = "+";
-                }
+    var deps = [
+        "ember"
+    ];
 
-                // App.logger.log(lvalue + " " + operator + " " + rvalue);
+    require(deps, function (Ember) {
+        Ember.Handlebars.registerBoundHelper("math", function (lvalue, operator, rvalue, options) {
+            if (arguments.length < 4) {
+                // Operator omitted, assuming "+"
+                options = rvalue;
+                rvalue = operator;
+                operator = "+";
+            }
 
-                lvalue = parseFloat(lvalue);
-                rvalue = parseFloat(rvalue);
+            // App.logger.log(lvalue + " " + operator + " " + rvalue);
 
-                return {
-                    "+": lvalue + rvalue,
-                    "-": lvalue - rvalue,
-                    "*": lvalue * rvalue,
-                    "/": lvalue / rvalue,
-                    "%": lvalue % rvalue
-                }[operator];
-            });
+            lvalue = parseFloat(lvalue);
+            rvalue = parseFloat(rvalue);
+
+            return {
+                "+": lvalue + rvalue,
+                "-": lvalue - rvalue,
+                "*": lvalue * rvalue,
+                "/": lvalue / rvalue,
+                "%": lvalue % rvalue
+            }[operator];
         });
+    });
 
 })(this);

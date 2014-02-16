@@ -19,16 +19,20 @@
 // THE SOFTWARE.
 
 (function (global) {
-    require
-    (
-        ["config", "ember", "app"], function (config, Ember, App) {
+    var deps = [
+        "config",
+        "ember",
+        "app"
+    ];
 
-            App.Router.map(function() {
+    require(deps, function (config, Ember, App) {
+
+            App.Router.map(function () {
                 this.route("admin", { path: "/admin" });
                 this.route("config", { path: "/config" });
 
                 var indexRoute = config.app.indexRoute;
-                if(indexRoute) {
+                if (indexRoute) {
                     this.route(indexRoute, { path: "/"});
                 }
 

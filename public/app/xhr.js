@@ -19,18 +19,20 @@
 // THE SOFTWARE.
 
 (function (global) {
-    require
-    (
-        ["ember", "app"], function (Ember, App) {
+    var deps = [
+        "ember",
+        "app"
+    ];
 
-            App.reopen({
-                xhr: Ember.Object.create({
-                    xhr: function (options) {
-                        App.logger.log("App.xhr.xhr(" + JSON.stringify(options.url) + ")");
-                        return $.ajax(options);
-                    }
-                })
+    require(deps, function (Ember, App) {
+        App.reopen({
+            xhr: Ember.Object.create({
+                xhr: function (options) {
+                    App.logger.log("App.xhr.xhr(" + JSON.stringify(options.url) + ")");
+                    return $.ajax(options);
+                }
             })
-        });
+        })
+    });
 
-})(window.App);
+})(this);

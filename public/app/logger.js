@@ -19,71 +19,74 @@
 // THE SOFTWARE.
 
 (function (global) {
-    require
-    (
-        ["ember", "app", "moment"], function (Ember, App, moment) {
+    var deps = [
+        "ember",
+        "app",
+        "moment"
+    ];
 
-            App.reopen({
+    require(deps, function (Ember, App, moment) {
+        App.reopen({
 
-                    logger: Ember.Object.create({
-                        msg: function (severity, msg) {
-                            switch (severity) {
-                                case "log":
-                                    this.log(msg);
-                                    break;
-                                case "debug":
-                                    this.debug(msg);
-                                    break;
-                                case "error":
-                                    this.error(msg);
-                                    break;
-                                case "info":
-                                    this.info(msg);
-                                    break;
-                                case "warn":
-                                    this.warn(msg);
-                                    break;
-                            }
-                        },
-
-                        format: function (msg) {
-                            var ts = moment().format("YYYY/MM/DD HH:mm:ss");
-                            var usec = new Date().getMilliseconds().toFixed();
-
-                            return "[" + ts + "." + usec + "] " + msg;
-                        },
-
-                        log: function (msg) {
-                            if (console && console.log) {
-                                console.log(this.format(msg));
-                            }
-                        },
-
-                        debug: function (msg) {
-                            if (console && console.debug) {
-                                console.debug(this.format(msg));
-                            }
-                        },
-
-                        error: function (msg) {
-                            if (console && console.error) {
-                                console.error(this.format(msg));
-                            }
-                        },
-
-                        info: function (msg) {
-                            if (console && console.info) {
-                                console.info(this.format(msg));
-                            }
-                        },
-
-                        warn: function (msg) {
-                            if (console && console.warn) {
-                                console.warn(this.format(msg));
-                            }
+                logger: Ember.Object.create({
+                    msg: function (severity, msg) {
+                        switch (severity) {
+                            case "log":
+                                this.log(msg);
+                                break;
+                            case "debug":
+                                this.debug(msg);
+                                break;
+                            case "error":
+                                this.error(msg);
+                                break;
+                            case "info":
+                                this.info(msg);
+                                break;
+                            case "warn":
+                                this.warn(msg);
+                                break;
                         }
-                    })
-                }
-            );
-        });
+                    },
+
+                    format: function (msg) {
+                        var ts = moment().format("YYYY/MM/DD HH:mm:ss");
+                        var usec = new Date().getMilliseconds().toFixed();
+
+                        return "[" + ts + "." + usec + "] " + msg;
+                    },
+
+                    log: function (msg) {
+                        if (console && console.log) {
+                            console.log(this.format(msg));
+                        }
+                    },
+
+                    debug: function (msg) {
+                        if (console && console.debug) {
+                            console.debug(this.format(msg));
+                        }
+                    },
+
+                    error: function (msg) {
+                        if (console && console.error) {
+                            console.error(this.format(msg));
+                        }
+                    },
+
+                    info: function (msg) {
+                        if (console && console.info) {
+                            console.info(this.format(msg));
+                        }
+                    },
+
+                    warn: function (msg) {
+                        if (console && console.warn) {
+                            console.warn(this.format(msg));
+                        }
+                    }
+                })
+            }
+        );
+    });
 })(this);

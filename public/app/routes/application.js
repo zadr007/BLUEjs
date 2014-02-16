@@ -19,9 +19,12 @@
 // THE SOFTWARE.
 
 (function (global) {
-    require
-    (
-        ["ember", "app"], function (Ember, App) {
+    var deps = [
+        "ember",
+        "app"
+    ];
+
+    require(deps, function (Ember, App) {
 
             App.ApplicationView = Ember.View.extend({
                 classNames: ['app-view'],

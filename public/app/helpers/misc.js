@@ -22,15 +22,17 @@
 (function (global) {
     "use strict";
 
-    require
-    (
-        ["ember"], function (Ember) {
-            Ember.Handlebars.registerBoundHelper("math", function (lvalue, operator, rvalue, options) {
-                Ember.Handlebars.registerBoundHelper('csv', function(items, options) {
-                    return items.toArray().sort().join(', ');
-                });
+    var deps = [
+        "ember"
+    ];
+
+    require(deps, function (Ember) {
+        Ember.Handlebars.registerBoundHelper("math", function (lvalue, operator, rvalue, options) {
+            Ember.Handlebars.registerBoundHelper('csv', function (items, options) {
+                return items.toArray().sort().join(', ');
             });
         });
+    });
 
 })(this);
 

@@ -22,33 +22,35 @@
 (function (global) {
     "use strict";
 
-    require
-    (
-        ["ember"], function (Ember) {
-            /*
-             @method link-to
-             @for Ember.Handlebars.helpers
-             @param {String} routeName
-             @param {Object} [context]*
-             @param [options] {Object} Handlebars key/value pairs of options, you can over-ride any property of {{#crossLink "Ember.LinkView"}}{{/crossLink}}
-             @return {String} HTML string
-             @see {Ember.LinkView}
-             */
-            Ember.Handlebars.registerHelper('my-link-to', function (name) {
-                var options = [].slice.call(arguments, -1)[0],
-                    params = [].slice.call(arguments, 0, -1),
-                    hash = options.hash;
+    var deps = [
+        "ember"
+    ];
 
-                hash.disabledBinding = hash.disabledWhen;
+    require(deps, function (Ember) {
+        /*
+         @method link-to
+         @for Ember.Handlebars.helpers
+         @param {String} routeName
+         @param {Object} [context]*
+         @param [options] {Object} Handlebars key/value pairs of options, you can over-ride any property of {{#crossLink "Ember.LinkView"}}{{/crossLink}}
+         @return {String} HTML string
+         @see {Ember.LinkView}
+         */
+        Ember.Handlebars.registerHelper('my-link-to', function (name) {
+            var options = [].slice.call(arguments, -1)[0],
+                params = [].slice.call(arguments, 0, -1),
+                hash = options.hash;
 
-                hash.parameters = {
-                    context: this,
-                    options: options,
-                    params: params
-                };
+            hash.disabledBinding = hash.disabledWhen;
 
-                return Ember.Handlebars.helpers.view.call(this, LinkView, options);
-            });
+            hash.parameters = {
+                context: this,
+                options: options,
+                params: params
+            };
+
+            return Ember.Handlebars.helpers.view.call(this, LinkView, options);
         });
+    });
 
 })(this);
