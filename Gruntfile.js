@@ -37,6 +37,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-express');
     grunt.loadNpmTasks('grunt-forever');
     grunt.loadNpmTasks('grunt-jsdoc');
+    grunt.loadNpmTasks('grunt-mocha');
     grunt.loadNpmTasks('grunt-neuter');
     grunt.loadNpmTasks('grunt-npm-install');
 
@@ -100,6 +101,12 @@ module.exports = function (grunt) {
             options: {
                 index: path.join(__dirname, './app.js'),
                 pidFile: path.join(__dirname, './tmp/forever.pid')
+            }
+        },
+
+        mocha: {
+            test: {
+                src: ['tests/**/*Spec.js']
             }
         },
 

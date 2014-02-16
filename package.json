@@ -62,6 +62,7 @@
     "grunt-jsdoc": "~0.5.1",
     "grunt-contrib-jshint": "~0.8.0",
     "grunt-bower-task": "~0.3.4",
-    "grunt-npm-install": "~0.1.0"
+    "grunt-npm-install": "~0.1.0",
+    "grunt-mocha": "~0.4.10"
   }
 }
