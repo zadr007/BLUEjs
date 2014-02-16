@@ -38,7 +38,8 @@
             server.app.sessionStore = new MongoStore({ // jshint ignore:line
                 url: server.config.mongo.uri,
                 collection: 'Session',
-                auto_reconnect: true
+                auto_reconnect: true,
+                stringify: false
             });
 
             server.app.use(express.session({
