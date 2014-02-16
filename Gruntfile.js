@@ -37,6 +37,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-express');
     grunt.loadNpmTasks('grunt-forever');
     grunt.loadNpmTasks('grunt-jsdoc');
+    grunt.loadNpmTasks('grunt-mocha-test');
     grunt.loadNpmTasks('grunt-neuter');
     grunt.loadNpmTasks('grunt-npm-install');
 
@@ -100,6 +101,16 @@ module.exports = function (grunt) {
             options: {
                 index: path.join(__dirname, './app.js'),
                 pidFile: path.join(__dirname, './tmp/forever.pid')
+            }
+        },
+
+        // Configure a mochaTest task
+        mochaTest: {
+            test: {
+                options: {
+                    reporter: 'spec'
+                },
+                src: ['tests/**/*Spec.js']
             }
         },
 
@@ -194,7 +205,7 @@ module.exports = function (grunt) {
     // Build all assets required for running the app
     grunt.registerTask('build', [
         'boostrap',
-       'less',
+        'less',
         'emberTemplates'
     ]);
 
