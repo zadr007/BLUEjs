@@ -206,8 +206,7 @@ module.exports = function (grunt) {
     grunt.registerTask('build', [
         'boostrap',
         'less',
-        'emberTemplates',
-        'mochaTest'
+        'emberTemplates'
     ]);
 
     // Generate documentation
