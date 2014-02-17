@@ -28,18 +28,34 @@
      * @type {Array}
      */
     var deps = [
-        '../utils',
+        'dependable',
         'fs',
-        'path'
+        'path',
+        '../config',
+        '../logger',
+        '../mongo',
+        '../utils'
     ];
 
-    define(deps, function(Utils, fs, path) {
+    define(deps, function(dependable, fs, path, Config, Logger, Mongo, Utils) {
         function Reloader() {
             var Server = require('./index.js');
 
-            this.config = Utils.loadConfig(path.join(__dirname, "../../config.js"));
+            var resolver = dependable.container();
 
-            this.app = new Server(this.config);
+            this.config = new Config();
+            this.config.load(path.join(__dirname, '../../config.js'), "local");
+            this.config.verbose = true;
+
+            resolver.register('config', this.config);
+
+            var logger = new Logger(resolver);
+            resolver.register('logger', logger);
+
+            var mongo = new Mongo(resolver);
+            resolver.register('mongo', mongo);
+
+            this.app = new Server(resolver);
 
             this.queue = this.app.initialize();
         }

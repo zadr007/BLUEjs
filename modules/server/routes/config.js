@@ -21,11 +21,21 @@
 (function () {
     'use strict';
 
-    var exports = module.exports = function (microscratch, app) {
+    var define = require('amdefine')(module);
 
-        app.get('/config', function (req, res) {
-            res.json(microscratch.config);
-        });
-    };
+    /**
+     * Array of modules this one depends on.
+     * @type {Array}
+     */
+    var deps = [];
+
+    define(deps, function() {
+        module.exports = function (microscratch, app) {
+
+            app.get('/config', function (req, res) {
+                res.json(microscratch.config);
+            });
+        };
+    });
 
 }());
