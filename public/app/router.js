@@ -37,6 +37,7 @@
                 }
 
                 // TODO: Add your routes below this line for easier merging
+                this.route("login", { path: "/login" });
             });
         }
     );

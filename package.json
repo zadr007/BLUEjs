@@ -1,7 +1,7 @@
 {
-  "name": "microscratch",
+  "name": "modrak",
   "version": "0.0.1",
-  "description": "Light Weight Web Framework using node.js, mongo, sockets, ember.js ...",
+  "description": "modrak",
   "main": "app.js",
   "scripts": {
     "start": "node server.js",

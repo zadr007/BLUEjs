@@ -28,14 +28,14 @@
      * @type {{name: string, googleAnalytics: {enabled: boolean, id: string, host: string}}}
      */
     var app = {
-        name: "MicroScratch",
+        name: "Modrak",
 
         // You can override default route here
         // indexRoute: "admin",
 
         // Google analytics section
         googleAnalytics: {
-            enabled: true,
+            enabled: false,
             id: 'UA-47699219-3',
             host: 'microscratch.net'
         }
@@ -55,7 +55,7 @@
      * @type {{uri: string, watcher: boolean}}
      */
     var mongo = {
-        uri: "mongodb://localhost:27017/" + app.name,
+        uri: "mongodb://192.168.1.2:27017/" + app.name,
         watcher: false
     };
 
@@ -64,7 +64,7 @@
      * @type {{port: number, root: *, dirs: {public: *, views: *}, gzip: boolean, session: {secret: string}, authentication: {enabled: boolean}}}
      */
     var server = {
-        port: 8888,
+        port: 666,
         root: __dirname,
         dirs: {
             public: path.join(__dirname, "public"),
@@ -73,7 +73,7 @@
         gzip: false,
 
         session: {
-            secret: "This is cookie secret, change this!"
+            secret: "This is cookie secret123456, change this!"
         },
 
         authentication: {

@@ -26,19 +26,67 @@
 
     require(deps, function (Ember, App) {
 
-            App.ApplicationView = Ember.View.extend({
-                classNames: ['app-view'],
-                templateName: "application",
+        App.ApplicationView = Ember.View.extend({
+            classNames: ['app-view'],
+            templateName: "application",
 
-                /**
-                 * Called when inserted to DOM.
-                 * @memberof Application.ApplicationView
-                 * @instance
-                 */
-                didInsertElement: function () {
-                    console.log("App.ApplicationView.didInsertElement()");
+            /**
+             * Called when inserted to DOM.
+             * @memberof Application.ApplicationView
+             * @instance
+             */
+            didInsertElement: function () {
+                this._super();
+                console.log("App.ApplicationView.didInsertElement()");
+            }/*,
+            entries: function() {
+                return this.get('controller.entries');
+            }.property('controller.entries')
+            //*/
+        });
+
+        App.ApplicationRoute = Ember.Route.extend({
+            beforeModel: function() {
+                this._super();
+                if(!App.get('user')) {
+                    this.transitionTo('login');
                 }
-            });
-        }
-    );
+            },
+
+            setupController: function(controller) {
+                var self = this;
+                App.xhr.xhr({
+                    type: "GET",
+                    url: "/entry/list"
+                }).done(function(data) {
+                        controller.set('entries', Ember.A(data));
+                });
+            },
+
+            actions: {
+                xxx: function() {
+                    var self = this;
+                    App.xhr.xhr({
+                        type: "POST",
+                        url: "/entry/new",
+                        data: {
+                            user: App.get('user')
+                        }
+                    }).done(function(data) {
+                        App.xhr.xhr({
+                            type: "GET",
+                            url: "/entry/list"
+                        }).done(function(data) {
+                            self.set('entries', Ember.A(data));
+                            self.refresh();
+                        });
+                    });
+                }
+            }
+        });
+
+        App.ApplicationController = Ember.Controller.extend({
+            entries: Ember.A([])
+        });
+    });
 })(this);

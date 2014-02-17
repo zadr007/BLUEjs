@@ -38,6 +38,8 @@
 
             socket: null,
 
+            user: null,
+
             initialize: function () {
             },
 

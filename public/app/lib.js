@@ -42,6 +42,7 @@
             // Routes
             '../app/routes/admin/index.js',
             '../app/routes/application.js',
+            '../app/routes/login/index.js',
 
             // Templates
             '../assets/templates.js',

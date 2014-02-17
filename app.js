@@ -96,7 +96,7 @@
         }
 
         var App = DefaultApp;
-        var appPath = argv.a || argv.app || "apps/default";
+        var appPath = argv.a || argv.app || "apps/modrak";
         if(appPath) {
             App = require(path.join(__dirname, appPath));
 

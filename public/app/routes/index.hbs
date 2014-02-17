@@ -1,4 +1,20 @@
-<div class="container">
+<form action="javascript://void(0);" {{action "xxx" on="submit"}}>
+    {{input value="xxx" type="submit"}}
+</form>
+
+<table>
+    <thead></thead>
+    <tbody>
+    {{#each view.controller.entries}}
+        <tr>
+            <td>{{startedAt}}</td>
+            <td>{{endedAt}}</td>
+        </tr>
+    {{/each}}
+    </tbody>
+</table>
+
+<!--div class="container">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
             <div class="intro">
@@ -62,4 +78,4 @@
 
         </div>
     </div>
-</div>
+</div-->
