@@ -1,3 +1,5 @@
+.idea
+
 lib-cov
 *.seed
 *.log
@@ -6,10 +8,18 @@ lib-cov
 *.out
 *.pid
 *.gz
+*.user
 
 pids
+forever/
 logs
 results
 
 npm-debug.log
 node_modules
+
+public/components
+public/doc/client
+public/doc/server
+public/js/config.js
+
