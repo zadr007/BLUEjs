@@ -49,6 +49,9 @@
 
             // this.auth = this.resolver.get('auth');
 
+            // Set feautres set to empty
+            this.features = {};
+
             var modelsDir = path.join(__dirname, "models");
             this.mongo.initializeModelsDir(modelsDir);
         };
@@ -91,6 +94,14 @@
         exports.prototype.mongo = null;
 
         /**
+         * Router feature instance
+         * @type {FeatureRouter}
+         */
+        exports.prototype.mongo = null;
+
+        exports.prototype.featues = null;
+
+        /**
          * Initializes Microscratch application
          * @returns {*} Promise
          */
@@ -127,6 +138,7 @@
 
             // Initialize router
             var res = this.initFeature('./features/router');
+            res = res.router.initialize(this, this.app); // TODO: Handle returned deferred
 
             // Initialize logger
             this.initFeature('./features/logger');

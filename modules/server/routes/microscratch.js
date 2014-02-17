@@ -22,16 +22,26 @@
 (function () {
     'use strict';
 
-    var exports = module.exports = function (microscratch, app) {
+    var define = require('amdefine')(module);
 
-        // Microscratch route
-        app.get('/microscratch', function (req, res) {
-            var data = {
-                app: microscratch.config.app
-            };
+    /**
+     * Array of modules this one depends on.
+     * @type {Array}
+     */
+    var deps = [];
 
-            res.render("microscratch", data);
-        });
-    };
+    define(deps, function() {
+        module.exports = function (microscratch, app) {
+
+            // Microscratch route
+            app.get('/microscratch', function (req, res) {
+                var data = {
+                    app: microscratch.config.app
+                };
+
+                res.render("microscratch", data);
+            });
+        };
+    });
 
 }());

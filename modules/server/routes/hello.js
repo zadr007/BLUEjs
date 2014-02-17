@@ -30,14 +30,14 @@
     var deps = [];
 
     define(deps, function() {
-        var exports = module.exports = function FeatureRouter(server) {
-            server.app.use(server.app.router);
+        module.exports = function (microscratch, app) {
 
-            this.router = require('../router.js');
-            return this;
-        }
+            app.get('/hello', function (req, res) {
+                var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
 
-        exports.router = null;
+                res.send('Hello ' + ip + '! ');
+            });
+        };
     });
 
 }());

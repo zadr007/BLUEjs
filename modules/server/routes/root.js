@@ -21,31 +21,40 @@
 (function () {
     'use strict';
 
-    var fs = require('fs'),
-        path = require('path'),
-        utils = require('../../utils');
+    var define = require('amdefine')(module);
 
-    var exports = module.exports = function (microscratch, app) {
+    /**
+     * Array of modules this one depends on.
+     * @type {Array}
+     */
+    var deps = [
+        "fs",
+        "path"
+    ];
 
-        // Root route
-        app.get('/', function (req, res) {
-            var data = {
-                app: microscratch.config.app
-            };
+    define(deps, function(fs, path) {
+        module.exports = function (microscratch, app) {
 
-            /*
-            var tmpl = path.join(microscratch.config.server.dirs.views, "index.hbs");
-            fs.exists(tmpl, function (exists) {
-                if (exists) {
-                    res.render("index", data);
-                } else {
-                    res.render("microscratch", data);
-                }
+            // Root route
+            app.get('/', function (req, res) {
+                var data = {
+                    app: microscratch.config.app
+                };
+
+                /*
+                 var tmpl = path.join(microscratch.config.server.dirs.views, "index.hbs");
+                 fs.exists(tmpl, function (exists) {
+                    if (exists) {
+                        res.render("index", data);
+                    } else {
+                        res.render("microscratch", data);
+                    }
+                 });
+                 //*/
+
+                res.render("index", data);
             });
-            //*/
-
-            res.render("index", data);
-        });
-    };
+        };
+    });
 
 }());

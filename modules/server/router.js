@@ -39,26 +39,47 @@
          * @param microscratch Microscratch app which this router belongs to
          * @param app Express app which this router belongs to
          */
-        module.exports.initialize = function (microscratch, app) {
+        var exports = module.exports = {
+        };
+
+        exports.initialize = function (microscratch, app) {
+
+            var routesDir = path.join(__dirname, './routes');
+
+            exports.microscratch = microscratch;
+            exports.app = app;
+
+            return exports.initializeRoutesDir(routesDir);
+        };
+
+        exports.microscratch = null;
+
+        exports.app = null;
+
+        /**
+         * Initialize routes dir
+         * @param routesDir Path of directory including routes to load
+         * @returns {*} Promise
+         */
+        exports.initializeRoutesDir = function(routesDir) {
             var d = deferred();
 
             var readdir = deferred.promisify(fs.readdir);
 
             var self = this;
-            var routesDir = path.join(__dirname, './routes');
+
             readdir(routesDir).then(function (files) {
                 for (var i = 0; i < files.length; i++) {
                     var routePath = "./routes/" + files[i];
 
                     var route = require(routePath);
-                    route(microscratch, app);
+                    route(exports.microscratch, exports.app);
                 }
 
                 d.resolve(self);
             });
 
             return d.promise();
-
         };
     });
 
