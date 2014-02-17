@@ -49,6 +49,9 @@
 
             // this.auth = this.resolver.get('auth');
 
+            // Set feautres set to empty
+            this.features = {};
+
             var modelsDir = path.join(__dirname, "models");
             this.mongo.initializeModelsDir(modelsDir);
         };
@@ -95,6 +98,8 @@
          * @type {FeatureRouter}
          */
         exports.prototype.mongo = null;
+
+        exports.prototype.featues = null;
 
         /**
          * Initializes Microscratch application
