@@ -91,6 +91,12 @@
         exports.prototype.mongo = null;
 
         /**
+         * Router feature instance
+         * @type {FeatureRouter}
+         */
+        exports.prototype.mongo = null;
+
+        /**
          * Initializes Microscratch application
          * @returns {*} Promise
          */
@@ -127,6 +133,7 @@
 
             // Initialize router
             var res = this.initFeature('./features/router');
+            res = res.router.initialize(this, this.app); // TODO: Handle returned deferred
 
             // Initialize logger
             this.initFeature('./features/logger');

@@ -30,14 +30,14 @@
     var deps = [];
 
     define(deps, function() {
-        function FeatureRouter(server) {
+        var exports = module.exports = function FeatureRouter(server) {
             server.app.use(server.app.router);
 
-            var router = require('../router.js');
-            return router.initialize(server, server.app);
+            this.router = require('../router.js');
+            return this;
         }
 
-        module.exports = FeatureRouter;
+        exports.router = null;
     });
 
 }());
