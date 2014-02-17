@@ -40,12 +40,24 @@
          * @param app Express app which this router belongs to
          */
         module.exports.initialize = function (microscratch, app) {
+
+            var routesDir = path.join(__dirname, './routes');
+
+            return this.initializeModelsDir(routesDir);
+        };
+
+        /**
+         * Initialize routes dir
+         * @param routesDir Path of directory including routes to load
+         * @returns {*} Promise
+         */
+        module.exports.initializeModelsDir = function(routesDir) {
             var d = deferred();
 
             var readdir = deferred.promisify(fs.readdir);
 
             var self = this;
-            var routesDir = path.join(__dirname, './routes');
+
             readdir(routesDir).then(function (files) {
                 for (var i = 0; i < files.length; i++) {
                     var routePath = "./routes/" + files[i];
@@ -58,7 +70,6 @@
             });
 
             return d.promise();
-
         };
     });
 
