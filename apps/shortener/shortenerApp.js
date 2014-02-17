@@ -21,9 +21,7 @@
 (function () {
     'use strict';
 
-    if (typeof define !== 'function') {
-        var define = require('amdefine')(module);
-    }
+    var define = require('amdefine')(module);
 
     var requirejs = require('requirejs');
     requirejs.config(require('../../require.js'));

@@ -18,27 +18,13 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-(function () {
-    'use strict';
+module.exports = function (grunt) {
 
-    var define = require('amdefine')(module);
+    grunt.loadNpmTasks('grunt-bower-task');
 
-    /**
-     * Array of modules this one depends on.
-     * @type {Array}
-     */
-    var deps = [];
-
-    define(deps, function() {
-        /**
-         * Authentication Feature
-         * @type {FeatureAuth}
-         */
-        var exports = module.exports = function FeatureAuth(server) {
-            this.config = server.config;
-        };
-
-        exports.prototype.config = null;
-    });
-
-}());
+    bower: {
+        install: {
+            //just run 'grunt bower:install' and you'll see files from your Bower packages in lib directory
+        }
+    }
+};
