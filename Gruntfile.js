@@ -18,199 +18,215 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-module.exports = function (grunt) {
+(function (globals) {
     'use strict';
 
-    var path = require('path'),
-        utils = require("./modules/utils");
+    var define = require('amdefine')(module);
 
-    var config = utils.loadConfig(path.join(__dirname, "./config.js")),
-        templatesDir = "./public/app/";
+    var requirejs = require('requirejs');
+    requirejs.config(require('./require.js'));
 
-    grunt.loadNpmTasks('grunt-bower-task');
-    grunt.loadNpmTasks('grunt-contrib-clean');
-    grunt.loadNpmTasks('grunt-contrib-jshint');
-    grunt.loadNpmTasks('grunt-contrib-less');
-    grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.loadNpmTasks('grunt-ember-templates');
-    grunt.loadNpmTasks('grunt-express');
-    grunt.loadNpmTasks('grunt-forever');
-    grunt.loadNpmTasks('grunt-jsdoc');
-    grunt.loadNpmTasks('grunt-mocha-test');
-    grunt.loadNpmTasks('grunt-npm-install');
+    module.exports = function (grunt) {
 
-    grunt.initConfig({
-        pkg: grunt.file.readJSON('package.json'),
 
-        meta: {
-            banner: '/*! <%=pkg.name%> - v<%=pkg.version%> (build <%=pkg.build%>) - ' +
-                '<%=grunt.template.today("dddd, mmmm dS, yyyy, h:MM:ss TT")%> */'
-        },
+        var path = require('path'),
+            utils = require("./modules/utils");
 
-        bower: {
-            install: {
-                //just run 'grunt bower:install' and you'll see files from your Bower packages in lib directory
-            }
-        },
+        var config = utils.loadConfig(path.join(__dirname, "./config.js")),
+            templatesDir = "./public/app/";
 
-        clean: [
-            './public/assets/*.js'
-        ],
+        grunt.loadNpmTasks('grunt-bower-task');
+        grunt.loadNpmTasks('grunt-contrib-clean');
+        grunt.loadNpmTasks('grunt-contrib-jshint');
+        grunt.loadNpmTasks('grunt-contrib-less');
+        grunt.loadNpmTasks('grunt-contrib-watch');
+        grunt.loadNpmTasks('grunt-ember-templates');
+        grunt.loadNpmTasks('grunt-express');
+        grunt.loadNpmTasks('grunt-forever');
+        grunt.loadNpmTasks('grunt-jsdoc');
+        grunt.loadNpmTasks('grunt-mocha-test');
+        grunt.loadNpmTasks('grunt-npm-install');
 
-        emberTemplates: {
-            compile: {
+        grunt.initConfig({
+            pkg: grunt.file.readJSON('package.json'),
+
+            meta: {
+                banner: '/*! <%=pkg.name%> - v<%=pkg.version%> (build <%=pkg.build%>) - ' +
+                    '<%=grunt.template.today("dddd, mmmm dS, yyyy, h:MM:ss TT")%> */'
+            },
+
+            bower: {
+                install: {
+                    //just run 'grunt bower:install' and you'll see files from your Bower packages in lib directory
+                }
+            },
+
+            clean: [
+                './public/assets/*.js'
+            ],
+
+            emberTemplates: {
+                compile: {
+                    options: {
+                        templateName: function (filename) {
+                            var res = filename;
+
+                            res = res.replace(templatesDir, '');
+                            res = res.replace(/^routes\//, "");
+
+                            return res;
+                        }
+                    },
+
+                    files: {
+                        "./public/assets/templates.js": [
+                            templatesDir + "**/*.hbs"
+                        ]
+                    }
+                }
+            },
+
+            express: {
+                custom: {
+                    tasks: ['build'],
+                    options: {
+                        showStack: true,
+                        port: config.server.port,
+                        bases: [
+                            path.join(__dirname, "public"),
+                            path.join(__dirname, "modules")
+                        ],
+                        server: path.join(__dirname, "modules/server/reloader.js"),
+                        livereload: true,
+                        serverreload: false
+                    }
+                }
+            },
+
+            forever: {
                 options: {
-                    templateName: function (filename) {
-                        var res = filename;
+                    index: path.join(__dirname, './app.js'),
+                    pidFile: path.join(__dirname, './tmp/forever.pid')
+                }
+            },
 
-                        res = res.replace(templatesDir, '');
-                        res = res.replace(/^routes\//, "");
+            // Configure a mochaTest task
+            mochaTest: {
+                test: {
+                    options: {
+                        reporter: 'spec'
+                    },
+                    src: ['tests/**/*Spec.js']
+                }
+            },
 
-                        return res;
+            jsdoc: {
+                client: {
+                    src: [
+                        "./public/app/**/*.js"
+                    ],
+                    dest: "./public/doc/client/"
+                },
+                server: {
+                    src: [
+                        "./app.js",
+                        "./modules/**/*.js"
+                    ],
+                    dest: "./public/doc/server/"
+                }
+            },
+
+            jshint: {
+                options: {
+                    curly: true,
+                    eqeqeq: true,
+                    eqnull: true,
+                    browser: true,
+                    globals: {
+                        jQuery: true,
+                        next: true,
+                        require: true
                     }
                 },
+                client: [
+                    "public/client/**/*.js"
+                ],
+                grunt: [
+                    "Gruntfile.js"
+                ],
+                server: [
+                    "app.js",
+                    "modules/**/*.js"
+                ],
+                tests: [
+                    "tests/**/*.js"
+                ]
+            },
 
-                files: {
-                    "./public/assets/templates.js": [
-                        templatesDir + "**/*.hbs"
+            less: {
+                dist: {
+                    files: {
+                        'public/assets/main.css': 'public/css/*.less'
+
+                        // Please, keep your style below this line for easier merge with forked projects
+                    }
+                }
+            },
+
+            watch: {
+                less: {
+                    tasks: ['less'],
+                    files: [
+                        path.join(__dirname, "public/css/**/*.less")
+                    ]
+                },
+
+                templates: {
+                    tasks: ['emberTemplates'],
+                    files: [
+                        path.join(__dirname, "public/**/*.hbs")
                     ]
                 }
             }
-        },
+        });
 
-        express: {
-            custom: {
-                tasks: ['build'],
-                options: {
-                    showStack: true,
-                    port: config.server.port,
-                    bases: [
-                        path.join(__dirname, "public"),
-                        path.join(__dirname, "modules")
-                    ],
-                    server: path.join(__dirname, "modules/server/reloader.js"),
-                    livereload: true,
-                    serverreload: false
-                }
-            }
-        },
+        // Boostrap necessary stuff
+        grunt.registerTask('boostrap', [
+            'npm-install',
+            'bower:install'
+        ]);
 
-        forever: {
-            options: {
-                index: path.join(__dirname, './app.js'),
-                pidFile: path.join(__dirname, './tmp/forever.pid')
-            }
-        },
+        // Preprocess task
+        grunt.registerTask('preprocess', [
 
-        // Configure a mochaTest task
-        mochaTest: {
-            test: {
-                options: {
-                    reporter: 'spec'
-                },
-                src: ['tests/**/*Spec.js']
-            }
-        },
+        ]);
 
-        jsdoc: {
-            client: {
-                src: [
-                    "./public/app/**/*.js"
-                ],
-                dest: "./public/doc/client/"
-            },
-            server: {
-                src: [
-                    "./app.js",
-                    "./modules/**/*.js"
-                ],
-                dest: "./public/doc/server/"
-            }
-        },
+        // Build all assets required for running the app
+        grunt.registerTask('build', [
+            'preprocess',
+            'boostrap',
+            'less',
+            'emberTemplates'
+        ]);
 
-        jshint: {
-            options: {
-                curly: true,
-                eqeqeq: true,
-                eqnull: true,
-                browser: true,
-                globals: {
-                    jQuery: true,
-                    next: true,
-                    require: true
-                }
-            },
-            client: [
-                "public/client/**/*.js"
-            ],
-            grunt: [
-                "Gruntfile.js"
-            ],
-            server: [
-                "app.js",
-                "modules/**/*.js"
-            ],
-            tests: [
-                "tests/**/*.js"
-            ]
-        },
+        // Generate documentation
+        grunt.registerTask('doc', [
+            'jsdoc'
+        ]);
 
-        less: {
-            dist: {
-                files: {
-                    'public/assets/main.css': 'public/css/*.less'
+        grunt.registerTask('server', [
+            'clean',
+            'build',
+            'express',
+            // 'express-keepalive',
+            'watch'
+        ]);
 
-                    // Please, keep your style below this line for easier merge with forked projects
-                }
-            }
-        },
+        // Default tasks.
+        grunt.registerTask('default', [
+            'clean',
+            'build'
+        ]);
+    };
 
-        watch: {
-            less: {
-                tasks: ['less'],
-                files: [
-                    path.join(__dirname, "public/css/**/*.less")
-                ]
-            },
-
-            templates: {
-                tasks: ['emberTemplates'],
-                files: [
-                    path.join(__dirname, "public/**/*.hbs")
-                ]
-            }
-        }
-    });
-
-    // Boostrap necessary stuff
-    grunt.registerTask('boostrap', [
-        'npm-install',
-        'bower:install'
-    ]);
-
-    // Build all assets required for running the app
-    grunt.registerTask('build', [
-        'boostrap',
-        'less',
-        'emberTemplates'
-    ]);
-
-    // Generate documentation
-    grunt.registerTask('doc', [
-        'jsdoc'
-    ]);
-
-    grunt.registerTask('server', [
-        'clean',
-        'build',
-        'express',
-        // 'express-keepalive',
-        'watch'
-    ]);
-
-    // Default tasks.
-    grunt.registerTask('default', [
-        'clean',
-        'build'
-    ]);
-};
+}(this));

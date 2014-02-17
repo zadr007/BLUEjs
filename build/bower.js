@@ -18,32 +18,13 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-(function () {
-    'use strict';
+module.exports = function (grunt) {
 
-    var define = require('amdefine')(module);
+    grunt.loadNpmTasks('grunt-bower-task');
 
-    var requirejs = require('requirejs');
-    requirejs.config(require('../../require.js'));
-
-    var deps = [
-        '../../modules/webapp',
-        'deferred',
-        'dependable',
-        'util'
-    ];
-
-    define(deps, function (Webapp, deferred, dependable, util) {
-        ///*
-        var resolver = dependable.container();
-
-        // Load app module
-        var exports = module.exports = function UrlShortenerApp(resolver) {
-            UrlShortenerApp.super_.call(this, resolver);
-        };
-
-        util.inherits(exports, Webapp);
-
-        //*/
-    });
-}());
+    bower: {
+        install: {
+            //just run 'grunt bower:install' and you'll see files from your Bower packages in lib directory
+        }
+    }
+};
