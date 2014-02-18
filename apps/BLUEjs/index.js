@@ -24,11 +24,11 @@
     var define = require('amdefine')(module);
 
     var deps = [
-        "./modrakApp"
+        "./bluejsApp"
     ];
 
-    define(deps, function (ModrakApp) {
-        var exports = module.exports = ModrakApp;
+    define(deps, function (BLUEjsApp) {
+        var exports = module.exports = BLUEjsApp;
 
     });
 }());
