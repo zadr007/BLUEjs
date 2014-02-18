@@ -41,7 +41,7 @@
         var exports = module.exports = function BLUEjsApp(resolver) {
             BLUEjsApp.super_.call(this, resolver);
 
-            var server =  this.get('server');
+            var server =  resolver.get('server');
         };
 
         util.inherits(exports, Webapp);

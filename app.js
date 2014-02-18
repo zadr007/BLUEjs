@@ -96,7 +96,7 @@
         }
 
         var App = DefaultApp;
-        var appPath = argv.a || argv.app || "apps/bluejs";
+        var appPath = argv.a || argv.app || "apps/BLUEjs";
         if(appPath) {
             App = require(path.join(__dirname, appPath));
 
