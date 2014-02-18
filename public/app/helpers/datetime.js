@@ -34,6 +34,14 @@
 
             return moment(date).fromNow();
         });
+
+        Ember.Handlebars.registerBoundHelper('dateShort', function (date) {
+            return moment(date).format("HH:MM.ss");
+        });
+
+        Ember.Handlebars.registerBoundHelper('elapsed', function (start, end) {
+            return "N/A";
+        });
     });
 
 })(this);

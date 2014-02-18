@@ -34,16 +34,6 @@
     ];
 
     define(deps, function(Model, events, util) {
-        var schema = Model.declareSchema("Entry", {
-            username: String,
-            createdAt: Date,
-            updatedAt: Date,
-            startedAt: Date,
-            endedAt: Date
-        });
-
-        var model = Model.declareModel("Entry", schema);
-
         var exports = module.exports = function Entry() {
             Entry.super_.call(this, schema, model);
 
@@ -52,7 +42,19 @@
 
         util.inherits(exports, Model);
 
+        exports.Name = "Entry";
+
+        var schema = Model.declareSchema(exports.Name, {
+            username: String,
+            createdAt: Date,
+            updatedAt: Date,
+            startedAt: Date,
+            endedAt: Date
+        });
+
         exports.Schema = schema;
+
+        var model = Model.declareModel(exports.Name, schema);
 
         exports.Model = model;
     });
