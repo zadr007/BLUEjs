@@ -28,7 +28,7 @@
      * @type {{name: string, googleAnalytics: {enabled: boolean, id: string, host: string}}}
      */
     var app = {
-        name: "Modrak",
+        name: "BLUEjs",
 
         // You can override default route here
         // indexRoute: "admin",

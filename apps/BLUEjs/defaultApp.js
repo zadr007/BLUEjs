@@ -38,8 +38,8 @@
         var resolver = dependable.container();
 
         // Load app module
-        var exports = module.exports = function ModrakApp(resolver) {
-            ModrakApp.super_.call(this, resolver);
+        var exports = module.exports = function BLUEjsApp(resolver) {
+            BLUEjsApp.super_.call(this, resolver);
 
             var server =  this.get('server');
         };

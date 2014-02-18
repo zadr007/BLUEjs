@@ -1,7 +1,7 @@
 {
-  "name": "modrak",
+  "name": "BLUEjs",
   "version": "0.0.1",
-  "description": "modrak",
+  "description": "BLUEjs",
   "main": "app.js",
   "scripts": {
     "start": "node server.js",
