@@ -24,11 +24,11 @@
     var define = require('amdefine')(module);
 
     var deps = [
-        "./defaultApp"
+        "./modrakApp"
     ];
 
-    define(deps, function (DefaultApp) {
-        var exports = module.exports = DefaultApp;
+    define(deps, function (ModrakApp) {
+        var exports = module.exports = ModrakApp;
 
     });
 }());
