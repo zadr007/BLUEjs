@@ -18,30 +18,34 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-(function (global) {
-    "use strict";
+(function () {
+    'use strict';
+
+    var define = require('amdefine')(module);
+
+    var requirejs = require('requirejs');
+    requirejs.config(require('../../require.js'));
 
     var deps = [
-        "ember",
-        "moment"
+        '../../modules/webapp',
+        'deferred',
+        'dependable',
+        'util'
     ];
 
-    require(deps, function (Ember, moment) {
-        Ember.Handlebars.registerBoundHelper('datetime', function (date) {
-            if (!date) {
-                return '';
-            }
+    define(deps, function (Webapp, deferred, dependable, util) {
+        ///*
+        var resolver = dependable.container();
 
-            return moment(date).fromNow();
-        });
+        // Load app module
+        var exports = module.exports = function BLUEjsApp(resolver) {
+            BLUEjsApp.super_.call(this, resolver);
 
-        Ember.Handlebars.registerBoundHelper('dateShort', function (date) {
-            return moment(date).format("HH:MM.ss");
-        });
+            var server =  this.get('server');
+        };
 
-        Ember.Handlebars.registerBoundHelper('elapsed', function (start, end) {
-            return "N/A";
-        });
+        util.inherits(exports, Webapp);
+
+        //*/
     });
-
-})(this);
+}());
