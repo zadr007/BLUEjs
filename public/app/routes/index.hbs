@@ -1,18 +1,43 @@
-<form action="javascript://void(0);" {{action "xxx" on="submit"}}>
-    {{input value="xxx" type="submit"}}
-</form>
+<div class="container">
+    <div class="row">
+        <form action="javascript://void(0);" {{action "xxx" on="submit"}}>
+            {{input value="xxx" type="submit"}}
+        </form>
+    </div>
 
-<table>
-    <thead></thead>
-    <tbody>
-    {{#each view.controller.entries}}
-        <tr>
-            <td>{{startedAt}}</td>
-            <td>{{endedAt}}</td>
-        </tr>
-    {{/each}}
-    </tbody>
-</table>
+    <div class="row">
+        <table class="table  table-bordered table-striped table-condensed">
+            <thead>
+                <td>ID</td>
+                <td>Username</td>
+                <td>Started</td>
+                <td>Ended</td>
+                <td>Created</td>
+                <td>Updated</td>
+            </thead>
+            <tbody>
+            {{#each view.controller.entries}}
+                <tr>
+                    <td>{{_id}}</td>
+                    <td>{{username}}</td>
+                    <td>
+                        {{dateShort startedAt}} ({{datetime startedAt}})
+                    </td>
+                    <td>
+                        {{dateShort endedAt}} ({{datetime endedAt}})
+                    </td>
+                    <td>
+                        {{dateShort createdAt}} ({{datetime createdAt}})
+                    </td>
+                    <td>
+                        {{dateShort updatedAt}} ({{datetime updatedAt}})
+                    </td>
+                </tr>
+            {{/each}}
+            </tbody>
+        </table>
+    </div>
+</div>
 
 <!--div class="container">
     <div class="row">

@@ -41,7 +41,7 @@
         var exports = module.exports = function ModrakApp(resolver) {
             ModrakApp.super_.call(this, resolver);
 
-            var server =  this.get('server');
+            var server =  resolver.get('server');
         };
 
         util.inherits(exports, Webapp);

@@ -55,7 +55,7 @@
      * @type {{uri: string, watcher: boolean}}
      */
     var mongo = {
-        uri: "mongodb://192.168.1.2:27017/" + app.name,
+        uri: "mongodb://localhost:27017/" + app.name,
         watcher: false
     };
 
@@ -64,7 +64,7 @@
      * @type {{port: number, root: *, dirs: {public: *, views: *}, gzip: boolean, session: {secret: string}, authentication: {enabled: boolean}}}
      */
     var server = {
-        port: 666,
+        port: 8888,
         root: __dirname,
         dirs: {
             public: path.join(__dirname, "public"),

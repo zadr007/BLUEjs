@@ -37,7 +37,9 @@
 
                 var username = data.user.username;
                 var now = new Date();
+
                 var Entry = microscratch.mongo.models['entry'].model;
+
                 Entry.findOne({username: username}, null, {sort: {startedAt: -1 }}, function(err, doc) {
                     if(doc && !doc.endedAt) {
                         doc.endedAt = now;
