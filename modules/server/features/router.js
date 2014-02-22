@@ -40,11 +40,10 @@
          * @param app Express app which this router belongs to
          */
         var exports = module.exports = function FeatureRouter(server) {
-            var routesDir = path.join(__dirname, '../routes');
-
             this.server = server;
 
-            return this.initializeRoutesDir(routesDir);
+            var controllersDir = path.join(__dirname, '../controllers');
+            return this.initializeControllers(controllersDir);
         };
 
         exports.prototype.server = null;
@@ -53,25 +52,36 @@
 
         exports.prototype.app = null;
 
-        /**
+        /** 
          * Initialize routes dir
          * @param routesDir Path of directory including routes to load
          * @returns {*} Promise
          */
-        exports.prototype.initializeRoutesDir = function(routesDir) {
+        exports.prototype.initializeControllers = function(controllersDir) {
             var d = deferred();
 
-            var readdir = deferred.promisify(fs.readdir);
-
             var self = this;
+            fs.readdir(controllersDir, function (err, files) {
+                var res = {};
 
-            readdir(routesDir).then(function (files) {
-                for (var i = 0; i < files.length; i++) {
-                    var routePath = "../routes/" + files[i];
+                files.forEach(function (file) {
+                    var parts = file.split(".");
+                    if(parts.length === 2 && parts[1].toLowerCase() === "js") {
+                        var fullPath = controllersDir + '/' + file;
 
-                    var route = require(routePath);
-                    route(self.server);
-                }
+                        var relPath = path.relative(__dirname, fullPath);
+                        self.server.logger.log("Loading controller file '" + relPath + "'");
+
+                        var controllerName = parts[0];
+
+                        var Controller = require(fullPath);
+                        var controller = new Controller(self.server);
+                        res[controllerName] = controller;
+                        controller.init();
+                    }
+                });
+
+                self.migrations = res;
 
                 d.resolve(self);
             });

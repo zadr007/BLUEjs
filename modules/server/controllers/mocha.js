@@ -27,18 +27,38 @@
      * Array of modules this one depends on.
      * @type {Array}
      */
-    var deps = [];
+    var deps = [
+        '../controller',
+        'fs',
+        'path',
+        'util'
+    ];
 
-    define(deps, function() {
-        module.exports = function (server) {
+    define(deps, function(Controller, fs, path, util) {
+        var exports = module.exports = function HelloController(server) {
+            HelloController.super_.call(this, server);
+
+            return this;
+        };
+
+        util.inherits(exports, Controller);
+
+        exports.prototype.server = null;
+
+        exports.prototype.init = function() {
+            var server = this.server;
             var app = server.app;
 
-            app.get('/hello', function (req, res) {
-                var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+            // Mocha route
+            app.get('/mocha', function (req, res) {
+                var data = {
+                    app: server.config.app
+                };
 
-                res.send('Hello ' + ip + '! ');
+                res.render("mocha", data);
             });
         };
+
     });
 
 }());

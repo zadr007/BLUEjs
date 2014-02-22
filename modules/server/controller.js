@@ -18,7 +18,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-(function () {
+(function() {
     'use strict';
 
     var define = require('amdefine')(module);
@@ -28,44 +28,19 @@
      * @type {Array}
      */
     var deps = [
-        '../controller',
-        'fs',
-        'path',
+        'events',
         'util'
     ];
 
-    define(deps, function(Controller, fs, path, util) {
-        var exports = module.exports = function ApplicationController(server) {
-            ApplicationController.super_.call(this, server);
-
-            return this;
+    define(deps, function(events, util) {
+        var exports = module.exports = function Controller(server) {
+            this.server = server;
         };
 
-        util.inherits(exports, Controller);
+        util.inherits(exports, events.EventEmitter);
 
         exports.prototype.server = null;
 
-        exports.prototype.init = function() {
-            var server = this.server;
-            var app = server.app;
-
-            // Root route
-            app.get('/', function (req, res) {
-                var data = {
-                    app: server.config.app
-                };
-
-                var tmpl = path.join(server.config.server.dirs.views, "index.hbs");
-                fs.exists(tmpl, function (exists) {
-                    if (exists) {
-                        res.render("index", data);
-                    } else {
-                        res.render("default", data);
-                    }
-                });
-            });
-        };
-
     });
 
-}());
+})();

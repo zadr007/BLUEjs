@@ -35,8 +35,8 @@
     ];
 
     define(deps, function(Controller, fs, path, util) {
-        var exports = module.exports = function ApplicationController(server) {
-            ApplicationController.super_.call(this, server);
+        var exports = module.exports = function ConfigController(server) {
+            ConfigController.super_.call(this, server);
 
             return this;
         };
@@ -49,20 +49,8 @@
             var server = this.server;
             var app = server.app;
 
-            // Root route
-            app.get('/', function (req, res) {
-                var data = {
-                    app: server.config.app
-                };
-
-                var tmpl = path.join(server.config.server.dirs.views, "index.hbs");
-                fs.exists(tmpl, function (exists) {
-                    if (exists) {
-                        res.render("index", data);
-                    } else {
-                        res.render("default", data);
-                    }
-                });
+            app.get('/config', function (req, res) {
+                res.json(server.config);
             });
         };
 

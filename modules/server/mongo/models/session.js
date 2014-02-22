@@ -28,44 +28,29 @@
      * @type {Array}
      */
     var deps = [
-        '../controller',
-        'fs',
-        'path',
+        '../../../mongo/model',
+        'events',
         'util'
     ];
 
-    define(deps, function(Controller, fs, path, util) {
-        var exports = module.exports = function ApplicationController(server) {
-            ApplicationController.super_.call(this, server);
+    define(deps, function(Model, events, util) {
+        var schema = Model.declareSchema('Session', {
+            session: String
+        });
+
+        var model = Model.declareModel('Session', schema);
+
+        var exports = module.exports = function Session() {
+            Session.super_.call(this, schema, model);
 
             return this;
         };
 
-        util.inherits(exports, Controller);
+        util.inherits(exports, Model);
 
-        exports.prototype.server = null;
+        exports.Schema = schema;
 
-        exports.prototype.init = function() {
-            var server = this.server;
-            var app = server.app;
-
-            // Root route
-            app.get('/', function (req, res) {
-                var data = {
-                    app: server.config.app
-                };
-
-                var tmpl = path.join(server.config.server.dirs.views, "index.hbs");
-                fs.exists(tmpl, function (exists) {
-                    if (exists) {
-                        res.render("index", data);
-                    } else {
-                        res.render("default", data);
-                    }
-                });
-            });
-        };
-
+        exports.Model = model;
     });
 
-}());
+})();
