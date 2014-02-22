@@ -30,10 +30,11 @@
     var deps = [];
 
     define(deps, function() {
-        module.exports = function (microscratch, app) {
+        module.exports = function (server) {
+            var app = server.app;
 
             app.get('/config', function (req, res) {
-                res.json(microscratch.config);
+                res.json(server.config);
             });
         };
     });

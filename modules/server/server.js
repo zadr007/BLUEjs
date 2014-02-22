@@ -138,7 +138,6 @@
 
             // Initialize router
             var res = this.initFeature('./features/router');
-            res = res.router.initialize(this, this.app); // TODO: Handle returned deferred
 
             // Initialize logger
             this.initFeature('./features/logger');

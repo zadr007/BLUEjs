@@ -27,17 +27,57 @@
      * Array of modules this one depends on.
      * @type {Array}
      */
-    var deps = [];
+    var deps = [
+        'deferred',
+        'fs',
+        'path'
+    ];
 
-    define(deps, function() {
+    define(deps, function(deferred, fs, path) {
+        /**
+         * Intializes router
+         * @param microscratch Microscratch app which this router belongs to
+         * @param app Express app which this router belongs to
+         */
         var exports = module.exports = function FeatureRouter(server) {
-            server.app.use(server.app.router);
+            var routesDir = path.join(__dirname, '../routes');
 
-            this.router = require('../router.js');
-            return this;
-        }
+            this.server = server;
 
-        exports.router = null;
+            return this.initializeRoutesDir(routesDir);
+        };
+
+        exports.prototype.server = null;
+
+        exports.prototype.microscratch = null;
+
+        exports.prototype.app = null;
+
+        /**
+         * Initialize routes dir
+         * @param routesDir Path of directory including routes to load
+         * @returns {*} Promise
+         */
+        exports.prototype.initializeRoutesDir = function(routesDir) {
+            var d = deferred();
+
+            var readdir = deferred.promisify(fs.readdir);
+
+            var self = this;
+
+            readdir(routesDir).then(function (files) {
+                for (var i = 0; i < files.length; i++) {
+                    var routePath = "../routes/" + files[i];
+
+                    var route = require(routePath);
+                    route(self.server);
+                }
+
+                d.resolve(self);
+            });
+
+            return d.promise();
+        };
     });
 
 }());

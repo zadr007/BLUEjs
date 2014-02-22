@@ -30,7 +30,8 @@
     var deps = [];
 
     define(deps, function() {
-        module.exports = function (microscratch, app) {
+        module.exports = function (server) {
+            var app = server.app;
 
             app.get('/hello', function (req, res) {
                 var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;

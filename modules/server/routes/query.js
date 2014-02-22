@@ -30,10 +30,12 @@
     var deps = [];
 
     define(deps, function() {
-        module.exports = function (microscratch, app) {
+        module.exports = function (server) {
+            var app = server.app;
+            var mongo = server.mongo;
 
             app.get('/query', function (req, res) {
-                var col = microscratch.mongo.getCollection('datasets').then(function (coll) {
+                var col = mongo.getCollection('datasets').then(function (coll) {
                     var q = req.query.q || "";
                     q = q.replace(" ", ".*");
 

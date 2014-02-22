@@ -32,27 +32,24 @@
         "path"
     ];
 
-    define(deps, function(fs, path) {
-        module.exports = function (microscratch, app) {
+    define(deps, function (fs, path) {
+        module.exports = function (server) {
+            var app = server.app;
 
             // Root route
             app.get('/', function (req, res) {
                 var data = {
-                    app: microscratch.config.app
+                    app: server.config.app
                 };
 
-                /*
-                 var tmpl = path.join(microscratch.config.server.dirs.views, "index.hbs");
-                 fs.exists(tmpl, function (exists) {
+                var tmpl = path.join(server.config.server.dirs.views, "index.hbs");
+                fs.exists(tmpl, function (exists) {
                     if (exists) {
                         res.render("index", data);
                     } else {
-                        res.render("microscratch", data);
+                        res.render("default", data);
                     }
-                 });
-                 //*/
-
-                res.render("index", data);
+                });
             });
         };
     });

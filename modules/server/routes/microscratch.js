@@ -31,12 +31,13 @@
     var deps = [];
 
     define(deps, function() {
-        module.exports = function (microscratch, app) {
+        module.exports = function (server) {
+            var app = server.app;
 
             // Microscratch route
             app.get('/microscratch', function (req, res) {
                 var data = {
-                    app: microscratch.config.app
+                    app: server.config.app
                 };
 
                 res.render("microscratch", data);
