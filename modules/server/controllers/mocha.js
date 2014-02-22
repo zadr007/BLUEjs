@@ -28,29 +28,37 @@
      * @type {Array}
      */
     var deps = [
-        '../../mongo/model',
-        'events',
+        '../controller',
+        'fs',
+        'path',
         'util'
     ];
 
-    define(deps, function(Model, events, util) {
-        var schema = Model.declareSchema('Session', {
-            session: String
-        });
-
-        var model = Model.declareModel('Session', schema);
-
-        var exports = module.exports = function Session() {
-            Session.super_.call(this, schema, model);
+    define(deps, function(Controller, fs, path, util) {
+        var exports = module.exports = function HelloController(server) {
+            HelloController.super_.call(this, server);
 
             return this;
         };
 
-        util.inherits(exports, Model);
+        util.inherits(exports, Controller);
 
-        exports.Schema = schema;
+        exports.prototype.server = null;
 
-        exports.Model = model;
+        exports.prototype.init = function() {
+            var server = this.server;
+            var app = server.app;
+
+            // Mocha route
+            app.get('/mocha', function (req, res) {
+                var data = {
+                    app: server.config.app
+                };
+
+                res.render("mocha", data);
+            });
+        };
+
     });
 
-})();
+}());

@@ -68,7 +68,7 @@
         root: __dirname,
         dirs: {
             public: path.join(__dirname, "public"),
-            views: path.join(__dirname, "public/views")
+            views: path.join(__dirname, "modules/server/views")
         },
         gzip: false,
 

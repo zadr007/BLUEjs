@@ -27,17 +27,45 @@
      * Array of modules this one depends on.
      * @type {Array}
      */
-    var deps = [];
+    var deps = [
+        '../controller',
+        'fs',
+        'path',
+        'util'
+    ];
 
-    define(deps, function() {
-        module.exports = function (microscratch, app) {
+    define(deps, function(Controller, fs, path, util) {
+        var exports = module.exports = function HelloController(server) {
+            HelloController.super_.call(this, server);
 
-            app.get('/hello', function (req, res) {
-                var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+            return this;
+        };
 
-                res.send('Hello ' + ip + '! ');
+        util.inherits(exports, Controller);
+
+        exports.prototype.server = null;
+
+        exports.prototype.init = function() {
+            var server = this.server;
+            var app = server.app;
+            var mongo = server.mongo;
+
+            app.get('/query', function (req, res) {
+                var col = mongo.getCollection('datasets').then(function (coll) {
+                    var q = req.query.q || "";
+                    q = q.replace(" ", ".*");
+
+                    coll.find({'value.data.name': new RegExp(q, "i")}).limit(10).toArray(function (err, data) {
+                        res.json(data);
+                    }).done(function(res) {
+                        d.resolve(res);
+                    }, function(err) {
+                        throw err;
+                    });
+                });
             });
         };
+
     });
 
 }());
