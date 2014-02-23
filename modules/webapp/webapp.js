@@ -32,11 +32,12 @@
         '../server',
         '../sockets',
         '../utils',
+        'deferred',
         'path',
         'util'
     ];
 
-    define(deps, function (Core, Server, Sockets, Utils, path, util) {
+    define(deps, function (Core, Server, Sockets, Utils, deferred, path, util) {
         var exports = module.exports = function CoreApp(resolver) {
             // Call super constructor
             CoreApp.super_.call(this, resolver);
@@ -77,15 +78,22 @@
         };
 
         exports.prototype.run = function () {
+            var d = deferred();
+
             if (this.cli) {
                 this.parseCliOptions();
             }
+
             var self = this;
             this.server.initialize().then(function (res) {
-                self.sockets.initialize();
+                return self.sockets.initialize();
             }).done(function (res) {
-                self.server.main();
+                d.resolve(self.server.main());
+            }, function(err) {
+                throw err;
             });
+
+            return d.promise();
         };
     });
 }());
