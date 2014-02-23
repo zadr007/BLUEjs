@@ -106,7 +106,7 @@
         // Create app instance
         var app = new App(resolver);
         app.run().done(function() {
-            console.log("Application is running!");
+            logger.log("Application '" + config.app.name + "' is running!");
         });
 
         //*/
