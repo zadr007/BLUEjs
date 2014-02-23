@@ -105,7 +105,10 @@
 
         // Create app instance
         var app = new App(resolver);
-        app.run();
+        app.run().done(function() {
+            console.log("Application is running!");
+        });
+
         //*/
     });
 }());
