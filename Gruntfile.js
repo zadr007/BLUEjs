@@ -72,6 +72,7 @@
                     keepSpecialComments: true,
                     files: {
                         'public/assets/bundle.css': [
+                            'public/components/normalize-css/normalize.css',
                             'public/css/main.css',
                             'public/css/app.css'
                         ]
