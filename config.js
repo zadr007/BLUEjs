@@ -55,7 +55,7 @@
      * @type {{uri: string, watcher: boolean}}
      */
     var mongo = {
-        uri: "mongodb://localhost:27017/" + app.name,
+        uri: "mongodb://192.168.2.1:27017/" + app.name,
         watcher: false
     };
 
