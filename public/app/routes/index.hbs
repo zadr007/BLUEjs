@@ -21,16 +21,24 @@
                     <td>{{_id}}</td>
                     <td>{{username}}</td>
                     <td>
-                        {{dateShort startedAt}} ({{datetime startedAt}})
+                        {{#if startedAt}}
+                            {{dateShort startedAt}} ({{datetime startedAt}})
+                        {{/if}}
                     </td>
                     <td>
-                        {{dateShort endedAt}} ({{datetime endedAt}})
+                        {{#if endedAt}}
+                            {{dateShort endedAt}} ({{datetime endedAt}})
+                        {{/if}}
                     </td>
                     <td>
-                        {{dateShort createdAt}} ({{datetime createdAt}})
+                        {{#if createdAt}}
+                            {{dateShort createdAt}} ({{datetime createdAt}})
+                        {{/if}}
                     </td>
                     <td>
-                        {{dateShort updatedAt}} ({{datetime updatedAt}})
+                        {{#if updatedAt}}
+                            {{dateShort updatedAt}} ({{datetime updatedAt}})
+                        {{/if}}
                     </td>
                 </tr>
             {{/each}}
