@@ -37,6 +37,7 @@
 
         grunt.loadNpmTasks('grunt-bower-task');
         grunt.loadNpmTasks('grunt-contrib-clean');
+        grunt.loadNpmTasks('grunt-contrib-cssmin');
         grunt.loadNpmTasks('grunt-contrib-jshint');
         grunt.loadNpmTasks('grunt-contrib-less');
         grunt.loadNpmTasks('grunt-contrib-sass');
@@ -65,6 +66,18 @@
             clean: [
                 './public/assets/*.js'
             ],
+
+            cssmin: {
+                combine: {
+                    keepSpecialComments: true,
+                    files: {
+                        'public/assets/bundle.css': [
+                            'public/css/main.css',
+                            'public/css/app.css'
+                        ]
+                    }
+                }
+            },
 
             emberTemplates: {
                 compile: {
@@ -166,22 +179,21 @@
 
             sass: {
                 dist: {
-                    files: {
-                        'public/assets/main.css': [
-                            'public/css/main.scss',
-                            'public/css/app.scss'
-                        ],
+                    files: [{
+                        expand: true,
+                        cwd: 'public/css',
+                        src: ['*.scss'],
+                        dest: 'public/css',
+                        ext: '.css'
+                    }]
+                },
 
-                        'public/assets/microscratch.css': 'public/css/microscratch.scss'
-
-                        // NOTE: Keep your styles below for easier merging!
-                    }
-                }
+                'public/assets/microscratch.css': 'public/css/microscratch.scss'
             },
 
             watch: {
                 sass: {
-                    tasks: ['sass'],
+                    tasks: ['sass', 'cssmin'],
                     files: [
                         path.join(__dirname, "public/css/**/*.scss")
                     ]
@@ -212,6 +224,7 @@
             'preprocess',
             'boostrap',
             'sass',
+            'cssmin',
             'emberTemplates'
         ]);
 
