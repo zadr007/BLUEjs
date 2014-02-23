@@ -106,7 +106,7 @@
         var appSpecificConfig = path.join(__dirname, appPath, "config.js");
         if (fs.existsSync(appSpecificConfig)) {
             logger.log("Loading '" + appPath + "' specific config file - " + appSpecificConfig);
-            config.load(appSpecificConfig, env);
+            config.override(appSpecificConfig, env);
         }
 
 

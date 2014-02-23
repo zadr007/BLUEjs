@@ -57,17 +57,29 @@
             var res = merge(true, glob, loc);
 
             var userConfig = configPath + ".user";
-            if (fs.existsSync(userConfig)) {
-                tmp = require(userConfig);
+            res = exports.override(res, userConfig, env);
 
-                glob = tmp._global || {};
-                loc = tmp[env] || {};
+            return res;
+        };
 
-                var override = merge(true, glob, loc);
-                res = merge(true, res, override);
+        exports.override = function(conf, path, env) {
+            var res = conf;
+
+            if (fs.existsSync(path)) {
+                tmp = require(path);
+
+                var glob = tmp._global || {};
+                var loc = tmp[env] || {};
+
+                res = exports.merge(glob, loc);
+                res = conf = merge(conf, res);
             }
 
             return res;
+        };
+
+        exports.merge = function(orig, over) {
+            return merge(true, tmp, over);
         };
 
         /**
