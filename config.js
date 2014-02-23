@@ -36,8 +36,8 @@
         // Google analytics section
         googleAnalytics: {
             enabled: false,
-            id: 'UA-47699219-3',
-            host: 'microscratch.net'
+            id: 'UA-XXXXXXXX-Y',
+            host: 'example.com'
         }
     };
 
