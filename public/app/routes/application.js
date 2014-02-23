@@ -36,7 +36,8 @@
                  * @instance
                  */
                 didInsertElement: function () {
-                    App.logger.log("App.ApplicationView.didInsertElement()");
+                    var log = App.logger && App.logger.log  ? App.logger.log : console.log;
+                    log("App.ApplicationView.didInsertElement()");
                 }
             });
         }
