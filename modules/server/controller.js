@@ -18,7 +18,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-(function () {
+(function() {
     'use strict';
 
     var define = require('amdefine')(module);
@@ -28,29 +28,19 @@
      * @type {Array}
      */
     var deps = [
-        '../../mongo/model',
         'events',
         'util'
     ];
 
-    define(deps, function(Model, events, util) {
-        var schema = Model.declareSchema('Session', {
-            session: String
-        });
-
-        var model = Model.declareModel('Session', schema);
-
-        var exports = module.exports = function Session() {
-            Session.super_.call(this, schema, model);
-
-            return this;
+    define(deps, function(events, util) {
+        var exports = module.exports = function Controller(server) {
+            this.server = server;
         };
 
-        util.inherits(exports, Model);
+        util.inherits(exports, events.EventEmitter);
 
-        exports.Schema = schema;
+        exports.prototype.server = null;
 
-        exports.Model = model;
     });
 
 })();
