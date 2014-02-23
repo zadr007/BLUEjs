@@ -107,6 +107,8 @@
         var app = new App(resolver);
         app.run().done(function() {
             logger.log("Application '" + config.app.name + "' is running!");
+        }, function(err) {
+            throw err;
         });
 
         //*/
