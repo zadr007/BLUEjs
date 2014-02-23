@@ -37,7 +37,7 @@
              */
             didInsertElement: function () {
                 this._super();
-                console.log("App.ApplicationView.didInsertElement()");
+                App.logger.log("App.ApplicationView.didInsertElement()");
             },
 
             content: function() {
