@@ -75,7 +75,7 @@
             name: "googleAnalytics",
 
             initialize: function (container, application) {
-                if (!App.config.app.googleAnalytics.enabled) {
+                if (!App.config.app.googleAnalytics || !App.config.app.googleAnalytics.enabled) {
                     return;
                 }
 

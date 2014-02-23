@@ -28,17 +28,7 @@
      * @type {{name: string, googleAnalytics: {enabled: boolean, id: string, host: string}}}
      */
     var app = {
-        name: "BLUEjs",
-
-        // You can override default route here
-        // indexRoute: "admin",
-
-        // Google analytics section
-        googleAnalytics: {
-            enabled: false,
-            id: 'UA-XXXXXXXX-Y',
-            host: 'example.com'
-        }
+        name: "MicroScratch"
     };
 
     /**
