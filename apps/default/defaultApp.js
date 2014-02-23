@@ -40,6 +40,8 @@
         // Load app module
         var exports = module.exports = function DefaultApp(resolver) {
             DefaultApp.super_.call(this, resolver);
+
+            return this;
         };
 
         util.inherits(exports, Webapp);

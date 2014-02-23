@@ -52,7 +52,7 @@
 
         exports.prototype.app = null;
 
-        /** 
+        /**
          * Initialize routes dir
          * @param routesDir Path of directory including routes to load
          * @returns {*} Promise

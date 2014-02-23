@@ -176,8 +176,17 @@
          * Microscratch application entry-point
          */
         exports.prototype.main = function () {
-            this.server.listen(this.config.server.port);
-            this.logger.log('Listening on port ' + this.config.server.port);
+            var d = deferred();
+
+            var self = this;
+            process.nextTick(function() {
+                self.server.listen(self.config.server.port);
+                self.logger.log('Listening on port ' + self.config.server.port);
+
+                d.resolve(self);
+            });
+
+            return d.promise();
         };
 
         exports.prototype.initFeature = function(path) {
