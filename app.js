@@ -38,11 +38,12 @@
         './modules/webapp',
         'deferred',
         'dependable',
+        'fs',
         'util',
         'path'
     ];
 
-    define(deps, function (DefaultApp, Cli, Core, Config, Etl, Logger, Mongo, Utils, Webapp, deferred, dependable, util, path) {
+    define(deps, function (DefaultApp, Cli, Core, Config, Etl, Logger, Mongo, Utils, Webapp, deferred, dependable, fs, util, path) {
         ///*
         var resolver = dependable.container();
 
@@ -76,8 +77,10 @@
             return;
         }
 
+        var env = argv.e || argv.evn || "local";
+
         var config = new Config();
-        config.load(path.join(__dirname, 'config.js'), argv.e || argv.evn || "local");
+        config.load(path.join(__dirname, 'config.js'), env);
 
         resolver.register('config', config);
 
@@ -91,23 +94,34 @@
         var mongo = new Mongo(resolver);
         resolver.register('mongo', mongo);
 
-        if(config.verbose) {
-            logger.log("Config loaded: " + JSON.stringify(config, null, 4));
-        }
-
         var App = DefaultApp;
         var appPath = argv.a || argv.app || "apps/default";
-        if(appPath) {
+        if (appPath) {
+            logger.log("Loading application '" + appPath + "'")
             App = require(path.join(__dirname, appPath));
 
             // TODO: Load and merge application specific config too
         }
 
+        var appSpecificConfig = path.join(__dirname, appPath, "config.js");
+        if (fs.existsSync(appSpecificConfig)) {
+            logger.log("Loading '" + appPath + "' specific config file - " + appSpecificConfig);
+            config.override(appSpecificConfig, env);
+        }
+
+
+        if (config.verbose) {
+            logger.log("Config loaded: " + JSON.stringify(config, null, 4));
+        }
+
         // Create app instance
         var app = new App(resolver);
-        app.run().done(function() {
+
+        // TODO: Load application specific config here (if exists) - ie, apps/shortener/config.js
+
+        app.run().done(function () {
             logger.log("Application '" + config.app.name + "' is running!");
-        }, function(err) {
+        }, function (err) {
             throw err;
         });
 
