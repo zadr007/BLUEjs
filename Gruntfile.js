@@ -39,6 +39,7 @@
         grunt.loadNpmTasks('grunt-contrib-clean');
         grunt.loadNpmTasks('grunt-contrib-jshint');
         grunt.loadNpmTasks('grunt-contrib-less');
+        grunt.loadNpmTasks('grunt-contrib-sass');
         grunt.loadNpmTasks('grunt-contrib-watch');
         grunt.loadNpmTasks('grunt-ember-templates');
         grunt.loadNpmTasks('grunt-express');
@@ -163,21 +164,26 @@
                 ]
             },
 
-            less: {
+            sass: {
                 dist: {
                     files: {
-                        'public/assets/main.css': 'public/css/*.less'
+                        'public/assets/main.css': [
+                            'public/css/main.scss',
+                            'public/css/app.scss'
+                        ],
 
-                        // Please, keep your style below this line for easier merge with forked projects
+                        'public/assets/microscratch.css': 'public/css/microscratch.scss'
+
+                        // NOTE: Keep your styles below for easier merging!
                     }
                 }
             },
 
             watch: {
-                less: {
-                    tasks: ['less'],
+                sass: {
+                    tasks: ['sass'],
                     files: [
-                        path.join(__dirname, "public/css/**/*.less")
+                        path.join(__dirname, "public/css/**/*.scss")
                     ]
                 },
 
@@ -205,7 +211,7 @@
         grunt.registerTask('build', [
             'preprocess',
             'boostrap',
-            'less',
+            'sass',
             'emberTemplates'
         ]);
 
