@@ -26,6 +26,13 @@
     ];
 
     require(deps, function (Ember, App, moment) {
+        var format = function (msg) {
+            var ts = moment().format("YYYY/MM/DD HH:mm:ss");
+            var usec = new Date().getMilliseconds().toFixed();
+
+            return "[" + ts + "." + usec + "] " + msg;
+        };
+
         App.reopen({
 
                 logger: Ember.Object.create({
@@ -49,40 +56,33 @@
                         }
                     },
 
-                    format: function (msg) {
-                        var ts = moment().format("YYYY/MM/DD HH:mm:ss");
-                        var usec = new Date().getMilliseconds().toFixed();
-
-                        return "[" + ts + "." + usec + "] " + msg;
-                    },
-
                     log: function (msg) {
                         if (console && console.log) {
-                            console.log(this.format(msg));
+                            console.log(format(msg));
                         }
                     },
 
                     debug: function (msg) {
                         if (console && console.debug) {
-                            console.debug(this.format(msg));
+                            console.debug(format(msg));
                         }
                     },
 
                     error: function (msg) {
                         if (console && console.error) {
-                            console.error(this.format(msg));
+                            console.error(format(msg));
                         }
                     },
 
                     info: function (msg) {
                         if (console && console.info) {
-                            console.info(this.format(msg));
+                            console.info(format(msg));
                         }
                     },
 
                     warn: function (msg) {
                         if (console && console.warn) {
-                            console.warn(this.format(msg));
+                            console.warn(format(msg));
                         }
                     }
                 })
