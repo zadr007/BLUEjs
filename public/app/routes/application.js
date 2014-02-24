@@ -76,7 +76,9 @@
                         type: "POST",
                         url: "/entry/new",
                         data: {
-                            user: App.get('user')
+                            user: {
+                                username: App.get('user.username')
+                            }
                         }
                     }).done(function (data) {
                         App.xhr.xhr({
