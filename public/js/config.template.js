@@ -51,8 +51,15 @@ var config = {
     },
     paths: {
         "config": "/js/config",
+
+        // App modules
+        "xhr": "/app/xhr",
+
+        // App Bundles
         "app": "/app/app",
         "lib": "/app/lib",
+
+        // Components
         "bootstrap": "/components/bootstrap/dist/js/bootstrap",
         "ember": "/components/ember/ember",
         "ember-data": "/components/ember-data/ember-data",
