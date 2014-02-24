@@ -8,29 +8,37 @@
     <div class="row">
         <table class="table  table-bordered table-striped table-condensed">
             <thead>
-                <td>ID</td>
-                <td>Username</td>
-                <td>Started</td>
-                <td>Ended</td>
-                <td>Created</td>
-                <td>Updated</td>
+                <td><strong>ID</strong></td>
+                <td><strong>Username</strong></td>
+                <td><strong>Started</strong></td>
+                <td><strong>Ended</strong></td>
+                <td><strong>Created</strong></td>
+                <td><strong>Updated</strong></td>
             </thead>
             <tbody>
-            {{#each view.controller.entries}}
+            {{#each view.content}}
                 <tr>
                     <td>{{_id}}</td>
                     <td>{{username}}</td>
                     <td>
-                        {{dateShort startedAt}} ({{datetime startedAt}})
+                        {{#if startedAt}}
+                            {{dateShort startedAt}} ({{datetime startedAt}})
+                        {{/if}}
                     </td>
                     <td>
-                        {{dateShort endedAt}} ({{datetime endedAt}})
+                        {{#if endedAt}}
+                            {{dateShort endedAt}} ({{datetime endedAt}})
+                        {{/if}}
                     </td>
                     <td>
-                        {{dateShort createdAt}} ({{datetime createdAt}})
+                        {{#if createdAt}}
+                            {{dateShort createdAt}} ({{datetime createdAt}})
+                        {{/if}}
                     </td>
                     <td>
-                        {{dateShort updatedAt}} ({{datetime updatedAt}})
+                        {{#if updatedAt}}
+                            {{dateShort updatedAt}} ({{datetime updatedAt}})
+                        {{/if}}
                     </td>
                 </tr>
             {{/each}}
@@ -83,6 +91,22 @@
 
                     <div class="col-sm-6">
                         <pre>sudo npm install</pre>
+                    </div>
+                </div>
+
+                <h3>Install Ruby Sass gem</h3>
+
+                <div class="row">
+                    <div class="col-sm-5">
+                        <pre>gem install sass</pre>
+                    </div>
+
+                    <div class="col-sm-1">
+                        <h3 class="or">or</h3>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <pre>sudo gem install sass</pre>
                     </div>
                 </div>
 

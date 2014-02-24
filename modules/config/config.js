@@ -30,11 +30,12 @@
     var deps = [
         "../core",
         '../utils',
+        'node.extend',
         'path',
         'util'
     ];
 
-    define(deps, function (Core, Utils, path, util) {
+    define(deps, function (Core, Utils, merge, path, util) {
         /**
          * Configuration
          * @type {ConfigModule}
@@ -64,6 +65,25 @@
             for(var prop in cfg) {
                 if(cfg.hasOwnProperty(prop)) {
                     this[prop] = cfg[prop];
+                }
+            }
+
+            return this;
+        };
+
+        exports.prototype.override = function(configPath, env) {
+            if(!env) {
+                env = "local";
+            }
+
+            var cfg = Utils.loadConfig(configPath, env);
+            for(var prop in cfg) {
+                if(this.hasOwnProperty(prop)) {
+                    var orig = this[prop];
+                    var over = cfg[prop];
+
+                    var tmp = merge(true, orig, over);
+                    this[prop] = tmp;
                 }
             }
 

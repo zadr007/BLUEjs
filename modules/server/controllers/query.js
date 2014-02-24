@@ -28,29 +28,44 @@
      * @type {Array}
      */
     var deps = [
-        '../../mongo/model',
-        'events',
+        '../controller',
+        'fs',
+        'path',
         'util'
     ];
 
-    define(deps, function(Model, events, util) {
-        var schema = Model.declareSchema('Session', {
-            session: String
-        });
-
-        var model = Model.declareModel('Session', schema);
-
-        var exports = module.exports = function Session() {
-            Session.super_.call(this, schema, model);
+    define(deps, function(Controller, fs, path, util) {
+        var exports = module.exports = function HelloController(server) {
+            HelloController.super_.call(this, server);
 
             return this;
         };
 
-        util.inherits(exports, Model);
+        util.inherits(exports, Controller);
 
-        exports.Schema = schema;
+        exports.prototype.server = null;
 
-        exports.Model = model;
+        exports.prototype.init = function() {
+            var server = this.server;
+            var app = server.app;
+            var mongo = server.mongo;
+
+            app.get('/query', function (req, res) {
+                var col = mongo.getCollection('datasets').then(function (coll) {
+                    var q = req.query.q || "";
+                    q = q.replace(" ", ".*");
+
+                    coll.find({'value.data.name': new RegExp(q, "i")}).limit(10).toArray(function (err, data) {
+                        res.json(data);
+                    }).done(function(res) {
+                        d.resolve(res);
+                    }, function(err) {
+                        throw err;
+                    });
+                });
+            });
+        };
+
     });
 
-})();
+}());

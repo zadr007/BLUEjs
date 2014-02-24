@@ -37,8 +37,10 @@
 
         grunt.loadNpmTasks('grunt-bower-task');
         grunt.loadNpmTasks('grunt-contrib-clean');
+        grunt.loadNpmTasks('grunt-contrib-cssmin');
         grunt.loadNpmTasks('grunt-contrib-jshint');
         grunt.loadNpmTasks('grunt-contrib-less');
+        grunt.loadNpmTasks('grunt-contrib-sass');
         grunt.loadNpmTasks('grunt-contrib-watch');
         grunt.loadNpmTasks('grunt-ember-templates');
         grunt.loadNpmTasks('grunt-express');
@@ -64,6 +66,19 @@
             clean: [
                 './public/assets/*.js'
             ],
+
+            cssmin: {
+                combine: {
+                    keepSpecialComments: true,
+                    files: {
+                        'public/assets/bundle.css': [
+                            'public/components/normalize-css/normalize.css',
+                            'public/css/main.css',
+                            'public/css/app.css'
+                        ]
+                    }
+                }
+            },
 
             emberTemplates: {
                 compile: {
@@ -163,21 +178,25 @@
                 ]
             },
 
-            less: {
+            sass: {
                 dist: {
-                    files: {
-                        'public/assets/main.css': 'public/css/*.less'
+                    files: [{
+                        expand: true,
+                        cwd: 'public/css',
+                        src: ['*.scss'],
+                        dest: 'public/css',
+                        ext: '.css'
+                    }]
+                },
 
-                        // Please, keep your style below this line for easier merge with forked projects
-                    }
-                }
+                'public/assets/microscratch.css': 'public/css/microscratch.scss'
             },
 
             watch: {
-                less: {
-                    tasks: ['less'],
+                sass: {
+                    tasks: ['sass', 'cssmin'],
                     files: [
-                        path.join(__dirname, "public/css/**/*.less")
+                        path.join(__dirname, "public/css/**/*.scss")
                     ]
                 },
 
@@ -205,7 +224,8 @@
         grunt.registerTask('build', [
             'preprocess',
             'boostrap',
-            'less',
+            'sass',
+            'cssmin',
             'emberTemplates'
         ]);
 

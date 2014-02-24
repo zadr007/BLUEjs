@@ -36,49 +36,56 @@
              * @instance
              */
             didInsertElement: function () {
-                this._super();
-                console.log("App.ApplicationView.didInsertElement()");
-            }/*,
-            entries: function() {
-                return this.get('controller.entries');
-            }.property('controller.entries')
-            //*/
+	    	var log = App.logger && App.logger.log  ? App.logger.log : console.log;
+		log("App.ApplicationView.didInsertElement()");
+            },
+
+            content: function() {
+                return this.get('controller.content');
+            }.property('controller.content')
         });
 
         App.ApplicationRoute = Ember.Route.extend({
-            beforeModel: function() {
+            beforeModel: function () {
                 this._super();
-                if(!App.get('user')) {
+                if (!App.get('user')) {
                     this.transitionTo('login');
                 }
             },
 
-            setupController: function(controller) {
+            model: function () {
                 var self = this;
-                App.xhr.xhr({
-                    type: "GET",
-                    url: "/entry/list"
-                }).done(function(data) {
-                        controller.set('entries', Ember.A(data));
+                return new Ember.RSVP.Promise(function (resolve) {
+                    App.xhr.xhr({
+                        type: "GET",
+                        url: "/entry/list"
+                    }).done(function (data) {
+                        resolve(data);
+                    });
                 });
             },
 
+            setupController: function (controller, model) {
+                controller.set('content', Ember.A(model));
+            },
+
             actions: {
-                xxx: function() {
+                xxx: function () {
                     var self = this;
                     App.xhr.xhr({
                         type: "POST",
                         url: "/entry/new",
                         data: {
-                            user: App.get('user')
+                            user: {
+                                username: App.get('user.username')
+                            }
                         }
-                    }).done(function(data) {
+                    }).done(function (data) {
                         App.xhr.xhr({
                             type: "GET",
                             url: "/entry/list"
-                        }).done(function(data) {
-                            self.set('entries', Ember.A(data));
-                            self.refresh();
+                        }).done(function (data) {
+                            self.get('controller').set('content', Ember.A(data));
                         });
                     });
                 }
@@ -89,4 +96,5 @@
             entries: Ember.A([])
         });
     });
-})(this);
+})
+(this);

@@ -23,29 +23,37 @@
 
     var define = require('amdefine')(module);
 
-    var requirejs = require('requirejs');
-    requirejs.config(require('../../require.js'));
-
+    /**
+     * Array of modules this one depends on.
+     * @type {Array}
+     */
     var deps = [
-        '../../modules/webapp',
-        'deferred',
-        'dependable',
+        '../controller',
+        'fs',
+        'path',
         'util'
     ];
 
-    define(deps, function (Webapp, deferred, dependable, util) {
-        ///*
-        var resolver = dependable.container();
-
-        // Load app module
-        var exports = module.exports = function DefaultApp(resolver) {
-            DefaultApp.super_.call(this, resolver);
+    define(deps, function(Controller, fs, path, util) {
+        var exports = module.exports = function ConfigController(server) {
+            ConfigController.super_.call(this, server);
 
             return this;
         };
 
-        util.inherits(exports, Webapp);
+        util.inherits(exports, Controller);
 
-        //*/
+        exports.prototype.server = null;
+
+        exports.prototype.init = function() {
+            var server = this.server;
+            var app = server.app;
+
+            app.get('/config', function (req, res) {
+                res.json(server.config);
+            });
+        };
+
     });
+
 }());

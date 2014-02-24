@@ -23,29 +23,34 @@
 
     var define = require('amdefine')(module);
 
-    var requirejs = require('requirejs');
-    requirejs.config(require('../../require.js'));
-
+    /**
+     * Array of modules this one depends on.
+     * @type {Array}
+     */
     var deps = [
-        '../../modules/webapp',
-        'deferred',
-        'dependable',
+        '../../../mongo/model',
+        'events',
         'util'
     ];
 
-    define(deps, function (Webapp, deferred, dependable, util) {
-        ///*
-        var resolver = dependable.container();
+    define(deps, function(Model, events, util) {
+        var schema = Model.declareSchema('Session', {
+            session: String
+        });
 
-        // Load app module
-        var exports = module.exports = function DefaultApp(resolver) {
-            DefaultApp.super_.call(this, resolver);
+        var model = Model.declareModel('Session', schema);
+
+        var exports = module.exports = function Session() {
+            Session.super_.call(this, schema, model);
 
             return this;
         };
 
-        util.inherits(exports, Webapp);
+        util.inherits(exports, Model);
 
-        //*/
+        exports.Schema = schema;
+
+        exports.Model = model;
     });
-}());
+
+})();

@@ -27,10 +27,27 @@
      * Array of modules this one depends on.
      * @type {Array}
      */
-    var deps = [];
+    var deps = [
+        '../../../modules/controller/controller',
+        'fs',
+        'path',
+        'util'
+    ];
 
-    define(deps, function() {
-        module.exports = function (microscratch, app) {
+    define(deps, function(Controller, fs, path, util) {
+        var exports = module.exports = function UrlsController(server) {
+            UrlsController.super_.call(this, server);
+
+            return this;
+        };
+
+        util.inherits(exports, Controller);
+
+        exports.prototype.server = null;
+
+        exports.prototype.init = function() {
+            var server = this.server;
+            var app = server.app;
 
             app.get('/hello', function (req, res) {
                 var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
@@ -38,6 +55,7 @@
                 res.send('Hello ' + ip + '! ');
             });
         };
+
     });
 
 }());

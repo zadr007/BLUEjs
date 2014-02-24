@@ -23,29 +23,42 @@
 
     var define = require('amdefine')(module);
 
-    var requirejs = require('requirejs');
-    requirejs.config(require('../../require.js'));
-
+    /**
+     * Array of modules this one depends on.
+     * @type {Array}
+     */
     var deps = [
-        '../../modules/webapp',
-        'deferred',
-        'dependable',
+        '../controller',
+        'fs',
+        'path',
         'util'
     ];
 
-    define(deps, function (Webapp, deferred, dependable, util) {
-        ///*
-        var resolver = dependable.container();
-
-        // Load app module
-        var exports = module.exports = function DefaultApp(resolver) {
-            DefaultApp.super_.call(this, resolver);
+    define(deps, function(Controller, fs, path, util) {
+        var exports = module.exports = function HelloController(server) {
+            HelloController.super_.call(this, server);
 
             return this;
         };
 
-        util.inherits(exports, Webapp);
+        util.inherits(exports, Controller);
 
-        //*/
+        exports.prototype.server = null;
+
+        exports.prototype.init = function() {
+            var server = this.server;
+            var app = server.app;
+
+            // Mocha route
+            app.get('/mocha', function (req, res) {
+                var data = {
+                    app: server.config.app
+                };
+
+                res.render("mocha", data);
+            });
+        };
+
     });
+
 }());

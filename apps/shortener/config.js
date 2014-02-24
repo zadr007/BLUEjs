@@ -7,7 +7,7 @@
 // copies of the Software, and to permit persons to whom the Software is
 // furnished to do so, subject to the following conditions:
 //
-// The above copyright notice and this permission notice shall be included in
+// The above copyright notice and this permission notice shall be included inso
 // all copies or substantial portions of the Software.
 //
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
@@ -21,31 +21,20 @@
 (function () {
     'use strict';
 
-    var define = require('amdefine')(module);
+    var path = require('path');
 
-    var requirejs = require('requirejs');
-    requirejs.config(require('../../require.js'));
+    /**
+     * Application settings
+     */
+    var app = {
+        name: "Shortener"
+    };
 
-    var deps = [
-        '../../modules/webapp',
-        'deferred',
-        'dependable',
-        'util'
-    ];
+    module.exports = {
 
-    define(deps, function (Webapp, deferred, dependable, util) {
-        ///*
-        var resolver = dependable.container();
+        _global: {
+            app: app
+        }
+    };
 
-        // Load app module
-        var exports = module.exports = function DefaultApp(resolver) {
-            DefaultApp.super_.call(this, resolver);
-
-            return this;
-        };
-
-        util.inherits(exports, Webapp);
-
-        //*/
-    });
 }());

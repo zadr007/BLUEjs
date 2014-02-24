@@ -18,34 +18,29 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-(function () {
+(function() {
     'use strict';
 
     var define = require('amdefine')(module);
 
-    var requirejs = require('requirejs');
-    requirejs.config(require('../../require.js'));
-
+    /**
+     * Array of modules this one depends on.
+     * @type {Array}
+     */
     var deps = [
-        '../../modules/webapp',
-        'deferred',
-        'dependable',
+        'events',
         'util'
     ];
 
-    define(deps, function (Webapp, deferred, dependable, util) {
-        ///*
-        var resolver = dependable.container();
-
-        // Load app module
-        var exports = module.exports = function DefaultApp(resolver) {
-            DefaultApp.super_.call(this, resolver);
-
-            return this;
+    define(deps, function(events, util) {
+        var exports = module.exports = function Controller(server) {
+            this.server = server;
         };
 
-        util.inherits(exports, Webapp);
+        util.inherits(exports, events.EventEmitter);
 
-        //*/
+        exports.prototype.server = null;
+
     });
-}());
+
+})();

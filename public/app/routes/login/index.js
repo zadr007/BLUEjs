@@ -38,7 +38,7 @@
                         var username = this.get('username');
                         var password = this.get('password');
 
-                        console.log("App.LoginController.actions.login - username: '" + username + "', password: '" + password + "'");
+                        App.logger.log("App.LoginController.actions.login - username: '" + username + "', password: '" + password + "'");
 
                         var self = this;
                         App.xhr.xhr({

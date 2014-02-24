@@ -2,6 +2,7 @@
 
 Light Weight Web Application Framework using node.js, mongo, sockets, ember.js, ... 
 
+
 ## Preview
 
 [![preview](http://imageshack.com/a/img834/9594/wc8v.png)](http://microscratch.net)
@@ -18,6 +19,7 @@ Light Weight Web Application Framework using node.js, mongo, sockets, ember.js, 
 [![Dependency Status](https://gemnasium.com/korczis/microscratch.png)](https://gemnasium.com/korczis/microscratch)
 [![Code Climate](https://codeclimate.com/repos/52eeccb869568029a80003ff/badges/3fd9b15792ebb7277355/gpa.png)](https://codeclimate.com/repos/52eeccb869568029a80003ff/feed)
 [![Total views](https://sourcegraph.com/api/repos/github.com/ApolloCrawler/microscratch/counters/views.png)](https://sourcegraph.com/github.com/ApolloCrawler/microscratch) 
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/ApolloCrawler/microscratch/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
 ### Uptime
 
@@ -91,6 +93,9 @@ Light Weight Web Application Framework using node.js, mongo, sockets, ember.js, 
   ```
   # Install grunt and bower
   sudo npm install -g bower mocha mocha-phantomjs phantomjs grunt grunt-cli forever jsdoc@3.2.1
+
+  # Install sass ruby gem
+  sudo gem install sass
   
   # Clone repository
   git clone http://github.com/korczis/microscratch.git

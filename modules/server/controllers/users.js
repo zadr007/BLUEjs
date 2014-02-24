@@ -27,46 +27,42 @@
      * Array of modules this one depends on.
      * @type {Array}
      */
-    var deps = [];
+    var deps = [
+        '../controller',
+        'fs',
+        'path',
+        'util'
+    ];
 
-    define(deps, function() {
-        module.exports = function (microscratch, app) {
+    define(deps, function(Controller, fs, path, util) {
+        var exports = module.exports = function UsersController(server) {
+            UsersController.super_.call(this, server);
 
-            app.post('/entry/new', function (req, res) {
-                var data = req.body;
+            return this;
+        };
 
-                var username = data.user.username;
-                var now = new Date();
+        util.inherits(exports, Controller);
 
-                var Entry = microscratch.mongo.models['entry'].model;
+        exports.prototype.server = null;
 
-                Entry.findOne({username: username}, null, {sort: {startedAt: -1 }}, function(err, doc) {
-                    if(doc && !doc.endedAt) {
-                        doc.endedAt = now;
-                        doc.save();
-                        res.json(doc);
-                    } else {
-                        var entry = new Entry({
-                            username: username,
-                            startedAt: now
-                        });
-                        entry.save();
-                        res.json(entry);
-                    }
-                });
+        exports.prototype.init = function() {
+            var server = this.server;
+            var app = server.app;
+
+            app.get('/user/current', function (req, res) {
+                var data = {
+                    _id: "0",
+                    username: "Guest"
+                };
+                
+                res.json(data);
             });
 
-            app.get('/entry/list', function (req, res) {
-                var Entry = microscratch.mongo.models['entry'].model;
-                Entry.find({}, null, {sort: {startedAt: -1 }}, function(err, docs) {
-                    if(docs) {
-                        res.json(docs);
-                    } else {
-                       res.json([]);
-                    }
-                });
+            app.get('/users', function (req, res) {
+                res.json([]);
             });
         };
+
     });
 
 }());

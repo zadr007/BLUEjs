@@ -7,7 +7,7 @@
 // copies of the Software, and to permit persons to whom the Software is
 // furnished to do so, subject to the following conditions:
 //
-// The above copyright notice and this permission notice shall be included in
+// The above copyright notice and this permission notice shall be included inso
 // all copies or substantial portions of the Software.
 //
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
@@ -21,31 +21,51 @@
 (function () {
     'use strict';
 
-    var define = require('amdefine')(module);
+    var path = require('path');
 
-    var requirejs = require('requirejs');
-    requirejs.config(require('../../require.js'));
+    /**
+     * Application settings
+     */
+    var app = {
+        name: "BLUE.js"
+    };
 
-    var deps = [
-        '../../modules/webapp',
-        'deferred',
-        'dependable',
-        'util'
-    ];
+    var mongo = {
+        uri: "mongodb://192.168.2.1:27017/BLUEjs"
+    };
 
-    define(deps, function (Webapp, deferred, dependable, util) {
-        ///*
-        var resolver = dependable.container();
+    module.exports = {
 
-        // Load app module
-        var exports = module.exports = function DefaultApp(resolver) {
-            DefaultApp.super_.call(this, resolver);
+        _global: {
+            app: app,
 
-            return this;
-        };
+            mongo: mongo
+        },
 
-        util.inherits(exports, Webapp);
+        local: {
+            mongo: {
+                uri: mongo.uri + "-local"
+            }
+        },
 
-        //*/
-    });
+        development: {
+            mongo: {
+                uri: mongo.uri + "-development"
+            }
+        },
+
+        test: {
+            mongo: {
+                uri: mongo.uri + "-test"
+            }
+        },
+
+        production: {
+            verbose: false,
+            mongo: {
+                uri: mongo.uri + "-production"
+            }
+        }
+    };
+
 }());

@@ -28,17 +28,7 @@
      * @type {{name: string, googleAnalytics: {enabled: boolean, id: string, host: string}}}
      */
     var app = {
-        name: "BLUEjs",
-
-        // You can override default route here
-        // indexRoute: "admin",
-
-        // Google analytics section
-        googleAnalytics: {
-            enabled: false,
-            id: 'UA-47699219-3',
-            host: 'microscratch.net'
-        }
+        name: "MicroScratch"
     };
 
     /**
@@ -55,7 +45,7 @@
      * @type {{uri: string, watcher: boolean}}
      */
     var mongo = {
-        uri: "mongodb://192.168.1.2:27017/" + app.name,
+        uri: "mongodb://localhost:27017/" + app.name,
         watcher: false
     };
 
@@ -68,7 +58,7 @@
         root: __dirname,
         dirs: {
             public: path.join(__dirname, "public"),
-            views: path.join(__dirname, "public/views")
+            views: path.join(__dirname, "modules/server/views")
         },
         gzip: false,
 

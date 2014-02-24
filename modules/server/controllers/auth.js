@@ -27,17 +27,35 @@
      * Array of modules this one depends on.
      * @type {Array}
      */
-    var deps = [];
+    var deps = [
+        '../controller',
+        'fs',
+        'path',
+        'util'
+    ];
 
-    define(deps, function() {
-        module.exports = function (microscratch, app) {
+    define(deps, function(Controller, fs, path, util) {
+        var exports = module.exports = function AuthController(server) {
+            AuthController.super_.call(this, server);
+
+            return this;
+        };
+
+        util.inherits(exports, Controller);
+
+        exports.prototype.server = null;
+
+        exports.prototype.init = function() {
+            var server = this.server;
+            var app = server.app;
 
             app.post('/auth/login', function (req, res) {
-               res.json({
-                   username: req.body.username
-               });
+                res.json({
+                    username: req.body.username
+                });
             });
         };
+
     });
 
 }());

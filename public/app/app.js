@@ -21,6 +21,7 @@
 (function (global) {
 
     var deps = [
+        "xhr",
         "config",
         "jquery",
         "bootstrap",
@@ -32,7 +33,7 @@
         "exports"
     ];
 
-    define(deps, function (config, $, bootstrap, handlebars, Ember, data, io, ga, exports) {
+    define(deps, function (xhr, config, $, bootstrap, handlebars, Ember, data, io, ga, exports) {
         var App = window.App = Ember.Application.create({
             options: {},
 
@@ -41,9 +42,26 @@
             user: null,
 
             initialize: function () {
+                // TODO: Add initializer here!
             },
 
             config: config,
+
+            user: Ember.Object.create({
+                _id: "0",
+                username: "Guest"
+            }),
+
+            fetchIdentity: function() {
+                if(App.xhr && App.xhr.xhr) {
+                    App.xhr.xhr({url: "/user/current"}).then(function(data) {
+                        App.logger.log("Fetched identity: " + JSON.stringify(data));
+                        App.set('user', Ember.Object.create(data));
+                    }, function(err) {
+                        throw err;
+                    });
+                }
+            },
 
             trackPageView: function (page) {
                 if (!page) {
@@ -72,10 +90,22 @@
 
         // Google analytics
         Ember.Application.initializer({
+           name: "identity",
+
+            initialize: function(container, application) {
+                if(application.logger && application.logger.log) {
+                    application.fetchIdentity();
+                }
+
+            }
+        }),
+
+        // Google analytics
+        Ember.Application.initializer({
             name: "googleAnalytics",
 
             initialize: function (container, application) {
-                if (!App.config.app.googleAnalytics.enabled) {
+                if (!App.config.app.googleAnalytics || !App.config.app.googleAnalytics.enabled) {
                     return;
                 }
 
