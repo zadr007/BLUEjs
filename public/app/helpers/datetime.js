@@ -36,11 +36,29 @@
         });
 
         Ember.Handlebars.registerBoundHelper('dateShort', function (date) {
-            return moment(date).format("HH:MM.ss");
+            return moment(date).format("HH:mm.ss");
         });
 
         Ember.Handlebars.registerBoundHelper('elapsed', function (start, end) {
             return "N/A";
+        });
+
+        Ember.Handlebars.registerBoundHelper('xxx', function (date) {
+            date = new Date(date);
+            var hours = date.getHours() + (date.getMinutes() / 60);
+            return ((hours / 24) * 100) + '%';
+        });
+
+        Ember.Handlebars.registerBoundHelper('yyy', function (start, end) {
+            start = new Date(start);
+            end   = end ? new Date(end) : new Date();
+            var hours1 = start.getHours() + (start.getMinutes() / 60);
+            var hours2 = end.getHours() + (end.getMinutes() / 60);
+            return Math.max(0.1, ((hours2 / 24) - (hours1 / 24)) * 100) + '%';
+        });
+
+        Ember.Handlebars.registerBoundHelper('zzz', function (index) {
+            return (((index + 1) / 24) * 100) + '%';
         });
     });
 

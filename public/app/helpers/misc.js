@@ -32,6 +32,14 @@
                 return items.toArray().sort().join(', ');
             });
         });
+		
+        Ember.Handlebars.registerHelper('times', function(count, block) {
+            var res = '';
+            for(var idx = 0; idx < count; ++idx) {
+                res += block.fn(idx);
+            }
+            return res;
+        });
     });
 
 })(this);
