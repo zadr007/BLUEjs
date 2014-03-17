@@ -27,6 +27,23 @@
     ];
 
     require(deps, function (Ember, moment) {
+        Ember.Handlebars.registerBoundHelper('day', function (date) {
+            if (!date) {
+                return '';
+            }
+
+            date = moment(date);
+            
+            if (date.isAfter(moment().startOf('day'))) {
+                return "Today";
+            } else if (date.isAfter(moment().subtract("days", 1))) {
+                return "Yesterday";
+            } else if (date.isAfter(moment().subtract("days", 7))) {
+                return date.format("dddd");
+            }
+            return date.format("D.MM.YYYY");
+        });
+        
         Ember.Handlebars.registerBoundHelper('datetime', function (date) {
             if (!date) {
                 return '';
@@ -36,7 +53,7 @@
         });
 
         Ember.Handlebars.registerBoundHelper('dateShort', function (date) {
-            return moment(date).format("HH:mm.ss");
+            return moment(date).format("HH:mm");
         });
 
         Ember.Handlebars.registerBoundHelper('elapsed', function (start, end) {

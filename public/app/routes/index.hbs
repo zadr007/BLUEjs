@@ -74,6 +74,7 @@
                 <thead>
                     <!--td><strong>ID</strong></td-->
                     <td><strong>Username</strong></td>
+                    <td><strong>Day</strong></td>
                     <td><strong>Started</strong></td>
                     <td><strong>Ended</strong></td>
                     <!--td><strong>Created</strong></td-->
@@ -83,18 +84,29 @@
                 {{#each view.content}}
                     <tr>
                         <!--td>{{_id}}</td-->
-                        <td>{{username}}</td>
-                        <td width="50%">
+                        <td>
+                            <span class="glyphicon glyphicon-user"></span>
+                            {{username}}
+                        </td>
+                        <td>
                             {{#if startedAt}}
+                                <span class="glyphicon glyphicon-calendar"></span>
+                                {{day startedAt}}
+                            {{/if}}
+                        </td>
+                        <td width="35%">
+                            {{#if startedAt}}
+                                <span class="glyphicon glyphicon-play"></span>
                                 {{dateShort startedAt}}
                                 {{#unless endedAt}}
                                     ({{datetime startedAt}})
                                 {{/unless}}
                             {{/if}}
                         </td>
-                        <td width="50%">
+                        <td width="35%">
                             {{#if endedAt}}
-                                {{dateShort endedAt}} ({{datetime endedAt}})
+                                <span class="glyphicon glyphicon-stop"></span>
+                                {{dateShort endedAt}}
                             {{/if}}
                         </td>
                         <!--td>
