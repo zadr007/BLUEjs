@@ -1,7 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="0px" height="0px">
+    <defs>
+        <linearGradient id="button-gradient" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0%" stop-color="rgb(171,199,219)"/>
+            <stop offset="100%" stop-color="rgb(117,166,200)"/>
+        </linearGradient>
+                        
+        <linearGradient id="button-border-gradient" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0%" stop-color="rgb(167,188,207)"/>
+            <stop offset="100%" stop-color="rgb(92, 120, 144)"/>
+        </linearGradient>
+                        
+        <filter id="drop-shadow" width="1.4" height="1.4">
+            <feOffset result="offset" in="SourceAlpha" dx="0" dy="0.015"/>
+            <feGaussianBlur result="blurred-offset" in="offset" stdDeviation="0.015"/>
+            <feBlend in="SourceGraphic" in2="blurred-offset" mode="normal"/>
+        </filter>
+    </defs>        
+    <style type="text/css">
+        g.button { cursor: pointer; }
+        g.button>circle {
+            fill: url(#button-gradient);
+            filter: url(#drop-shadow);
+            stroke-width: 0.02;
+            stroke: url(#button-border-gradient);
+        }
+        g.button>polygon, g.button>rect {
+            fill: white;
+            fill-opacity: 0.9;
+            pointer-events: none;
+            stroke-width: 0.007;
+            stroke: url(#button-border-gradient);
+        }
+        g.elapsed>rect {
+            fill: url(#button-gradient);
+        }
+        g.timeline>rect {
+            fill: white;
+            fill-opacity: 0.9;
+            pointer-events: none;
+            stroke-width: 1px;
+            stroke: url(#button-border-gradient);
+        }
+    </style>
+</svg>
+
 <div class="container">
     <div class="row">
         <form action="javascript://void(0);" {{action "xxx" on="submit"}}>
-            {{input value="xxx" type="submit"}}
+            <label>
+                {{input value="" type="submit" class="hidden"}}
+                <svg width="100px" height="100px" xmlns="http://www.w3.org/2000/svg" version="1.1">
+                    {{#if view.content.[0].endedAt}}
+                    <svg viewBox="0 0 1 1" width="100%" height="100%">
+                        <g class="button" role="button">
+                            <circle cx="0.5" cy="0.5" r="0.45"></circle>
+                            <polygon points="0.375,0.25 0.725,0.5 0.375,0.75"></polygon>
+                        </g>
+                    </svg>
+                    {{else}}
+                    <svg viewBox="0 0 1 1" width="100%" height="100%">
+                        <g class="button" role="button">
+                            <circle cx="0.5" cy="0.5" r="0.45"></circle>
+                            <rect x="0.3" y="0.3" width="0.4" height="0.4"></rect>
+                        </g>
+                    </svg>
+                    {{/if}}
+                </svg>
+            </label>
         </form>
     </div>
 
@@ -43,11 +108,15 @@
                 </tr>
                 <tr>
                     <td colspan="6" style="padding:0;margin:0;border:none;line-height:10px;height:10px">
-                        <svg width="100%" height="10px" xmlns="http://www.w3.org/2000/svg">
-                            <rect fill="#4096EE" stroke="#000000" stroke-width="0" x="{{unbound xxx startedAt}}" y="0px" width="{{unbound yyy startedAt endedAt}}" height="100%"/>
+                        <svg width="100%" height="10px" xmlns="http://www.w3.org/2000/svg" version="1.1">
+                            <g class="elapsed">
+                                <rect fill="#4096EE" stroke="#000000" stroke-width="0" x="{{unbound xxx startedAt}}" y="0px" width="{{unbound yyy startedAt endedAt}}" height="100%"/>
+                            </g>
+                            <g class="timeline">
                             {{#times 23}}
-                                <rect fill="#DDDDDD" stroke="#000000" stroke-width="0" x="{{unbound zzz this}}" y="25%" width="1px" height="50%"/>
+                                <rect x="{{unbound zzz this}}" y="25%" width="1px" height="50%"/>
                             {{/times}}
+                            </g>
                         </svg>
                     </td>
                 </tr>
