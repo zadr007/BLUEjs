@@ -5,6 +5,18 @@
             <stop offset="100%" stop-color="rgb(117,166,200)"/>
         </linearGradient>
                         
+        <linearGradient id="button-gradient-hover" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0%" stop-color="rgb(117,166,200)"/>
+            <stop offset="100%" stop-color="rgb(117,166,200)"/>
+        </linearGradient>
+        
+        <linearGradient id="button-gradient-down" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0%" stop-color="rgb(171,199,219)"/>
+            <stop offset="100%" stop-color="rgb(190,217,240)"/>
+            <!--stop offset="0%" stop-color="rgb(117,166,200)"/>
+            <stop offset="100%" stop-color="rgb(171,199,219)"/-->
+        </linearGradient>
+        
         <linearGradient id="button-border-gradient" x1="0" x2="0" y1="0" y2="1">
             <stop offset="0%" stop-color="rgb(167,188,207)"/>
             <stop offset="100%" stop-color="rgb(92, 120, 144)"/>
@@ -15,14 +27,27 @@
             <feGaussianBlur result="blurred-offset" in="offset" stdDeviation="0.015"/>
             <feBlend in="SourceGraphic" in2="blurred-offset" mode="normal"/>
         </filter>
+        
+        <filter id="drop-shadow-hover" width="1.4" height="1.4">
+            <feOffset result="offset" in="SourceAlpha" dx="0" dy="0.015"/>
+            <feGaussianBlur result="blurred-offset" in="offset" stdDeviation="0.017"/>
+            <feBlend in="SourceGraphic" in2="blurred-offset" mode="normal"/>
+        </filter>
     </defs>        
     <style type="text/css">
         g.button { cursor: pointer; }
         g.button>circle {
             fill: url(#button-gradient);
             filter: url(#drop-shadow);
-            stroke-width: 0.02;
+            stroke-width: 0.01;
             stroke: url(#button-border-gradient);
+        }
+        g.button>circle:hover {
+            fill: url(#button-gradient-hover);
+            filter: url(#drop-shadow-hover);
+        }
+        g.button>circle.down {
+            fill: url(#button-gradient-down);
         }
         g.button>polygon, g.button>rect {
             fill: white;
@@ -35,94 +60,97 @@
             fill: url(#button-gradient);
         }
         g.timeline>rect {
-            fill: white;
-            fill-opacity: 0.9;
+            fill: black;
+            fill-opacity: 0.2;
             pointer-events: none;
-            stroke-width: 1px;
-            stroke: url(#button-border-gradient);
         }
     </style>
 </svg>
 
 <div class="container">
     <div class="row">
-        <form action="javascript://void(0);" {{action "xxx" on="submit"}}>
-            <label>
-                {{input value="" type="submit" class="hidden"}}
-                <svg width="100px" height="100px" xmlns="http://www.w3.org/2000/svg" version="1.1">
-                    {{#if view.content.[0].endedAt}}
-                    <svg viewBox="0 0 1 1" width="100%" height="100%">
-                        <g class="button" role="button">
-                            <circle cx="0.5" cy="0.5" r="0.45"></circle>
-                            <polygon points="0.375,0.25 0.725,0.5 0.375,0.75"></polygon>
-                        </g>
-                    </svg>
-                    {{else}}
-                    <svg viewBox="0 0 1 1" width="100%" height="100%">
-                        <g class="button" role="button">
-                            <circle cx="0.5" cy="0.5" r="0.45"></circle>
-                            <rect x="0.3" y="0.3" width="0.4" height="0.4"></rect>
-                        </g>
-                    </svg>
-                    {{/if}}
-                </svg>
-            </label>
-        </form>
-    </div>
-
-    <div class="row">
-        <table class="table  table-bordered table-striped table-condensed">
-            <thead>
-                <td><strong>ID</strong></td>
-                <td><strong>Username</strong></td>
-                <td><strong>Started</strong></td>
-                <td><strong>Ended</strong></td>
-                <td><strong>Created</strong></td>
-                <td><strong>Updated</strong></td>
-            </thead>
-            <tbody>
-            {{#each view.content}}
-                <tr>
-                    <td>{{_id}}</td>
-                    <td>{{username}}</td>
-                    <td>
-                        {{#if startedAt}}
-                            {{dateShort startedAt}} ({{datetime startedAt}})
-                        {{/if}}
-                    </td>
-                    <td>
-                        {{#if endedAt}}
-                            {{dateShort endedAt}} ({{datetime endedAt}})
-                        {{/if}}
-                    </td>
-                    <td>
-                        {{#if createdAt}}
-                            {{dateShort createdAt}} ({{datetime createdAt}})
-                        {{/if}}
-                    </td>
-                    <td>
-                        {{#if updatedAt}}
-                            {{dateShort updatedAt}} ({{datetime updatedAt}})
-                        {{/if}}
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="6" style="padding:0;margin:0;border:none;line-height:10px;height:10px">
-                        <svg width="100%" height="10px" xmlns="http://www.w3.org/2000/svg" version="1.1">
-                            <g class="elapsed">
-                                <rect fill="#4096EE" stroke="#000000" stroke-width="0" x="{{unbound xxx startedAt}}" y="0px" width="{{unbound yyy startedAt endedAt}}" height="100%"/>
-                            </g>
-                            <g class="timeline">
-                            {{#times 23}}
-                                <rect x="{{unbound zzz this}}" y="25%" width="1px" height="50%"/>
-                            {{/times}}
+        <div class="col-xs-9 col-md-10">
+            <table class="table table-striped table-condensed">
+                <thead>
+                    <!--td><strong>ID</strong></td-->
+                    <td><strong>Username</strong></td>
+                    <td><strong>Started</strong></td>
+                    <td><strong>Ended</strong></td>
+                    <!--td><strong>Created</strong></td-->
+                    <!--td><strong>Updated</strong></td-->
+                </thead>
+                <tbody>
+                {{#each view.content}}
+                    <tr>
+                        <!--td>{{_id}}</td-->
+                        <td>{{username}}</td>
+                        <td width="50%">
+                            {{#if startedAt}}
+                                {{dateShort startedAt}}
+                                {{#unless endedAt}}
+                                    ({{datetime startedAt}})
+                                {{/unless}}
+                            {{/if}}
+                        </td>
+                        <td width="50%">
+                            {{#if endedAt}}
+                                {{dateShort endedAt}} ({{datetime endedAt}})
+                            {{/if}}
+                        </td>
+                        <!--td>
+                            {{#if createdAt}}
+                                {{dateShort createdAt}} ({{datetime createdAt}})
+                            {{/if}}
+                        </td-->
+                        <!--td>
+                            {{#if updatedAt}}
+                                {{dateShort updatedAt}} ({{datetime updatedAt}})
+                            {{/if}}
+                        </td-->
+                    </tr>
+                    <tr>
+                        <td colspan="6" style="padding:0;margin:0;border:none;line-height:10px;height:10px">
+                            <svg width="100%" height="10px" xmlns="http://www.w3.org/2000/svg" version="1.1">
+                                <g class="elapsed">
+                                    <rect fill="#4096EE" stroke="#000000" stroke-width="0" x="{{unbound xxx startedAt}}" y="0px" width="{{unbound yyy startedAt endedAt}}" height="100%"/>
+                                </g>
+                                <g class="timeline">
+                                {{#times 23}}
+                                    <rect x="{{unbound zzz this}}" y="25%" width="1px" height="50%"/>
+                                {{/times}}
+                                </g>
+                            </svg>
+                        </td>
+                    </tr>
+                {{/each}}
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="col-xs-3 col-md-2">
+            <form action="javascript://void(0);" {{action "xxx" on="submit"}}>
+                <label>
+                    {{input value="" type="submit" class="hidden"}}
+                    <svg width="120px" height="120px" xmlns="http://www.w3.org/2000/svg" version="1.1">
+                        {{#if view.content.[0].endedAt}}
+                        <svg viewBox="0 0 1 1" width="100%" height="100%">
+                            <g class="button" role="button">
+                                <circle cx="0.5" cy="0.5" r="0.45" onmousedown="this.classList.add('down')" onmouseup="this.classList.remove('down')"></circle>
+                                <polygon points="0.375,0.25 0.725,0.5 0.375,0.75"></polygon>
                             </g>
                         </svg>
-                    </td>
-                </tr>
-            {{/each}}
-            </tbody>
-        </table>
+                        {{else}}
+                        <svg viewBox="0 0 1 1" width="100%" height="100%">
+                            <g class="button" role="button">
+                                <circle cx="0.5" cy="0.5" r="0.45" onmousedown="this.classList.add('down')" onmouseup="this.classList.remove('down')"></circle>
+                                <rect x="0.3" y="0.3" width="0.4" height="0.4"></rect>
+                            </g>
+                        </svg>
+                        {{/if}}
+                    </svg>
+                </label>
+            </form>
+        </div>
     </div>
 </div>
 
