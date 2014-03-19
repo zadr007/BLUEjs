@@ -36,9 +36,9 @@
             
             if (date.isAfter(moment().startOf('day'))) {
                 return "Today";
-            } else if (date.isAfter(moment().subtract("days", 1))) {
+            } else if (date.isAfter(moment().subtract("days", 1).startOf('day'))) {
                 return "Yesterday";
-            } else if (date.isAfter(moment().subtract("days", 7))) {
+            } else if (date.isAfter(moment().subtract("days", 7).startOf('day'))) {
                 return date.format("dddd");
             }
             return date.format("D.MM.YYYY");
