@@ -21,10 +21,11 @@
 (function (global) {
     var deps = [
         "ember",
+        "moment",
         "app"
     ];
 
-    require(deps, function (Ember, App) {
+    require(deps, function (Ember, moment, App) {
 
         App.ApplicationView = Ember.View.extend({
             classNames: ['app-view'],
@@ -36,12 +37,47 @@
              * @instance
              */
             didInsertElement: function () {
-	    	var log = App.logger && App.logger.log  ? App.logger.log : console.log;
-		log("App.ApplicationView.didInsertElement()");
+                var log = App.logger && App.logger.log  ? App.logger.log : console.log;
+                log("App.ApplicationView.didInsertElement()");
             },
 
             content: function() {
                 return this.get('controller.content');
+            }.property('controller.content'),
+
+            timetable: function() {
+                var content = this.get('controller.content');
+                var table = [];
+                var lastItem = null;
+                //var log = App.logger && App.logger.log  ? App.logger.log : console.log;
+                for (idx = content.length - 1; idx >= 0; --idx)
+                {
+                    var item = content[idx];
+                    var duration = moment(item.endedAt).subtract(moment(item.startedAt));
+                    if (lastItem === null || moment(item.startedAt).startOf('day').isSame(moment(lastItem.startedAt).startOf('day')) === false) {
+                        if (lastItem !== null) {
+                            table.splice(0, 0, lastItem);
+                        }
+                        lastItem = {
+                            _id:       item._id,
+                            startedAt: item.startedAt,
+                            endedAt:   item.endedAt,
+                            duration:  duration,
+                            username:  item.username,
+                            entries:   [item]
+                        };
+                    } else {
+                        lastItem._id      = item._id;
+                        lastItem.endedAt  = item.endedAt;
+                        lastItem.duration = moment(lastItem.duration).add(duration);
+                        lastItem.entries.splice(0, 0, item);
+                    }
+                }
+                if (lastItem !== null) {
+                    table.splice(0, 0, lastItem);
+                }
+                //log(JSON.stringify(table));
+                return table;
             }.property('controller.content')
         });
 

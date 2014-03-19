@@ -40,6 +40,16 @@
             }
             return res;
         });
+        
+        Handlebars.registerHelper("each_with_index", function(array, block) {
+            var res = "";
+            for (var idx = 0, count = array.length; idx < count; ++idx) {
+                var item = array[idx];
+                item.index = idx;
+                res += block.fn(item);
+            }
+            return res;
+        });
     });
 
 })(this);
