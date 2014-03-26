@@ -27,11 +27,11 @@
      * Application settings
      */
     var app = {
-        name: "BLUE.js"
+        name: "BLUEjs"
     };
 
     var mongo = {
-        uri: "mongodb://192.168.2.1:27017/BLUEjs"
+        uri: "mongodb://localhost:27017/BLUEjs"
     };
 
     module.exports = {
