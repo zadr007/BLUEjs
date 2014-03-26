@@ -34,6 +34,7 @@
             // Helpers
             '../app/helpers/cond.js',
             '../app/helpers/datetime.js',
+            '../app/helpers/eachIndexed.js',
             '../app/helpers/linkTo.js',
             '../app/helpers/math.js',
             '../app/helpers/misc.js',
