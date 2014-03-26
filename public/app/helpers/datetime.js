@@ -33,15 +33,17 @@
             }
 
             date = moment(date);
+            var today = moment().startOf('day');
             
-            if (date.isAfter(moment().startOf('day'))) {
+            if (date.isAfter(moment(today))) {
                 return "Today";
-            } else if (date.isAfter(moment().subtract("days", 1).startOf('day'))) {
+            } else if (date.isAfter(moment(today).subtract("days", 1))) {
                 return "Yesterday";
-            } else if (date.isAfter(moment().subtract("days", 7).startOf('day'))) {
+            } else { //if (date.isAfter(moment(today).subtract("days", 5))) {
                 return date.format("dddd");
             }
-            return date.format("D.MM.YYYY");
+            
+            //return date.format("D.MM.YYYY");
         });
         
         Ember.Handlebars.registerBoundHelper('datetime', function (date) {
@@ -53,6 +55,10 @@
         });
 
         Ember.Handlebars.registerBoundHelper('dateShort', function (date) {
+            return moment(date).format("D.MM.YYYY");
+        });
+        
+        Ember.Handlebars.registerBoundHelper('timeShort', function (date) {
             return moment(date).format("HH:mm");
         });
 
@@ -75,7 +81,7 @@
         });
 
         Ember.Handlebars.registerBoundHelper('zzz', function (index) {
-            return (((index + 1) / 24) * 100) + '%';
+            return ((index / 24) * 100) + '%';
         });
     });
 

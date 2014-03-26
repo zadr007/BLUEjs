@@ -27,26 +27,14 @@
     ];
 
     require(deps, function (Ember) {
-        Ember.Handlebars.registerBoundHelper("math", function (lvalue, operator, rvalue, options) {
-            Ember.Handlebars.registerBoundHelper('csv', function (items, options) {
-                return items.toArray().sort().join(', ');
-            });
-        });
+		Ember.Handlebars.registerBoundHelper('csv', function (items, options) {
+			return items.toArray().sort().join(', ');
+		});
 		
         Ember.Handlebars.registerHelper('times', function(count, block) {
             var res = '';
             for(var idx = 0; idx < count; ++idx) {
                 res += block.fn(idx);
-            }
-            return res;
-        });
-        
-        Handlebars.registerHelper("each_with_index", function(array, block) {
-            var res = "";
-            for (var idx = 0, count = array.length; idx < count; ++idx) {
-                var item = array[idx];
-                item.index = idx;
-                res += block.fn(item);
             }
             return res;
         });

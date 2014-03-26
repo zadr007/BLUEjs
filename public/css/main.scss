@@ -1,1 +1,99 @@
 /* Main Sass */
+
+.transition, .timetable .details td {
+	-webkit-transition: all 0.4s ease-in-out;
+	   -moz-transition: all 0.4s ease-in-out;
+		-ms-transition: all 0.4s ease-in-out;
+		 -o-transition: all 0.4s ease-in-out;
+			transition: all 0.4s ease-in-out;
+}
+
+.timetable {
+	tr.details {
+		td {
+			height: 15px;
+			/*line-height: 15px;*/
+			padding-top: 2px;
+			padding-bottom: 2px;
+			vertical-align: middle;
+		}
+
+		td.date {
+			.day {
+				display: none;
+				height: 0px;
+			}
+		}
+		
+		td.time {
+			.hours {
+				display: none;
+				height: 0px;
+			}
+			
+			>svg.timeline {
+				g.tape {
+					rect {
+						fill: black;
+						fill-opacity: 0.2;
+						pointer-events: none;
+					}
+				}
+			}
+		}
+	}
+	
+	tr.details_0 {
+		font-weight: bold;
+	}
+	
+	tr.details_0, tr.details_1, tr.details_2, tr.details_3, tr.details_4 {
+		td.date {
+			.day {
+				display: inline-block;
+				height: 20px;
+			}
+			.short {
+				display: none;
+				height: 0px;
+			}
+		}
+		
+		td.time {
+			.hours {
+				display: block;
+				height: 20px;
+			}
+		}
+			
+		td.duration {
+			font-size: 150%;
+		}
+	}
+	
+	tr.expanded {
+		td {
+			height: 100px;
+		}
+		
+		td.date {
+			.day {
+				display: inline-block;
+				height: 20px;
+			}
+			.short {
+				display: block;
+				height: 20px;
+			}
+		}
+		
+		td.time {
+			vertical-align: top;
+			
+			.hours {
+				display: block;
+				height: 20px;
+			}
+		}
+	}
+}

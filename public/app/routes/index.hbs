@@ -59,114 +59,92 @@
         .timeline g.elapsed rect {
             fill: url(#button-gradient);
         }
-        .timeline g.tape>rect {
-            fill: black;
-            fill-opacity: 0.2;
-            pointer-events: none;
-        }
     </style>
 </svg>
 
 <div class="container">
     <div class="row">
-        <div class="timetable col-xs-9 col-md-10">
-            <table class="table table-striped table-condensed">
+        <div class="col-xs-9 col-md-10">
+            <table class="timetable table table-striped table-condensed">
                 <thead>
-                    <!--td><strong>ID</strong></td-->
-                    <td><strong>Username</strong></td>
-                    <td><strong>Day</strong></td>
-                    <td><strong>Started</strong></td>
-                    <td><strong>Ended</strong></td>
-                    <td><strong>Duration</strong></td>
-                    <!--td><strong>Created</strong></td-->
-                    <!--td><strong>Updated</strong></td-->
+                    <td width="13%"><strong>Username</strong></td>
+                    <td width="12%"><strong>Day</strong></td>
+                    <td width="60%"><strong>Started/Ended</strong></td>
+                    <td width="15%"><strong>Duration</strong></td>
                 </thead>
                 <tbody>
-                {{#each view.timetable}}
-                    <tr class="{{unbound _id}} details">
-                        <!--td>{{_id}}</td-->
-                        
-                        <td rowspan="2" width="13%" style="vertical-align:middle">
+                {{#eachIndexed entry in view.timetable}}
+                    <tr class="details details_{{index}}" data-id="{{unbound entry._id}}" onclick="classList.toggle('expanded')">
+                        <td class="username">
                             <span class="glyphicon glyphicon-user"></span>
-                            {{username}}
+                            <span>{{entry.username}}</span>
                         </td>
                         
-                        <td rowspan="2" width="12%" style="vertical-align:middle">
-                            {{#if startedAt}}
+                        <td class="date">
+                            {{#if entry.startedAt}}
                                 <span class="glyphicon glyphicon-calendar"></span>
-                                {{day startedAt}}
+                                <span class="day transition">{{day entry.startedAt}}</span>
+                                <span class="short transition">{{dateShort entry.startedAt}}</span>
                             {{/if}}
                         </td>
                         
-                        <td width="30%">
-                            {{#if startedAt}}
+                        <td class="time">
+                            <span class="hours transition">
+                            {{#if entry.startedAt}}
                                 <span class="glyphicon glyphicon-play"></span>
-                                {{dateShort startedAt}}
-                                {{#unless endedAt}}
-                                    ({{datetime startedAt}})
+                                <span>{{timeShort entry.startedAt}}</span>
+                                {{#unless entry.endedAt}}
+                                    <span>({{datetime entry.startedAt}})</span>
                                 {{/unless}}
                             {{/if}}
-                        </td>
-                        
-                        <td width="30%">
-                            {{#if endedAt}}
+                            {{#if entry.endedAt}}
+                                &nbsp;
                                 <span class="glyphicon glyphicon-stop"></span>
-                                {{dateShort endedAt}}
+                                <span>{{timeShort entry.endedAt}}</span>
                             {{/if}}
-                        </td>
+                            </span>
                         
-                        <td rowspan="2" width="15%" style="font-size:150%;vertical-align:middle">
-                            {{#if duration}}
-                                {{#if endedAt}}
-                                    <span class="glyphicon glyphicon-time"></span>
-                                {{else}}
-                                    <span class="glyphicon glyphicon-record"></span>
-                                {{/if}}
-                                {{dateShort duration}}
-                            {{/if}}
-                        </td>
-                        
-                        <!--td>
-                            {{#if createdAt}}
-                                {{dateShort createdAt}} ({{datetime createdAt}})
-                            {{/if}}
-                        </td-->
-                        <!--td>
-                            {{#if updatedAt}}
-                                {{dateShort updatedAt}} ({{datetime updatedAt}})
-                            {{/if}}
-                        </td-->
-                    </tr>
-                    <tr class="{{unbound _id}} timeline">
-                        <td colspan="2" style="padding:0;margin:0;border:none;line-height:10px;min-height:10px" height="10px">
-                            <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" version="1.1" onclick="classList.toggle('expanded')">
-                                {{#each entries}}
+                            <svg class="timeline" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" version="1.1">
+                                <g class="background"><svg x="0px" y="0px" width="100%" height="100%">
+                                    <rect fill="#E6E6FA" x="0" y="0" width="100%" height="100%"/>
+                                </svg></g>
+                                {{#each entry.entries}}
                                 <g class="elapsed"><svg x="0px" y="0px" width="100%" height="10px">
                                     <rect fill="#4096EE" x="{{unbound xxx startedAt}}" y="0px" width="{{unbound yyy startedAt endedAt}}" height="100%"/>
                                 </svg></g>
                                 {{/each}}
-                                <g class="tape">
-                                {{#times 23}}
-                                    <rect x="{{unbound zzz this}}" y="3px" width="1px" height="4px"/>
-                                {{/times}}
-                                </g>
-                                {{#ifCondBound entries.length "<" 1}}
-                                <g class="details">
-                                    {{#each_with_index entries}}
+                                <g class="tape"><svg x="0px" y="0px" width="100%" height="100%">
+                                    {{#times 24}}
+                                    <rect x="{{unbound zzz this}}" y="0px" width="1px" height="100%"/>
+                                    {{/times}}
+                                </svg></g>
+                                <!--g class="details">
+                                    {{#eachIndexed entry.entries}}
                                     <g class="elapsed"><svg x="0px" y="10px" width="100%" height="20px">
-                                        <text x="{{unbound xxx startedAt}}" height="100%" text-anchor="end">{{unbound dateShort startedAt}}</text>
+                                        <text x="{{unbound xxx startedAt}}" height="100%" text-anchor="end">{{unbound timeShort startedAt}}</text>
                                         <rect fill="#4096EE" x="{{unbound xxx startedAt}}" y="0px" width="{{unbound yyy startedAt endedAt}}" height="100%"/>
                                         {{#if endedAt}}
-                                        <text x="{{unbound xxx endedAt}}" height="100%" text-anchor="start">{{unbound dateShort endedAt}}</text>
+                                        <text x="{{unbound xxx endedAt}}" height="100%" text-anchor="start">{{unbound timeShort endedAt}}</text>
                                         {{/if}}
                                     </svg></g>
-                                    {{/each_with_index}}
-                                </g>
-                                {{/ifCondBound}}
+                                    {{else}}
+                                    {{/eachIndexed}}
+                                </g-->
                             </svg>
                         </td>
+                        
+                        <td class="duration">
+                            {{#if entry.duration}}
+                                {{#if entry.endedAt}}
+                                    <span class="glyphicon glyphicon-time"></span>
+                                {{else}}
+                                    <span class="glyphicon glyphicon-record"></span>
+                                {{/if}}
+                                <span>{{timeShort entry.duration}}</span>
+                            {{/if}}
+                        </td>
                     </tr>
-                {{/each}}
+                {{/eachIndexed}}
                 </tbody>
             </table>
         </div>
