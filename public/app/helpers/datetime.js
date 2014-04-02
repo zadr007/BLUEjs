@@ -55,7 +55,7 @@
         });
 
         Ember.Handlebars.registerBoundHelper('dateShort', function (date) {
-            return moment(date).format("D.MM.YYYY");
+            return moment(date).format("DD.MM.YYYY");
         });
         
         Ember.Handlebars.registerBoundHelper('timeShort', function (date) {
