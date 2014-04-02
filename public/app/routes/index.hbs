@@ -58,6 +58,7 @@
         }
         .timeline g.elapsed rect {
             fill: url(#button-gradient);
+            fill-opacity: 0.9;
         }
     </style>
 </svg>
@@ -106,11 +107,13 @@
                         
                             <svg class="timeline" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" version="1.1">
                                 <g class="background"><svg x="0px" y="0px" width="100%" height="100%">
-                                    <rect fill="#E6E6FA" x="0" y="0" width="100%" height="100%"/>
+                                    <rect fill="#D0D0D2" x="0%" y="0" width="33.33%" height="100%"/>
+                                    <rect fill="#E6E6FA" x="33.33%" y="0" width="83.33%" height="100%"/>
+                                    <rect fill="#D0D0D2" x="83.33%" y="0" width="16.66%" height="100%"/>
                                 </svg></g>
                                 {{#each entry.entries}}
                                 <g class="elapsed"><svg x="0px" y="0px" width="100%" height="10px">
-                                    <rect fill="#4096EE" x="{{unbound xxx startedAt}}" y="0px" width="{{unbound yyy startedAt endedAt}}" height="100%"/>
+                                    <rect fill="rgba(64,150,238,0.9)" fillOpacity="0.75" x="{{unbound xxx startedAt}}" y="0px" width="{{unbound yyy startedAt endedAt}}" height="100%"/>
                                 </svg></g>
                                 {{/each}}
                                 <g class="tape"><svg x="0px" y="0px" width="100%" height="100%">
