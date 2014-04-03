@@ -104,6 +104,54 @@
 			.hours {
 				height: 20px;
 			}
+
+			>svg.timeline {
+				g.elapsed_0 {
+					-webkit-transform : scale(1, 2);
+					    -ms-transform : scale(1, 2);
+					     -o-transform : scale(1, 2);
+					        transform : scale(1, 2);
+				}
+				g.elapsed_1 {
+					-webkit-transform : translate(0px, 20px) scale(1, 2);
+					    -ms-transform : translate(0px, 20px) scale(1, 2);
+					     -o-transform : translate(0px, 20px) scale(1, 2);
+					        transform : translate(0px, 20px) scale(1, 2);
+				}
+				g.elapsed_2 {
+					-webkit-transform : translate(0px, 40px) scale(1, 2);
+					    -ms-transform : translate(0px, 40px) scale(1, 2);
+					     -o-transform : translate(0px, 40px) scale(1, 2);
+					        transform : translate(0px, 40px) scale(1, 2);
+				}
+				g.elapsed_3 {
+					-webkit-transform : translate(0px, 60px) scale(1, 2);
+					    -ms-transform : translate(0px, 60px) scale(1, 2);
+					     -o-transform : translate(0px, 60px) scale(1, 2);
+					        transform : translate(0px, 60px) scale(1, 2);
+				}
+				g.elapsed_4 {
+					-webkit-transform : translate(0px, 80px) scale(1, 2);
+					    -ms-transform : translate(0px, 80px) scale(1, 2);
+					     -o-transform : translate(0px, 80px) scale(1, 2);
+					        transform : translate(0px, 80px) scale(1, 2);
+				}
+			}
+			>svg.timeline_rows_1 {
+				height: 20px;
+			}
+			>svg.timeline_rows_2 {
+				height: 40px;
+			}
+			>svg.timeline_rows_3 {
+				height: 60px;
+			}
+			>svg.timeline_rows_4 {
+				height: 80px;
+			}
+			>svg.timeline_rows_5 {
+				height: 100px;
+			}
 		}
 	}
 }
