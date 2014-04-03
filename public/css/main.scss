@@ -11,27 +11,43 @@
 .timetable {
 	tr.details {
 		td {
-			height: 15px;
-			/*line-height: 15px;*/
 			padding-top: 2px;
 			padding-bottom: 2px;
 			vertical-align: middle;
 		}
 
 		td.date {
+			padding-left: 20px;
+			
+			.glyphicon {
+				float: left;
+				margin-left: -20px;
+				top: 2px;
+			}
 			.day {
-				display: none;
+				display: block;
 				height: 0px;
+				overflow: hidden;
+			}
+			.short {
+				display: block;
+				overflow: hidden;
 			}
 		}
 		
 		td.time {
+			vertical-align: top;
+			
 			.hours {
-				display: none;
+				display: block;
 				height: 0px;
+				overflow: hidden;
 			}
 			
 			>svg.timeline {
+				height: 10px;
+				width: 100%;
+				
 				g.tape {
 					rect {
 						fill: black;
@@ -39,6 +55,12 @@
 						pointer-events: none;
 					}
 				}
+			}
+		}
+		
+		td.duration {
+			.glyphicon {
+				top: 2px;
 			}
 		}
 	}
@@ -50,18 +72,15 @@
 	tr.details_0, tr.details_1, tr.details_2, tr.details_3, tr.details_4 {
 		td.date {
 			.day {
-				display: inline-block;
 				height: 20px;
 			}
 			.short {
-				display: none;
 				height: 0px;
 			}
 		}
 		
 		td.time {
 			.hours {
-				display: block;
 				height: 20px;
 			}
 		}
@@ -71,27 +90,18 @@
 		}
 	}
 	
-	tr.expanded {
-		td {
-			height: 100px;
-		}
-		
+	tr.expanded, tr.details_0 {
 		td.date {
 			.day {
-				display: inline-block;
 				height: 20px;
 			}
 			.short {
-				display: block;
 				height: 20px;
 			}
 		}
 		
 		td.time {
-			vertical-align: top;
-			
 			.hours {
-				display: block;
 				height: 20px;
 			}
 		}
