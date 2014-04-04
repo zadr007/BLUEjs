@@ -1,157 +1,192 @@
 /* Main Sass */
 
 .transition, .timetable .details td {
-	-webkit-transition: all 0.4s ease-in-out;
-	   -moz-transition: all 0.4s ease-in-out;
-		-ms-transition: all 0.4s ease-in-out;
-		 -o-transition: all 0.4s ease-in-out;
-			transition: all 0.4s ease-in-out;
+    -webkit-transition: all 0.4s ease-in-out;
+       -moz-transition: all 0.4s ease-in-out;
+        -ms-transition: all 0.4s ease-in-out;
+         -o-transition: all 0.4s ease-in-out;
+            transition: all 0.4s ease-in-out;
+}
+
+html, body {
+    height: 100%;
+}
+body {
+    color: #8F8F8F;
+    background-color: #2B2B2B;
+}
+.table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
+    background-color: #272727;
+}
+
+thead {
+    color: #FFF;
+    text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.15);
 }
 
 .timetable {
-	tr.details {
-		td {
-			padding-top: 2px;
-			padding-bottom: 2px;
-			vertical-align: middle;
-		}
+    tr.details {
+        td {
+            padding-top: 2px;
+            padding-bottom: 2px;
+            vertical-align: middle;
+            border-color: #151515;
+        }
 
-		td.date {
-			padding-left: 20px;
-			
-			.glyphicon {
-				float: left;
-				margin-left: -20px;
-				top: 2px;
-			}
-			.day {
-				display: block;
-				height: 0px;
-				overflow: hidden;
-			}
-			.short {
-				display: block;
-				overflow: hidden;
-			}
-		}
-		
-		td.time {
-			vertical-align: top;
-			
-			.hours {
-				display: block;
-				height: 0px;
-				overflow: hidden;
-			}
-			
-			>svg.timeline {
-				height: 10px;
-				width: 100%;
-				
-				g.tape {
-					rect {
-						fill: black;
-						fill-opacity: 0.2;
-						pointer-events: none;
-					}
-				}
-			}
-		}
-		
-		td.duration {
-			.glyphicon {
-				top: 2px;
-			}
-		}
-	}
-	
-	tr.details_0 {
-		font-weight: bold;
-	}
-	
-	tr.details_0, tr.details_1, tr.details_2, tr.details_3, tr.details_4 {
-		td.date {
-			.day {
-				height: 20px;
-			}
-			.short {
-				height: 0px;
-			}
-		}
-		
-		td.time {
-			.hours {
-				height: 20px;
-			}
-		}
-			
-		td.duration {
-			font-size: 150%;
-		}
-	}
-	
-	tr.expanded, tr.details_0 {
-		td.date {
-			.day {
-				height: 20px;
-			}
-			.short {
-				height: 20px;
-			}
-		}
-		
-		td.time {
-			.hours {
-				height: 20px;
-			}
+        td.date {
+            padding-left: 20px;
+            
+            .glyphicon {
+                float: left;
+                margin-left: -20px;
+                top: 2px;
+            }
+            .day {
+                display: block;
+                height: 0px;
+                overflow: hidden;
+            }
+            .short {
+                display: block;
+                overflow: hidden;
+            }
+        }
+        
+        td.time {
+            vertical-align: top;
+            
+            .hours {
+                display: block;
+                height: 0px;
+                overflow: hidden;
+            }
+            
+            >svg.timeline {
+                height: 10px;
+                width: 100%;
+                
+                g.background {
+                    .light {
+                        fill: #151515;
+                        fill-opacity: 0.3;
+                    }
+                    .dark {
+                        fill: #151515;
+                        fill-opacity: 0.7;
+                    }
+                }
+                
+                g.tape {
+                    rect {
+                        fill: #8F8F8F;
+                        fill-opacity: 0.1;
+                        pointer-events: none;
+                    }
+                }
+            }
+        }
+        
+        td.duration {
+            .glyphicon {
+                top: 2px;
+            }
+        }
+    }
+    
+    tr.details_0 {
+        font-weight: bold;
+        color: #E6E6E6;//#288CFB;
+        text-shadow: 0px -1px 1px rgba(0, 0, 0, 0.8);
+    }
+    
+    tr.details_0, tr.details_1, tr.details_2, tr.details_3, tr.details_4 {
+        td.date {
+            .day {
+                height: 20px;
+            }
+            .short {
+                height: 0px;
+            }
+        }
+        
+        td.time {
+            .hours {
+                height: 20px;
+            }
+        }
+            
+        td.duration {
+            font-size: 150%;
+        }
+    }
+    
+    tr.expanded, tr.details_0 {
+        td {
+            color: #E6E6E6;
+            text-shadow: 0px -1px 1px rgba(0, 0, 0, 0.8);
+        }
+        
+        td.date {
+            .day {
+                height: 20px;
+            }
+            .short {
+                height: 20px;
+            }
+        }
+        
+        td.time {
+            .hours {
+                height: 20px;
+            }
 
-			>svg.timeline {
-				g.elapsed_0 {
-					-webkit-transform : scale(1, 2);
-					    -ms-transform : scale(1, 2);
-					     -o-transform : scale(1, 2);
-					        transform : scale(1, 2);
-				}
-				g.elapsed_1 {
-					-webkit-transform : translate(0px, 20px) scale(1, 2);
-					    -ms-transform : translate(0px, 20px) scale(1, 2);
-					     -o-transform : translate(0px, 20px) scale(1, 2);
-					        transform : translate(0px, 20px) scale(1, 2);
-				}
-				g.elapsed_2 {
-					-webkit-transform : translate(0px, 40px) scale(1, 2);
-					    -ms-transform : translate(0px, 40px) scale(1, 2);
-					     -o-transform : translate(0px, 40px) scale(1, 2);
-					        transform : translate(0px, 40px) scale(1, 2);
-				}
-				g.elapsed_3 {
-					-webkit-transform : translate(0px, 60px) scale(1, 2);
-					    -ms-transform : translate(0px, 60px) scale(1, 2);
-					     -o-transform : translate(0px, 60px) scale(1, 2);
-					        transform : translate(0px, 60px) scale(1, 2);
-				}
-				g.elapsed_4 {
-					-webkit-transform : translate(0px, 80px) scale(1, 2);
-					    -ms-transform : translate(0px, 80px) scale(1, 2);
-					     -o-transform : translate(0px, 80px) scale(1, 2);
-					        transform : translate(0px, 80px) scale(1, 2);
-				}
-			}
-			>svg.timeline_rows_1 {
-				height: 20px;
-			}
-			>svg.timeline_rows_2 {
-				height: 40px;
-			}
-			>svg.timeline_rows_3 {
-				height: 60px;
-			}
-			>svg.timeline_rows_4 {
-				height: 80px;
-			}
-			>svg.timeline_rows_5 {
-				height: 100px;
-			}
-		}
-	}
+            >svg.timeline {
+                g.elapsed_0 {
+                    -webkit-transform : scale(1, 2);
+                        -ms-transform : scale(1, 2);
+                         -o-transform : scale(1, 2);
+                            transform : scale(1, 2);
+                }
+                g.elapsed_1 {
+                    -webkit-transform : translate(0px, 20px) scale(1, 2);
+                        -ms-transform : translate(0px, 20px) scale(1, 2);
+                         -o-transform : translate(0px, 20px) scale(1, 2);
+                            transform : translate(0px, 20px) scale(1, 2);
+                }
+                g.elapsed_2 {
+                    -webkit-transform : translate(0px, 40px) scale(1, 2);
+                        -ms-transform : translate(0px, 40px) scale(1, 2);
+                         -o-transform : translate(0px, 40px) scale(1, 2);
+                            transform : translate(0px, 40px) scale(1, 2);
+                }
+                g.elapsed_3 {
+                    -webkit-transform : translate(0px, 60px) scale(1, 2);
+                        -ms-transform : translate(0px, 60px) scale(1, 2);
+                         -o-transform : translate(0px, 60px) scale(1, 2);
+                            transform : translate(0px, 60px) scale(1, 2);
+                }
+                g.elapsed_4 {
+                    -webkit-transform : translate(0px, 80px) scale(1, 2);
+                        -ms-transform : translate(0px, 80px) scale(1, 2);
+                         -o-transform : translate(0px, 80px) scale(1, 2);
+                            transform : translate(0px, 80px) scale(1, 2);
+                }
+            }
+            >svg.timeline_rows_1 {
+                height: 20px;
+            }
+            >svg.timeline_rows_2 {
+                height: 40px;
+            }
+            >svg.timeline_rows_3 {
+                height: 60px;
+            }
+            >svg.timeline_rows_4 {
+                height: 80px;
+            }
+            >svg.timeline_rows_5 {
+                height: 100px;
+            }
+        }
+    }
 }

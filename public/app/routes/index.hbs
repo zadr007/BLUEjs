@@ -57,7 +57,7 @@
             stroke: url(#button-border-gradient);
         }
         .timeline g.elapsed rect {
-            fill: url(#button-gradient);
+            fill: rgb(62, 109, 185);//url(#button-gradient);
         }
     </style>
 </svg>
@@ -106,9 +106,9 @@
                         
                             <svg class="timeline timeline_rows_{{unbound entry.entries.length}} transition" xmlns="http://www.w3.org/2000/svg" version="1.1">
                                 <g class="background"><svg x="0px" y="0px" width="100%" height="100%">
-                                    <rect fill="#D0D0D2" x="0%" y="0" width="33.33%" height="100%"/>
-                                    <rect fill="#E6E6FA" x="33.33%" y="0" width="83.33%" height="100%"/>
-                                    <rect fill="#D0D0D2" x="83.33%" y="0" width="16.66%" height="100%"/>
+                                    <rect class="light" x="0" y="0" width="100%" height="100%"/>
+                                    <rect class="dark" x="0" y="0" width="33.33%" height="100%"/>
+                                    <rect class="dark" x="83.33%" y="0" width="16.66%" height="100%"/>
                                 </svg></g>
                                 {{#eachIndexed entry.entries}}
                                 <g class="elapsed elapsed_{{index}} transition"><svg x="0px" y="0px" width="100%" height="10px">
