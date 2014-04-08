@@ -8,10 +8,11 @@
             transition: all 0.4s ease-in-out;
 }
 
-html, body {
+html {
     height: 100%;
 }
 body {
+    min-height: 100%;
     color: #8F8F8F;
     background-color: #2B2B2B;
 }
