@@ -67,7 +67,7 @@
         <div class="col-xs-9 col-md-10">
             <table class="timetable table table-striped table-condensed">
                 <thead>
-                    <td width="13%"><strong>Username</strong></td>
+                    <!--td width="13%"><strong>Username</strong></td-->
                     <td width="12%"><strong>Day</strong></td>
                     <td width="60%"><strong>Started/Ended</strong></td>
                     <td width="15%"><strong>Duration</strong></td>
@@ -75,10 +75,10 @@
                 <tbody>
                 {{#eachIndexed entry in view.timetable}}
                     <tr class="details details_{{index}}" data-id="{{unbound entry._id}}" onclick="classList.toggle('expanded')">
-                        <td class="username">
+                        <!--td class="username">
                             <span class="glyphicon glyphicon-user"></span>
                             <span>{{entry.username}}</span>
-                        </td>
+                        </td-->
                         
                         <td class="date">
                             {{#if entry.startedAt}}
